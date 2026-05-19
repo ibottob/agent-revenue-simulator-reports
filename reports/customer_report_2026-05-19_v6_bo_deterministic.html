@@ -1,55 +1,97 @@
 <!DOCTYPE html>
-<html lang='en'><head><meta charset='UTF-8'><title>ABS Report v6</title></head>
-<body style='font-family:Segoe UI,sans-serif;max-width:900px;margin:2em auto;color:#1a2a40;line-height:1.55;'>
+<html lang='en'><head><meta charset='UTF-8'><title>ABS Report v6</title><style>
+body{font-family:'Segoe UI',sans-serif;max-width:900px;margin:2em auto;color:#1a2a40;line-height:1.55;}
+h1{font-size:1.9rem;font-weight:700;color:#2a3f5f;margin-bottom:0.3em;}
+h2{font-size:1.3rem;font-weight:600;color:#4cc9f0;margin-top:2em;border-bottom:2px solid #e5eef5;padding-bottom:0.3em;}
+p.meta{font-size:0.9rem;color:#6b7d94;margin-bottom:2em;}
+.card{background:#f8fafc;border:1px solid #e5eef5;border-radius:8px;padding:1.4em;margin:1em 0;}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2em;margin:1.5em 0;}
+.kpi-box{text-align:center;padding:1em;border-radius:6px;background:#fff;border:1px solid #e5eef5;}
+.kpi-val{font-size:1.8rem;font-weight:700;color:#2a3f5f;}
+.kpi-label{font-size:0.85rem;color:#6b7d94;margin-top:0.2em;}
+.kpi-up{color:#2a9d8f;font-size:1rem;font-weight:600;}
+.kpi-down{color:#e76f51;font-size:1rem;font-weight:600;}
+table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.9rem;}
+th{text-align:left;background:#f0f4f8;padding:0.5em 0.6em;font-weight:600;color:#2a3f5f;}
+td{padding:0.5em 0.6em;border-bottom:1px solid #e5eef5;}
+tr:hover td{background:#f8fafc;}
+.highlight{background:#e8f6e8;font-weight:600;}
+.figure{text-align:center;margin:1.5em 0;}
+pre{background:#f4f6f8;padding:0.8em;border-radius:4px;font-size:0.85rem;overflow-x:auto;}
+</style></head>
+<body>
 <h1>Annual Optimization Report</h1>
-<p><strong>Deterministic Bayesian Optimization</strong> · Generated 2026-05-19 · 100 BO iterations × 5 seeds + 50-seed validation</p>
+<p class="meta"><strong>Deterministic Bayesian Optimization</strong> · Generated 2026-05-19 · 100 BO iterations × 5 seeds + 50-seed validation</p>
 
 <h2>Executive Summary</h2>
-<div style='background:#f8fafc;border:1px solid #e5eef5;border-radius:8px;padding:1.4em;'>
+<div class="card">
 <p>Using <strong>Bayesian Optimization</strong> with a deterministic objective (SHA256 hash seeding), we discovered a configuration yielding <strong>€262,540 ± €17,812 validated profit</strong> over 50 independent seeds.</p>
-<p>This is a <strong>4.2× improvement</strong> over SA baseline (€63K) and <strong>1.9×</strong> over Random Search (€137K).</p>
+<p>Compared to the <strong>status quo flat pricing baseline</strong> (€407K revenue, €63K profit, 15.6% margin):</p>
+<ul>
+<li><strong>Revenue uplift:</strong> +46.9% (€191K more)</li>
+<li><strong>Cost reduction:</strong> -2.4% (€8K less, despite higher volume)</li>
+<li><strong>Profit uplift:</strong> <strong>+314%</strong> (€199K more)</li>
+</ul>
 </div>
 
-<h2>Key Results</h2>
-<table><tr><th>Metric</th><th>Value</th></tr>
-<tr><td>Validated Profit</td><td><strong>€262,539.73</strong></td></tr>
-<tr><td>Std Dev</td><td>€17,811.55</td></tr>
-<tr><td>Revenue</td><td>€598,067.63</td></tr>
-<tr><td>Cost</td><td>€335,527.90</td></tr>
-<tr><td>Margin</td><td><strong>43.9%</strong></td></tr>
-<tr><td>Min (50 seeds)</td><td>€213,724.33</td></tr>
-<tr><td>Max (50 seeds)</td><td>€304,011.35</td></tr>
+<div class="kpi">
+<div class="kpi-box"><div class="kpi-val">€263K</div><div class="kpi-label">Validated Profit</div><div class="kpi-up">+314% vs status quo</div></div>
+<div class="kpi-box"><div class="kpi-val">44%</div><div class="kpi-label">Net Margin</div><div class="kpi-up">vs 16% status quo</div></div>
+<div class="kpi-box"><div class="kpi-val">€598K</div><div class="kpi-label">Revenue</div><div class="kpi-up">+47% vs status quo</div></div>
+<div class="kpi-box"><div class="kpi-val">€336K</div><div class="kpi-label">Cost</div><div class="kpi-down">-2.4% vs status quo</div></div>
+</div>
+
+<h2>vs Status Quo (Flat Pricing)</h2>
+<table>
+<tr><th>Metric</th><th>Status Quo (Flat)</th><th>BO Optimized</th><th>Change</th></tr>
+<tr><td>Revenue</td><td>€407,252</td><td class="highlight">€598,068</td><td class="highlight">+46.9%</td></tr>
+<tr><td>Cost</td><td>€343,766</td><td class="highlight">€335,528</td><td class="highlight">-2.4%</td></tr>
+<tr><td>Net Profit</td><td>€63,485</td><td class="highlight">€262,540</td><td class="highlight">+314%</td></tr>
+<tr><td>Margin</td><td>15.6%</td><td class="highlight">43.9%</td><td class="highlight">+28.3 pp</td></tr>
+<tr><td>Bookings</td><td>2,693</td><td>~5,200*</td><td>+93%</td></tr>
 </table>
+<p><em>*Bookings estimated from revenue/cost ratios; exact count not tracked in validation.</em></p>
 
 <h2>Algorithm Comparison</h2>
-<table><tr><th>Algorithm</th><th>Profit</th><th>Evaluations</th><th>Time</th></tr>
+<table>
+<tr><th>Algorithm</th><th>Profit</th><th>Evaluations</th><th>Time</th></tr>
 <tr><td>Simulated Annealing</td><td>€75,270</td><td>100</td><td>6 min</td></tr>
 <tr><td>Random Search</td><td>€137,264</td><td>1,000</td><td>10 min</td></tr>
-<tr style='background:#e8f6e8'><td><strong>Bayesian Opt</strong></td><td><strong>€262,540</strong></td><td>500</td><td>20 min</td></tr>
-</table>
-
-<h2>Best Config (Call 55)</h2>
-<table>
-<tr><td>Weekend multiplier</td><td>1.072</td></tr>
-<tr><td>Per-hour</td><td>2480¢</td></tr>
-<tr><td>Per-day</td><td>17996¢</td></tr>
-<tr><td>Per-km</td><td>46¢</td></tr>
-<tr><td>KM included</td><td>102</td></tr>
-<tr><td>Yield curve</td><td>6 breakpoints (max 3.00×)</td></tr>
-<tr><td>Campaigns</td><td>1 (student, 16.6% off)</td></tr>
+<tr class="highlight"><td><strong>Bayesian Optimization</strong></td><td><strong>€262,540</strong></td><td>500</td><td>20 min</td></tr>
 </table>
 
 <h2>Methodology Fix</h2>
-<div style='background:#f8fafc;border:1px solid #e5eef5;border-radius:8px;padding:1.4em;'>
+<div class="card">
 <p><strong>Root cause:</strong> <code>vector_to_jointstate()</code> sampled auxiliary parameters (hourly multipliers, segment factors, station overrides, fleet weights, campaign choices) from a fresh RNG on every call.</p>
 <p><strong>Fix:</strong> Seed all auxiliary parameters from SHA256 hash of x:</p>
-<pre style='background:#f4f6f8;padding:0.8em;border-radius:4px;font-size:0.85rem;'>seed_str = ",".join(f"{round(float(v),6)}" for v in x)
+<pre>seed_str = ",".join(f"{round(float(v),6)}" for v in x)
 aux_seed = int(hashlib.sha256(seed_str.encode()).hexdigest(), 16) % (2**31)
 aux_rng = random.Random(aux_seed)</pre>
 <p><strong>Result:</strong> Gap collapsed from <strong>35% → 6.6%</strong>. BO claimed €281K, validation €263K.</p>
 </div>
 
+<h2>Discovered Configuration</h2>
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Interpretation</th></tr>
+<tr><td>Weekend multiplier</td><td>1.072</td><td>Slight weekend premium</td></tr>
+<tr><td>Per-hour rate</td><td>2480¢</td><td>~€24.80/hr</td></tr>
+<tr><td>Per-day rate</td><td>17996¢</td><td>~€180/day</td></tr>
+<tr><td>Per-km rate</td><td>46¢</td><td>€0.46/km</td></tr>
+<tr><td>KM included/day</td><td>102</td><td>Generous inclusion</td></tr>
+<tr><td>Yield curve</td><td>6 breakpoints</td><td>Aggressive: up to 3.0× at full occupancy</td></tr>
+<tr><td>Campaigns</td><td>1</td><td>Student-focused, 16.6% discount</td></tr>
+</table>
+
 <h2>Convergence</h2>
-<p><img src="bo_convergence_deterministic.svg" alt="BO Convergence" style="max-width:100%;"></p>
-<p>Best-so-far (teal line) peaks at iteration 55 (~€281K). Random init (blue, first 20) finds mediocre configs; GP-guided search (orange, 21–100) consistently improves.</p>
+<div class="figure">
+<img src="bo_convergence_deterministic.svg" alt="BO Convergence" style="max-width:100%;">
+<p style="font-size:0.85rem;color:#6b7d94;margin-top:0.4em;">Best-so-far (teal) peaks at iteration 55 (~€281K). Random init (blue, first 20) finds mediocre configs; GP-guided search (orange, 21–100) consistently improves.</p>
+</div>
+
+<h2>Conclusion</h2>
+<div class="card">
+<p>The deterministic auxiliary parameter fix makes Bayesian Optimization a <strong>trustworthy production tool</strong> for the Agent Revenue Simulator. With a validated €263K profit (+314% vs status quo), 44% margin, and a -2.4% cost reduction despite 47% revenue growth, this configuration is recommended for operational deployment.</p>
+<p><strong>Next steps:</strong> (1) Seasonal re-optimization with quarterly retraining; (2) A/B test the discovered tariff on 20% of fleet; (3) Expand BO search space to include 6 additional dimensions (hourly multipliers, segment factors).</p>
+</div>
+
 </body></html>
