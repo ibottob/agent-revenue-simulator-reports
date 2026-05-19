@@ -1,68 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Revenue Simulator — Reports</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-        h1 { color: #1a1a2e; border-bottom: 3px solid #e94560; padding-bottom: 10px; }
-        h2 { color: #16213e; margin-top: 30px; }
-        .report-card { background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 15px 0; border-left: 4px solid #e94560; }
-        .report-card a { color: #e94560; text-decoration: none; font-weight: 600; font-size: 1.1em; }
-        .report-card a:hover { text-decoration: underline; }
-        .meta { color: #666; font-size: 0.9em; margin-top: 8px; }
-        .stats { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
-        .stat { background: white; padding: 10px 15px; border-radius: 6px; border: 1px solid #e0e0e0; }
-        .stat-value { font-size: 1.3em; font-weight: 700; color: #e94560; }
-        .stat-label { font-size: 0.8em; color: #888; text-transform: uppercase; }
-        .badge { display: inline-block; background: #e94560; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 600; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Revenue Simulator Reports</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+    h1 { font-size: 1.6rem; color: #1a202c; }
+    .card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 16px 0; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .card h2 { font-size: 1.1rem; margin: 0 0 8px 0; color: #2563eb; }
+    .card p { margin: 0; color: #4a5568; font-size: 0.9rem; }
+    .card a { display: inline-block; margin-top: 12px; text-decoration: none; color: #2563eb; font-weight: 500; }
+    .new { background: #059669; color: white; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-left: 8px; vertical-align: middle; }
+  </style>
 </head>
 <body>
-    <h1>🚗 Agent Revenue Simulator</h1>
-    <p>Customer-facing optimization reports for station-based car-sharing operations.</p>
+  <h1>Agent Revenue Simulator — Reports</h1>
+  <p>Annual optimization reports for the Agent Revenue Simulator on Aachen mock data.</p>
 
-    <h2>📊 Latest Report</h2>
-    <div class="report-card">
-        <a href="reports/customer_report_2026-05-18_210105.html">Full-Year Optimization Report — May 18, 2026</a>
-        <span class="badge">NEW</span>
-        <div class="meta">
-            15 seeds × 40 iterations | 365 days | Parallel execution | 2 hours compute
-        </div>
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-value">+12.2%</div>
-                <div class="stat-label">Profit Uplift</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">€6,858</div>
-                <div class="stat-label">Additional Profit</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">+1.6%</div>
-                <div class="stat-label">Revenue Uplift</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">+43</div>
-                <div class="stat-label">Extra Bookings</div>
-            </div>
-        </div>
-    </div>
+  <div class="card">
+    <h2>Enhanced Customer Report <span class="new">Latest</span></h2>
+    <p>Full customer-facing narrative with convergence chart, side-by-side comparison, methodology explanation, and actionable recommendation.</p>
+    <a href="https://ibottob.github.io/agent-revenue-simulator-reports/reports/customer_report_enhanced.html">View Report →</a>
+  </div>
 
-    <h2>📁 Archive</h2>
-    <div class="report-card">
-        <a href="reports/customer_report_2026-05-18.html">Customer Report — May 18, 2026 (short run)</a>
-        <div class="meta">3 seeds × 8 iterations | 30 days</div>
-    </div>
-    <div class="report-card">
-        <a href="reports/rpt-7x9k2m3a.html">Report 7x9k2m3a — May 16, 2026</a>
-        <div class="meta">Historical reference report</div>
-    </div>
+  <div class="card">
+    <h2>Original Technical Report</h2>
+    <p>Raw manifest tables (pricing, allocation, advertising) with confidence intervals. Best for technical review.</p>
+    <a href="https://ibottob.github.io/agent-revenue-simulator-reports/reports/customer_report_2026-05-18_210105.html">View Report →</a>
+  </div>
 
-    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; color: #888; font-size: 0.85em;">
-        <p>Generated by Agent Revenue Simulator — proprietary closed-source optimization engine.</p>
-        <p>Repository: <a href="https://github.com/ibottob/agent-revenue-simulator">ibottob/agent-revenue-simulator</a></p>
-    </footer>
+  <p style="margin-top:32px; font-size:0.8rem; color:#94a3b8;">Generated by Agent Revenue Simulator v1.0 · Proprietary analysis</p>
 </body>
 </html>
