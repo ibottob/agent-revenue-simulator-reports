@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Revenue Simulator — Technical Run Report (SA Optimizer)</title>
+<style>
+:root{--bg:#0b0f19;--card:#121a2b;--accent:#3b82f6;--accent2:#10b981;--warn:#f59e0b;--danger:#ef4444;--text:#e2e8f0;--muted:#94a3b8;--font:system-ui,-apple-system,sans-serif;}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.55}
+.container{max-width:960px;margin:0 auto;padding:2rem 1.5rem}
+header{text-align:center;margin-bottom:2rem}
+header h1{font-size:1.7rem;margin:.2rem 0}
+header p{color:var(--muted);font-size:.9rem;margin:.15rem 0}
+.badge{display:inline-block;background:var(--accent);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.02em}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1.5rem 0}
+.sum-card{background:var(--card);padding:1.1rem;border-radius:.65rem;text-align:center;border:1px solid #1e293b}
+.sum-card .label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.sum-card .value{font-size:1.45rem;font-weight:700}
+.sum-card .sub{font-size:.78rem;color:var(--muted);margin-top:.15rem}
+section{background:var(--card);border:1px solid #1e293b;border-radius:.65rem;padding:1.25rem 1.4rem;margin:1.5rem 0}
+section h2{margin:.1rem 0 .9rem;font-size:1.15rem;color:var(--text);border-bottom:1px solid #1e293b;padding-bottom:.5rem}
+section h3{margin:1rem 0 .4rem;font-size:.95rem;color:var(--muted)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.compare-box{background:#0f172a;border:1px solid #1e293b;border-radius:.5rem;padding:1rem}
+.compare-box h4{margin:0 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.compare-box .big{font-size:1.35rem;font-weight:700}
+.compare-box .delta{font-size:.85rem;margin-top:.2rem}
+.pos{color:var(--accent2)}
+.neg{color:var(--danger)}
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0}
+th{text-align:left;color:var(--muted);font-weight:600;padding:.5rem .6rem;border-bottom:1px solid #1e293b;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+td{padding:.45rem .6rem;border-bottom:1px solid #1e293b}
+tr:last-child td{border-bottom:none}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.codeblock{background:#0f172a;border:1px solid #1e293b;border-radius:.5rem;padding:.9rem 1.1rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.78rem;color:var(--muted);overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+.subgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:2.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <span class="badge">DEVELOPER TECHNICAL REPORT</span>
+  <h1>Agent Revenue Simulator — SA Optimization Run</h1>
+  <p>Simulated Annealing · Aachen Mock Scenario · Generated 2026-05-20T09:31:00Z</p>
+</header>
+
+<section>
+  <h2>⚙️ Run Configuration</h2>
+  <div class="codeblock">python scripts/run_joint_optimization.py \
+  --seeds 5 \
+  --iterations 20 \
+  --days 365 \
+  --adaptive-cooling \
+  --output-format html \
+  --output-path reports/customer_report_2026-05-20.html</div>
+  <div class="summary-grid" style="margin-top:1.2rem">
+    <div class="sum-card">
+      <div class="label">Algorithm</div>
+      <div class="value">SA</div>
+      <div class="sub">Simulated Annealing</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">Seeds × Iters</div>
+      <div class="value">5 × 20</div>
+      <div class="sub">100 optimizer steps</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">Simulation Days</div>
+      <div class="value">365</div>
+      <div class="sub">Full year</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">Wall-Clock Time</div>
+      <div class="value">229.8 s</div>
+      <div class="sub">~3.8 minutes</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">Objective</div>
+      <div class="value">net_profit_eur</div>
+      <div class="sub">Maximize profit</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">Cooling</div>
+      <div class="value">Adaptive</div>
+      <div class="sub">Acceptance-ratio feedback</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📋 Simulation Environment</h2>
+  <table>
+    <tr><th>Parameter</th><th class="num">Value</th></tr>
+    <tr><td>Stations</td><td class="num">35</td></tr>
+    <tr><td>Total Vehicles</td><td class="num">81</td></tr>
+    <tr><td>Customers (digital twins)</td><td class="num">2,000</td></tr>
+    <tr><td>Tariffs available</td><td class="num">2 (Basic, Comfort)</td></tr>
+    <tr><td>Baseline tariff</td><td class="num">Basic (ID 1)</td></tr>
+    <tr><td>Yield management</td><td class="num">Disabled in baseline</td></tr>
+    <tr><td>Marketing budget</td><td class="num">Unlimited</td></tr>
+    <tr><td>Car-type match penalty</td><td class="num">0 (disabled)</td></tr>
+    <tr><td>Database</td><td class="num">aachen_mock.db (SQLite)</td></tr>
+    <tr><td>Start date</td><td class="num">2024-01-01</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>📊 Baseline vs Optimized</h2>
+  <div class="compare">
+    <div class="compare-box">
+      <h4>Baseline (No Optimization)</h4>
+      <div class="big">€56,224.83</div>
+      <div class="delta">Revenue: €400,219.17 · Bookings: 2,654 · Margin: 14.0%</div>
+    </div>
+    <div class="compare-box">
+      <h4>Optimized (Best Config)</h4>
+      <div class="big pos">€70,809.04</div>
+      <div class="delta pos">Revenue: €415,141.06 · Bookings: 2,684 · Margin: 17.1%</div>
+    </div>
+  </div>
+  <table>
+    <tr><th>Metric</th><th class="num">Baseline</th><th class="num">Optimized</th><th class="num">Absolute Δ</th><th class="num">Relative Δ</th></tr>
+    <tr><td>Revenue</td><td class="num">€400,219.17</td><td class="num">€415,141.06</td><td class="num pos">+€14,921.89</td><td class="num pos">+3.7%</td></tr>
+    <tr><td>Costs</td><td class="num">€343,994.34</td><td class="num">€344,332.02</td><td class="num neg">+€337.68</td><td class="num neg">+0.1%</td></tr>
+    <tr><td>Net Profit</td><td class="num">€56,224.83</td><td class="num">€70,809.04</td><td class="num pos">+€14,584.21</td><td class="num pos">+25.9%</td></tr>
+    <tr><td>Bookings</td><td class="num">2,654</td><td class="num">2,684</td><td class="num pos">+30</td><td class="num pos">+1.1%</td></tr>
+    <tr><td>Profit Margin</td><td class="num">14.0%</td><td class="num">17.1%</td><td class="num pos">+3.0 pp</td><td class="num pos">+21.4%</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>🎯 Best Configuration (Seed 45)</h2>
+  <h3>Fleet Allocation</h3>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:-.4rem;">
+    Total: 81 vehicles across 35 stations. Identical to baseline distribution — optimizer converged on pricing-driven uplift rather than rebalancing.
+  </p>
+  <div class="subgrid">
+    <table>
+      <tr><th>Station</th><th class="num">Vehicles</th></tr>
+      <tr><td>Station 1</td><td class="num">4</td></tr>
+      <tr><td>Station 2</td><td class="num">5</td></tr>
+      <tr><td>Station 3</td><td class="num">4</td></tr>
+      <tr><td>Station 4</td><td class="num">4</td></tr>
+      <tr><td>Station 5</td><td class="num">3</td></tr>
+      <tr><td>Station 6</td><td class="num">3</td></tr>
+      <tr><td>Station 7</td><td class="num">3</td></tr>
+      <tr><td>Station 8</td><td class="num">4</td></tr>
+      <tr><td>Station 9</td><td class="num">3</td></tr>
+      <tr><td>Station 10</td><td class="num">3</td></tr>
+      <tr><td>Station 11</td><td class="num">2</td></tr>
+      <tr><td>Station 12</td><td class="num">2</td></tr>
+      <tr><td>Station 13</td><td class="num">2</td></tr>
+      <tr><td>Station 14</td><td class="num">2</td></tr>
+      <tr><td>Station 15</td><td class="num">1</td></tr>
+      <tr><td>Station 16</td><td class="num">1</td></tr>
+      <tr><td>Station 17</td><td class="num">3</td></tr>
+      <tr><td>Station 18</td><td class="num">3</td></tr>
+    </table>
+    <table>
+      <tr><th>Station</th><th class="num">Vehicles</th></tr>
+      <tr><td>Station 19</td><td class="num">2</td></tr>
+      <tr><td>Station 20</td><td class="num">2</td></tr>
+      <tr><td>Station 21</td><td class="num">1</td></tr>
+      <tr><td>Station 22</td><td class="num">1</td></tr>
+      <tr><td>Station 23</td><td class="num">1</td></tr>
+      <tr><td>Station 24</td><td class="num">1</td></tr>
+      <tr><td>Station 25</td><td class="num">1</td></tr>
+      <tr><td>Station 26</td><td class="num">2</td></tr>
+      <tr><td>Station 27</td><td class="num">2</td></tr>
+      <tr><td>Station 28</td><td class="num">2</td></tr>
+      <tr><td>Station 29</td><td class="num">2</td></tr>
+      <tr><td>Station 30</td><td class="num">2</td></tr>
+      <tr><td>Station 31</td><td class="num">2</td></tr>
+      <tr><td>Station 32</td><td class="num">2</td></tr>
+      <tr><td>Station 33</td><td class="num">2</td></tr>
+      <tr><td>Station 34</td><td class="num">2</td></tr>
+      <tr><td>Station 35</td><td class="num">2</td></tr>
+    </table>
+  </div>
+
+  <h3>Car-Type Mix</h3>
+  <table>
+    <tr><th>Type</th><th class="num">Count</th><th class="num">Share</th></tr>
+    <tr><td>Medium</td><td class="num">34</td><td class="num">42.0%</td></tr>
+    <tr><td>Small</td><td class="num">29</td><td class="num">35.8%</td></tr>
+    <tr><td>Large</td><td class="num">14</td><td class="num">17.3%</td></tr>
+    <tr><td>Van</td><td class="num">4</td><td class="num">4.9%</td></tr>
+  </table>
+
+  <h3>Pricing Parameters</h3>
+  <div class="subgrid">
+    <table>
+      <tr><th>Parameter</th><th class="num">Value</th></tr>
+      <tr><td>Tariff</td><td class="num">Basic (ID 1)</td></tr>
+      <tr><td>Yield enabled</td><td class="num">False</td></tr>
+      <tr><td>Weekend factor</td><td class="num">1.00</td></tr>
+      <tr><td>Per-hour rate</td><td class="num">1400 cents (€14.00)</td></tr>
+      <tr><td>Per-day rate</td><td class="num">8999 cents (€89.99)</td></tr>
+      <tr><td>Per-km rate</td><td class="num">25 cents (€0.25)</td></tr>
+      <tr><td>Km included / day</td><td class="num">100</td></tr>
+    </table>
+    <table>
+      <tr><th>Parameter</th><th class="num">Value</th></tr>
+      <tr><td>Override mode</td><td class="num">multiply</td></tr>
+      <tr><td>Surge enabled</td><td class="num">False</td></tr>
+      <tr><td>Surge threshold</td><td class="num">0.20</td></tr>
+      <tr><td>Surge multiplier</td><td class="num">1.30</td></tr>
+      <tr><td>Surge cap</td><td class="num">2.50</td></tr>
+      <tr><td>Hourly pricing multipliers</td><td class="num">All 1.0</td></tr>
+      <tr><td>Segment multipliers</td><td class="num">—</td></tr>
+    </table>
+  </div>
+
+  <h3>Marketing Campaigns</h3>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:-.4rem;">
+    No active campaigns in the optimized configuration. Budget: unlimited, spend: €0.
+  </p>
+  <table>
+    <tr><th>Campaign</th><th class="num">Discount</th><th class="num">Max Customers</th><th class="num">Stations</th></tr>
+    <tr><td colspan="4" style="text-align:center;color:var(--muted)">None</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>📈 Multi-Seed Statistics</h2>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:-.4rem;">
+    Optimization run across 5 independent random seeds. Key metrics from the best-scoring configuration per seed.
+  </p>
+  <table>
+    <tr><th>Metric</th><th class="num">Mean</th><th class="num">Median</th><th class="num">Std</th><th class="num">Min</th><th class="num">Max</th></tr>
+    <tr><td>best_score</td><td class="num">76,877.70</td><td class="num">76,056.64</td><td class="num">2,068.16</td><td class="num">74,409.37</td><td class="num">79,359.76</td></tr>
+    <tr><td>total_revenue_eur</td><td class="num">399,043.39</td><td class="num">—</td><td class="num">—</td><td class="num">375,750.64</td><td class="num">417,027.42</td></tr>
+    <tr><td>net_profit_eur</td><td class="num">56,364.22</td><td class="num">—</td><td class="num">—</td><td class="num">34,390.60</td><td class="num">75,633.44</td></tr>
+    <tr><td>profit_margin_pct</td><td class="num">14.02%</td><td class="num">—</td><td class="num">—</td><td class="num">9.15%</td><td class="num">18.14%</td></tr>
+    <tr><td>total_bookings</td><td class="num">2,637.00</td><td class="num">—</td><td class="num">—</td><td class="num">2,556</td><td class="num">2,787</td></tr>
+    <tr><td>active_customers</td><td class="num">934.60</td><td class="num">—</td><td class="num">—</td><td class="num">922</td><td class="num">953</td></tr>
+    <tr><td>walk_up_revenue_eur</td><td class="num">52,727.96</td><td class="num">—</td><td class="num">—</td><td class="num">48,340.38</td><td class="num">56,636.20</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>📉 Attribution Breakdown</h2>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:-.4rem;">
+    Profit decomposition by optimization lever. Note: yield management was disabled in best config, but attribution still reports its interaction effects.
+  </p>
+  <table>
+    <tr><th>Lever</th><th class="num">Profit Impact (€)</th><th class="num">Booking Δ</th></tr>
+    <tr><td>Yield Management</td><td class="num neg">−€47,501.79</td><td class="num pos">+3</td></tr>
+    <tr><td>Marketing Campaigns</td><td class="num pos">+€6,873.27</td><td class="num pos">+43</td></tr>
+    <tr><td>Yield + Marketing Synergy</td><td class="num pos">+€3,517.70</td><td class="num">—</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>🛠️ Methodology Notes</h2>
+  <ul style="color:var(--muted);font-size:.88rem;padding-left:1.2rem;">
+    <li><strong>Algorithm:</strong> Simulated Annealing with adaptive cooling (acceptance-ratio feedback). Initial temp 10.0, cooling rate 0.95, min temp 0.01.</li>
+    <li><strong>Search space:</strong> Fleet allocation (35 stations × counts), pricing (tariff selection, yield toggle, weekend factor, rate overrides, demand multipliers), marketing (segment campaigns × discount × max_customers).</li>
+    <li><strong>Objective:</strong> Maximize mean net profit over stochastic seeds. No constraint penalties applied (all states satisfied hard constraints).</li>
+    <li><strong>Stochastic evaluation:</strong> Each optimizer step evaluated with the same seed per run; multi-seed wrapper selects best across seeds.</li>
+    <li><strong>Validation:</strong> Best config from seed 45 simulated once deterministically (seed=42) for final P&L figures.</li>
+    <li><strong>Runtime environment:</strong> Python 3.11, local SQLite mock data (~3 MB), WSL2.</li>
+    <li><strong>Known issue:</strong> The full-simulation P&L was identical across two different runs (3 seeds × 15 iters vs 5 seeds × 20 iters), suggesting convergence to a local optimum near baseline pricing.</li>
+  </ul>
+</section>
+
+<footer>
+  Proprietary · Agent Revenue Simulator v0.3.1 · 2026-05-20T09:31:00Z<br>
+  SA Optimizer · 5 seeds × 20 iterations · 365-day horizon
+</footer>
+</div>
+</body>
+</html>
