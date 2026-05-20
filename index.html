@@ -1,10 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="refresh" content="0; url=reports/customer_report_latest.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agent Revenue Simulator Reports</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f7f9fb;color:#1a202c;margin:0;padding:0;line-height:1.6}
+.c{max-width:960px;margin:0 auto;padding:32px 16px}
+header{text-align:center;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #e2e8f0}
+h1{font-size:1.75rem;font-weight:700;margin:0 0 8px}
+.sub{font-size:.95rem;color:#4a5568}
+section{background:#fff;border-radius:12px;padding:24px;margin-bottom:24px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.07);border:1px solid #e2e8f0}
+section h2{margin:0 0 16px;font-size:1.2rem;font-weight:600}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #e2e8f0}
+th{background:#f7f9fb;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.75rem;font-weight:600}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.badge-gray{background:#e2e8f0;color:#475569}
+footer{text-align:center;font-size:.75rem;color:#94a3b8;padding:32px 16px}
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="reports/customer_report_latest.html">latest report</a>...</p>
+<div class="c">
+<header>
+<h1>Agent Revenue Simulator</h1>
+<p class="sub">Simulation reports and optimization results</p>
+</header>
+
+<section>
+<h2>Customer Reports</h2>
+<table>
+<tr><th>Report</th><th>Algorithm</th><th>Best Profit</th><th>Generated</th><th>Link</th></tr>
+<tr>
+<td>Annual Optimization Report</td>
+<td>Simulated Annealing</td>
+<td>€70,809</td>
+<td>2026-05-20</td>
+<td><a href="reports/customer_report_2026-05-20.html">Open</a></td>
+</tr>
+<tr>
+<td>Latest Customer Report</td>
+<td>Simulated Annealing</td>
+<td>€70,809</td>
+<td>2026-05-20</td>
+<td><a href="reports/customer_report_latest.html">Open</a></td>
+</tr>
+</table>
+</section>
+
+<section>
+<h2>Technical Reports (Developer)</h2>
+<table>
+<tr><th>Report</th><th>Algorithm</th><th>Best Profit</th><th>Sims</th><th>Generated</th><th>Link</th></tr>
+<tr>
+<td>Bayesian Optimization Run</td>
+<td><span class="badge badge-green">BO</span> gp_minimize (EI)</td>
+<td>€281,141</td>
+<td>500</td>
+<td>2026-05-19</td>
+<td><a href="reports/technical_bo_run_report.html">Open</a></td>
+</tr>
+<tr>
+<td>Simulated Annealing Run</td>
+<td><span class="badge badge-blue">SA</span> Multi-seed</td>
+<td>€70,809</td>
+<td>1,000</td>
+<td>2026-05-20</td>
+<td><a href="reports/technical_sa_run_report.html">Open</a></td>
+</tr>
+<tr>
+<td>BO Latest (In Progress)</td>
+<td><span class="badge badge-green">BO</span> gp_minimize</td>
+<td>-</td>
+<td>1,000</td>
+<td>Running...</td>
+<td><a href="reports/technical_bo_latest.html">Open</a></td>
+</tr>
+</table>
+</section>
+
+<footer>
+<p>Agent Revenue Simulator v1.0 - Proprietary</p>
+</footer>
+</div>
 </body>
 </html>
