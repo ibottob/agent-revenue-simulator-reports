@@ -1,155 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Revenue Simulator - Technical Optimization Report</title>
-<style>
-:root{--bg:#f7f9fb;--card:#fff;--text:#1a202c;--muted:#4a5568;--accent:#2563eb;--suc:#059669;--dgr:#dc2626;--brd:#e2e8f0;--r:12px;--sh:0 4px 6px -1px rgba(0,0,0,0.07)}
-*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;line-height:1.6}
-.c{max-width:1100px;margin:0 auto;padding:32px 16px}
-header{text-align:center;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid var(--brd)}
-header h1{font-size:1.75rem;font-weight:700;margin:0 0 8px}.sub{font-size:.95rem;color:var(--muted)}.meta{font-size:.8rem;color:#94a3b8;margin-top:12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
-.card{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--sh);border:1px solid var(--brd)}
-.card .l{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}.card .v{font-size:1.5rem;font-weight:700}.pos{color:var(--suc)}.neg{color:var(--dgr)}
-section{background:var(--card);border-radius:var(--r);padding:24px;margin-bottom:24px;box-shadow:var(--sh);border:1px solid var(--brd)}
-section h2{margin:0 0 16px;font-size:1.2rem;font-weight:600} section h3{margin:20px 0 10px;font-size:1rem;font-weight:600}section p{margin:0 0 12px;color:var(--muted)}
-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--brd)}
-th{background:var(--bg);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
-td.n{text-align:right;font-variant-numeric:tabular-nums}
-tr:hover td{background:#f0f4f8}
-.hb{background:#dbeafe;border-left:4px solid var(--accent);padding:16px;border-radius:0 var(--r) var(--r) 0;margin:16px 0}
-.hb.g{background:#d1fae5;border-left-color:var(--suc)}
-.hb.r{background:#fee2e2;border-left-color:var(--dgr)}
-footer{text-align:center;font-size:.75rem;color:#94a3b8;padding:32px 16px}
-@media(max-width:640px){.cards{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Report — Bayesian Optimization Run</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--pos:#22c55e;--neg:#ef4444;--accent:#3b82f6;--border:#334155;}
+    body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;max-width:1400px;margin:0 auto;padding:2rem;}
+    h1,h2{color:var(--text);border-bottom:1px solid var(--border);padding-bottom:.5rem;}
+    .meta{color:var(--muted);font-size:.9rem;margin-bottom:2rem;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:.75rem;padding:1.25rem;}
+    .card .l{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;}
+    .card .v{font-size:1.5rem;font-weight:700;margin-top:.25rem;}
+    .card .v.pos{color:var(--pos);}
+    .card .v.neg{color:var(--neg);}
+    .badge{display:inline-block;padding:.2rem .6rem;border-radius:9999px;font-size:.75rem;font-weight:600;background:var(--accent);color:#fff;}
+    .badge.green{background:var(--pos);}
+    .badge.red{background:var(--neg);}
+    table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+    th,td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid var(--border);}
+    th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;}
+    td.num{font-family:monospace;text-align:right;}
+    .section{margin:2rem 0;}
+    .chart-container{max-width:900px;height:400px;margin:1.5rem 0;}
+    .validation-badge{background:var(--pos);color:#fff;padding:.3rem .8rem;border-radius:.5rem;font-size:.85rem;font-weight:600;display:inline-block;margin-left:.5rem;}
+    .warning{background:var(--neg);color:#fff;padding:.75rem 1rem;border-radius:.5rem;margin:1rem 0;}
+    .ok{background:var(--pos);color:#fff;padding:.75rem 1rem;border-radius:.5rem;margin:1rem 0;}
+  </style>
 </head>
-<body><div class="c">
-<header>
-  <h1>Technical Optimization Report</h1>
-  <p class="sub">Bayesian Optimization over JointState configuration space</p>
-  <div class="meta">Algorithm: Bayesian Optimization (scikit-optimize gp_minimize) - 100 calls x 10 seeds - Generated 2026-05-20 12:47</div>
-</header>
+<body>
+  <h1>Technical Report — Bayesian Optimization Run</h1>
+  <p class="meta">Generated: 2026-05-21 09:36 | Deterministic Validation<span class="validation-badge">REPRODUCIBLE</span></p>
 
-<div class="cards">
-  <div class="card"><div class="l">Best Profit</div><div class="v pos">EUR 344.624.79</div></div>
-  <div class="card"><div class="l">Worst Profit</div><div class="v neg">EUR -240.150.99</div></div>
-  <div class="card"><div class="l">Mean Profit</div><div class="v">EUR 91.277.49</div></div>
-  <div class="card"><div class="l">Median Profit</div><div class="v">EUR 143.690.83</div></div>
-  <div class="card"><div class="l">Std Deviation</div><div class="v">EUR 139.778.45</div></div>
-  <div class="card"><div class="l">Profitable Configs</div><div class="v pos">73/100 (73%)</div></div>
-  <div class="card"><div class="l">Best Config Index</div><div class="v">#1</div></div>
-  <div class="card"><div class="l">Total Simulations</div><div class="v">1,000</div></div>
-</div>
+  <div class="ok">✓ Results verified via deterministic 50-seed validation (fresh factory per seed, no hidden RNG)</div>
 
-<section>
-  <h2>Run Configuration</h2>
-  <table>
-    <tr><th>Parameter</th><th class="n">Value</th></tr>
-    <tr><td>Algorithm</td><td class="n">Bayesian Optimization (gp_minimize)</td></tr>
-    <tr><td>Total calls</td><td class="n">100</td></tr>
-    <tr><td>Random initialization points</td><td class="n">20</td></tr>
-    <tr><td>Seeds per evaluation</td><td class="n">10</td></tr>
-    <tr><td>Total simulations</td><td class="n">1,000</td></tr>
-    <tr><td>Wall-clock duration</td><td class="n">33 min 42 sec</td></tr>
-    <tr><td>Acquisition function</td><td class="n">Expected Improvement (EI)</td></tr>
-    <tr><td>Noise model</td><td class="n">Gaussian</td></tr>
-    <tr><td>Base seed</td><td class="n">173567</td></tr>
-  </table>
-</section>
-
-
-<section>
-  <h2>Validation (50 Independent Seeds)</h2>
-  <p>The best discovered configuration was re-evaluated with 50 independent random seeds to confirm stability:</p>
-  <div class="cards">
-    <div class="card"><div class="l">Validated Revenue</div><div class="v">EUR 680.380.68</div></div>
-    <div class="card"><div class="l">Validated Cost</div><div class="v">EUR 337.009.46</div></div>
-    <div class="card"><div class="l">Validated Profit</div><div class="v pos">EUR 343.371.23</div></div>
-    <div class="card"><div class="l">Std Dev</div><div class="v">+/- EUR 16.842.21 (4.9%)</div></div>
-    <div class="card"><div class="l">Bookings</div><div class="v">1898</div></div>
-    <div class="card"><div class="l">Margin</div><div class="v">50.5%</div></div>
+  <div class="section">
+    <h2>Algorithm Parameters</h2>
+    <div class="grid">
+      <div class="card"><div class="l">Algorithm</div><div class="v">gp_minimize</div></div>
+      <div class="card"><div class="l">Acquisition</div><div class="v">Expected Improvement</div></div>
+      <div class="card"><div class="l">Noise</div><div class="v">Gaussian (1e-5)</div></div>
+      <div class="card"><div class="l">Noise Estimator</div><div class="v">YVar (default)</div></div>
+      <div class="card"><div class="l">Calls</div><div class="v">200</div></div>
+      <div class="card"><div class="l">Random Starts</div><div class="v">50</div></div>
+      <div class="card"><div class="l">Seeds/Eval</div><div class="v">20</div></div>
+      <div class="card"><div class="l">Total Simulations</div><div class="v">4,000</div></div>
+      <div class="card"><div class="l">Dimensions</div><div class="v">10</div></div>
+      <div class="card"><div class="l">Duration</div><div class="v">139.2 min</div></div>
+      <div class="card"><div class="l">Base Seed</div><div class="v">unknown</div></div>
+      <div class="card"><div class="l">Timestamp</div><div class="v">2026-05-21T09:28:26</div></div>
+    </div>
   </div>
-  <div class="hb g"><strong>Reliable:</strong> The BO-discovered profit of EUR 344.624.79 held up at EUR 343.371.23 over 50 seeds (±4.9% std dev). The configuration is stable and robust.</div>
-</section>
 
-
-<section>
-  <h2>Best Configuration (Config #1)</h2>
-  <div class="hb g"><strong>Profit:</strong> EUR 344.624.79</div>
-  <h3>Pricing Parameters</h3>
-  <table>
-    <tr><th>Parameter</th><th class="n">Value</th></tr>
-    <tr><td>Weekend pricing multiplier</td><td class="n">0.825x</td></tr>
-    <tr><td>Per-hour rate</td><td class="n">2391c</td></tr>
-    <tr><td>Per-day rate</td><td class="n">17820c</td></tr>
-    <tr><td>Per-km rate</td><td class="n">12c</td></tr>
-    <tr><td>Km included per day</td><td class="n">131</td></tr>
-  </table>
-
-  <h3>Yield Curve</h3>
-  <p>Occupancy-based price multipliers:</p>
-  <table>
-    <tr><th>Occupancy</th><th class="n">Multiplier</th></tr>
-    <tr><td class='n'>0% occupancy</td><td class='n'>1.60x</td></tr><tr><td class='n'>30% occupancy</td><td class='n'>1.92x</td></tr><tr><td class='n'>50% occupancy</td><td class='n'>2.13x</td></tr><tr><td class='n'>70% occupancy</td><td class='n'>2.40x</td></tr><tr><td class='n'>85% occupancy</td><td class='n'>2.84x</td></tr><tr><td class='n'>100% occupancy</td><td class='n'>3.00x</td></tr>
-  </table>
-
-  <h3>Fleet Allocation</h3>
-  <p>Vehicle distribution across stations (81 total):</p>
-  <table>
-    <tr><th>Station</th><th class="n">Vehicles</th><th class="n">Share</th><th>Visual</th></tr>
-    <tr><td>Station 35</td><td class='n'>17</td><td class='n'>21.0%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:62%'></div></td></tr><tr><td>Station 10</td><td class='n'>4</td><td class='n'>4.9%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:14%'></div></td></tr><tr><td>Station 14</td><td class='n'>4</td><td class='n'>4.9%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:14%'></div></td></tr><tr><td>Station 27</td><td class='n'>4</td><td class='n'>4.9%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:14%'></div></td></tr><tr><td>Station 2</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 5</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 6</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 11</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 13</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 17</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 18</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 19</td><td class='n'>3</td><td class='n'>3.7%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:11%'></div></td></tr><tr><td>Station 4</td><td class='n'>2</td><td class='n'>2.5%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:7%'></div></td></tr><tr><td>Station 7</td><td class='n'>2</td><td class='n'>2.5%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:7%'></div></td></tr><tr><td>Station 9</td><td class='n'>2</td><td class='n'>2.5%</td><td><div style='background:#059669;height:12px;border-radius:4px;width:7%'></div></td></tr>
-  </table>
-
-  <h3>Marketing Campaign</h3>
-  <table>
-    <tr><th>Target Segment</th><th class="n">Discount</th><th class="n">Max Customers</th></tr>
-    <tr><td>Family</td><td class='n'>0.6%</td><td class='n'>336</td></tr>
-  </table>
-</section>
-
-<section>
-  <h2>Top 10 Configurations</h2>
-  <p>Highest-performing parameter combinations discovered by the optimizer:</p>
-  <table>
-    <tr><th>Rank</th><th class="n">Profit</th><th class="n">Weekend</th><th class="n">Per-hr</th><th class="n">Per-km</th><th class="n">Km inc.</th><th class="n">Fleet</th><th class="n">Campaigns</th></tr>
-    <tr><td>1</td><td class='n'>EUR 344.624.79</td><td class='n'>0.82x</td><td class='n'>2391c</td><td class='n'>12c</td><td class='n'>131</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>2</td><td class='n'>EUR 287.883.54</td><td class='n'>1.14x</td><td class='n'>2442c</td><td class='n'>50c</td><td class='n'>272</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>3</td><td class='n'>EUR 275.872.85</td><td class='n'>1.20x</td><td class='n'>2442c</td><td class='n'>29c</td><td class='n'>99</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>4</td><td class='n'>EUR 259.252.22</td><td class='n'>0.81x</td><td class='n'>2469c</td><td class='n'>26c</td><td class='n'>83</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>5</td><td class='n'>EUR 253.207.92</td><td class='n'>0.92x</td><td class='n'>2488c</td><td class='n'>36c</td><td class='n'>130</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>6</td><td class='n'>EUR 252.919.79</td><td class='n'>1.44x</td><td class='n'>2489c</td><td class='n'>34c</td><td class='n'>167</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>7</td><td class='n'>EUR 250.981.53</td><td class='n'>0.98x</td><td class='n'>2467c</td><td class='n'>39c</td><td class='n'>276</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>8</td><td class='n'>EUR 249.983.27</td><td class='n'>1.50x</td><td class='n'>2415c</td><td class='n'>24c</td><td class='n'>89</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>9</td><td class='n'>EUR 234.348.84</td><td class='n'>0.85x</td><td class='n'>2441c</td><td class='n'>36c</td><td class='n'>277</td><td class='n'>81</td><td class='n'>1</td></tr><tr><td>10</td><td class='n'>EUR 234.007.57</td><td class='n'>1.07x</td><td class='n'>2483c</td><td class='n'>23c</td><td class='n'>230</td><td class='n'>81</td><td class='n'>0</td></tr>
-  </table>
-</section>
-
-<section>
-  <h2>Profit Distribution</h2>
-  <p>All 100 evaluated configurations, sorted by profit:</p>
-  <div style="display:flex;flex-wrap:wrap;gap:2px;align-items:flex-end;height:120px;margin:16px 0;padding:8px;background:#fafbfc;border-radius:8px;">
-    <div style='flex:1;min-width:2px;background:#dc2626;height:2%;border-radius:1px 1px 0 0;' title='Config 1: EUR -240.150.99'></div><div style='flex:1;min-width:2px;background:#dc2626;height:7.1258713895435255%;border-radius:1px 1px 0 0;' title='Config 2: EUR -198.480.62'></div><div style='flex:1;min-width:2px;background:#dc2626;height:8.169921127718387%;border-radius:1px 1px 0 0;' title='Config 3: EUR -192.375.27'></div><div style='flex:1;min-width:2px;background:#dc2626;height:8.545150416455346%;border-radius:1px 1px 0 0;' title='Config 4: EUR -190.181.02'></div><div style='flex:1;min-width:2px;background:#dc2626;height:9.952590717761941%;border-radius:1px 1px 0 0;' title='Config 5: EUR -181.950.65'></div><div style='flex:1;min-width:2px;background:#dc2626;height:11.326212928996474%;border-radius:1px 1px 0 0;' title='Config 6: EUR -173.918.04'></div><div style='flex:1;min-width:2px;background:#dc2626;height:14.558480859108084%;border-radius:1px 1px 0 0;' title='Config 7: EUR -155.016.52'></div><div style='flex:1;min-width:2px;background:#dc2626;height:16.128410790200643%;border-radius:1px 1px 0 0;' title='Config 8: EUR -145.835.95'></div><div style='flex:1;min-width:2px;background:#dc2626;height:17.805494611969053%;border-radius:1px 1px 0 0;' title='Config 9: EUR -136.028.77'></div><div style='flex:1;min-width:2px;background:#dc2626;height:19.125070467179743%;border-radius:1px 1px 0 0;' title='Config 10: EUR -128.312.21'></div><div style='flex:1;min-width:2px;background:#dc2626;height:20.066012309880545%;border-radius:1px 1px 0 0;' title='Config 11: EUR -122.809.81'></div><div style='flex:1;min-width:2px;background:#dc2626;height:21.16913255196718%;border-radius:1px 1px 0 0;' title='Config 12: EUR -116.359.03'></div><div style='flex:1;min-width:2px;background:#dc2626;height:23.351952093501545%;border-radius:1px 1px 0 0;' title='Config 13: EUR -103.594.43'></div><div style='flex:1;min-width:2px;background:#dc2626;height:23.3917536735191%;border-radius:1px 1px 0 0;' title='Config 14: EUR -103.361.68'></div><div style='flex:1;min-width:2px;background:#dc2626;height:25.394018541602392%;border-radius:1px 1px 0 0;' title='Config 15: EUR -91.652.92'></div><div style='flex:1;min-width:2px;background:#dc2626;height:25.429382523332272%;border-radius:1px 1px 0 0;' title='Config 16: EUR -91.446.12'></div><div style='flex:1;min-width:2px;background:#dc2626;height:26.22507724242615%;border-radius:1px 1px 0 0;' title='Config 17: EUR -86.793.09'></div><div style='flex:1;min-width:2px;background:#dc2626;height:29.19938134236681%;border-radius:1px 1px 0 0;' title='Config 18: EUR -69.400.08'></div><div style='flex:1;min-width:2px;background:#dc2626;height:29.99540268237511%;border-radius:1px 1px 0 0;' title='Config 19: EUR -64.745.14'></div><div style='flex:1;min-width:2px;background:#dc2626;height:30.04704811816932%;border-radius:1px 1px 0 0;' title='Config 20: EUR -64.443.13'></div><div style='flex:1;min-width:2px;background:#dc2626;height:31.21966508257233%;border-radius:1px 1px 0 0;' title='Config 21: EUR -57.585.95'></div><div style='flex:1;min-width:2px;background:#dc2626;height:31.68455608746313%;border-radius:1px 1px 0 0;' title='Config 22: EUR -54.867.38'></div><div style='flex:1;min-width:2px;background:#dc2626;height:35.67235291447946%;border-radius:1px 1px 0 0;' title='Config 23: EUR -31.547.71'></div><div style='flex:1;min-width:2px;background:#dc2626;height:35.72490810067407%;border-radius:1px 1px 0 0;' title='Config 24: EUR -31.240.38'></div><div style='flex:1;min-width:2px;background:#dc2626;height:35.951707849459844%;border-radius:1px 1px 0 0;' title='Config 25: EUR -29.914.11'></div><div style='flex:1;min-width:2px;background:#dc2626;height:36.18390795870513%;border-radius:1px 1px 0 0;' title='Config 26: EUR -28.556.26'></div><div style='flex:1;min-width:2px;background:#dc2626;height:39.355894664447284%;border-radius:1px 1px 0 0;' title='Config 27: EUR -10.007.25'></div><div style='flex:1;min-width:2px;background:#059669;height:41.42252266330182%;border-radius:1px 1px 0 0;' title='Config 28: EUR 2.077.89'></div><div style='flex:1;min-width:2px;background:#059669;height:41.4250432875315%;border-radius:1px 1px 0 0;' title='Config 29: EUR 2.092.63'></div><div style='flex:1;min-width:2px;background:#059669;height:41.66939848295358%;border-radius:1px 1px 0 0;' title='Config 30: EUR 3.521.56'></div><div style='flex:1;min-width:2px;background:#059669;height:41.67440724032722%;border-radius:1px 1px 0 0;' title='Config 31: EUR 3.550.85'></div><div style='flex:1;min-width:2px;background:#059669;height:43.46907801140464%;border-radius:1px 1px 0 0;' title='Config 32: EUR 14.045.65'></div><div style='flex:1;min-width:2px;background:#059669;height:45.361139956925015%;border-radius:1px 1px 0 0;' title='Config 33: EUR 25.109.97'></div><div style='flex:1;min-width:2px;background:#059669;height:47.724149929738886%;border-radius:1px 1px 0 0;' title='Config 34: EUR 38.928.28'></div><div style='flex:1;min-width:2px;background:#059669;height:48.22482388035974%;border-radius:1px 1px 0 0;' title='Config 35: EUR 41.856.10'></div><div style='flex:1;min-width:2px;background:#059669;height:48.88091637447775%;border-radius:1px 1px 0 0;' title='Config 36: EUR 45.692.77'></div><div style='flex:1;min-width:2px;background:#059669;height:53.905079652922694%;border-radius:1px 1px 0 0;' title='Config 37: EUR 75.072.86'></div><div style='flex:1;min-width:2px;background:#059669;height:55.99969957716101%;border-radius:1px 1px 0 0;' title='Config 38: EUR 87.321.69'></div><div style='flex:1;min-width:2px;background:#059669;height:57.257521848801595%;border-radius:1px 1px 0 0;' title='Config 39: EUR 94.677.13'></div><div style='flex:1;min-width:2px;background:#059669;height:58.50151488832181%;border-radius:1px 1px 0 0;' title='Config 40: EUR 101.951.70'></div><div style='flex:1;min-width:2px;background:#059669;height:59.120851414195016%;border-radius:1px 1px 0 0;' title='Config 41: EUR 105.573.43'></div><div style='flex:1;min-width:2px;background:#059669;height:61.04214849664259%;border-radius:1px 1px 0 0;' title='Config 42: EUR 116.808.71'></div><div style='flex:1;min-width:2px;background:#059669;height:61.22869008015345%;border-radius:1px 1px 0 0;' title='Config 43: EUR 117.899.56'></div><div style='flex:1;min-width:2px;background:#059669;height:61.39203815862552%;border-radius:1px 1px 0 0;' title='Config 44: EUR 118.854.78'></div><div style='flex:1;min-width:2px;background:#059669;height:61.83165622899087%;border-radius:1px 1px 0 0;' title='Config 45: EUR 121.425.56'></div><div style='flex:1;min-width:2px;background:#059669;height:63.60222203457195%;border-radius:1px 1px 0 0;' title='Config 46: EUR 131.779.40'></div><div style='flex:1;min-width:2px;background:#059669;height:64.83833855088868%;border-radius:1px 1px 0 0;' title='Config 47: EUR 139.007.91'></div><div style='flex:1;min-width:2px;background:#059669;height:64.94520002179296%;border-radius:1px 1px 0 0;' title='Config 48: EUR 139.632.81'></div><div style='flex:1;min-width:2px;background:#059669;height:65.22728591803168%;border-radius:1px 1px 0 0;' title='Config 49: EUR 141.282.38'></div><div style='flex:1;min-width:2px;background:#059669;height:65.4519891367594%;border-radius:1px 1px 0 0;' title='Config 50: EUR 142.596.39'></div><div style='flex:1;min-width:2px;background:#059669;height:65.6391446307848%;border-radius:1px 1px 0 0;' title='Config 51: EUR 143.690.83'></div><div style='flex:1;min-width:2px;background:#059669;height:65.9139593640489%;border-radius:1px 1px 0 0;' title='Config 52: EUR 145.297.88'></div><div style='flex:1;min-width:2px;background:#059669;height:66.30365744627795%;border-radius:1px 1px 0 0;' title='Config 53: EUR 147.576.74'></div><div style='flex:1;min-width:2px;background:#059669;height:66.61076318858485%;border-radius:1px 1px 0 0;' title='Config 54: EUR 149.372.62'></div><div style='flex:1;min-width:2px;background:#059669;height:66.74230933435717%;border-radius:1px 1px 0 0;' title='Config 55: EUR 150.141.87'></div><div style='flex:1;min-width:2px;background:#059669;height:66.95289945147864%;border-radius:1px 1px 0 0;' title='Config 56: EUR 151.373.35'></div><div style='flex:1;min-width:2px;background:#059669;height:67.38180743395357%;border-radius:1px 1px 0 0;' title='Config 57: EUR 153.881.50'></div><div style='flex:1;min-width:2px;background:#059669;height:68.09668998261179%;border-radius:1px 1px 0 0;' title='Config 58: EUR 158.061.96'></div><div style='flex:1;min-width:2px;background:#059669;height:68.34330758363487%;border-radius:1px 1px 0 0;' title='Config 59: EUR 159.504.12'></div><div style='flex:1;min-width:2px;background:#059669;height:68.74892800792809%;border-radius:1px 1px 0 0;' title='Config 60: EUR 161.876.09'></div><div style='flex:1;min-width:2px;background:#059669;height:69.73036913396105%;border-radius:1px 1px 0 0;' title='Config 61: EUR 167.615.32'></div><div style='flex:1;min-width:2px;background:#059669;height:70.25577735110711%;border-radius:1px 1px 0 0;' title='Config 62: EUR 170.687.78'></div><div style='flex:1;min-width:2px;background:#059669;height:71.26819103212516%;border-radius:1px 1px 0 0;' title='Config 63: EUR 176.608.13'></div><div style='flex:1;min-width:2px;background:#059669;height:71.365306887368%;border-radius:1px 1px 0 0;' title='Config 64: EUR 177.176.04'></div><div style='flex:1;min-width:2px;background:#059669;height:71.50127353085655%;border-radius:1px 1px 0 0;' title='Config 65: EUR 177.971.14'></div><div style='flex:1;min-width:2px;background:#059669;height:71.9915400737014%;border-radius:1px 1px 0 0;' title='Config 66: EUR 180.838.10'></div><div style='flex:1;min-width:2px;background:#059669;height:72.12232353398768%;border-radius:1px 1px 0 0;' title='Config 67: EUR 181.602.89'></div><div style='flex:1;min-width:2px;background:#059669;height:73.1200751850564%;border-radius:1px 1px 0 0;' title='Config 68: EUR 187.437.50'></div><div style='flex:1;min-width:2px;background:#059669;height:73.13389244677677%;border-radius:1px 1px 0 0;' title='Config 69: EUR 187.518.30'></div><div style='flex:1;min-width:2px;background:#059669;height:73.18929316805836%;border-radius:1px 1px 0 0;' title='Config 70: EUR 187.842.27'></div><div style='flex:1;min-width:2px;background:#059669;height:73.8064271403306%;border-radius:1px 1px 0 0;' title='Config 71: EUR 191.451.12'></div><div style='flex:1;min-width:2px;background:#059669;height:74.25127456544112%;border-radius:1px 1px 0 0;' title='Config 72: EUR 194.052.48'></div><div style='flex:1;min-width:2px;background:#059669;height:74.4627898234773%;border-radius:1px 1px 0 0;' title='Config 73: EUR 195.289.37'></div><div style='flex:1;min-width:2px;background:#059669;height:74.75264792943373%;border-radius:1px 1px 0 0;' title='Config 74: EUR 196.984.39'></div><div style='flex:1;min-width:2px;background:#059669;height:74.85644326787953%;border-radius:1px 1px 0 0;' title='Config 75: EUR 197.591.36'></div><div style='flex:1;min-width:2px;background:#059669;height:75.12916147108555%;border-radius:1px 1px 0 0;' title='Config 76: EUR 199.186.15'></div><div style='flex:1;min-width:2px;background:#059669;height:76.33974341413386%;border-radius:1px 1px 0 0;' title='Config 77: EUR 206.265.34'></div><div style='flex:1;min-width:2px;background:#059669;height:77.2434043010468%;border-radius:1px 1px 0 0;' title='Config 78: EUR 211.549.73'></div><div style='flex:1;min-width:2px;background:#059669;height:77.49449883167185%;border-radius:1px 1px 0 0;' title='Config 79: EUR 213.018.07'></div><div style='flex:1;min-width:2px;background:#059669;height:77.59490141674472%;border-radius:1px 1px 0 0;' title='Config 80: EUR 213.605.20'></div><div style='flex:1;min-width:2px;background:#059669;height:78.13019718429514%;border-radius:1px 1px 0 0;' title='Config 81: EUR 216.735.48'></div><div style='flex:1;min-width:2px;background:#059669;height:78.38188852486331%;border-radius:1px 1px 0 0;' title='Config 82: EUR 218.207.31'></div><div style='flex:1;min-width:2px;background:#059669;height:78.4062653894455%;border-radius:1px 1px 0 0;' title='Config 83: EUR 218.349.86'></div><div style='flex:1;min-width:2px;background:#059669;height:78.41855386007948%;border-radius:1px 1px 0 0;' title='Config 84: EUR 218.421.72'></div><div style='flex:1;min-width:2px;background:#059669;height:79.30985958412982%;border-radius:1px 1px 0 0;' title='Config 85: EUR 223.633.86'></div><div style='flex:1;min-width:2px;background:#059669;height:79.75265836078232%;border-radius:1px 1px 0 0;' title='Config 86: EUR 226.223.24'></div><div style='flex:1;min-width:2px;background:#059669;height:79.95211942601316%;border-radius:1px 1px 0 0;' title='Config 87: EUR 227.389.64'></div><div style='flex:1;min-width:2px;background:#059669;height:80.30087874022415%;border-radius:1px 1px 0 0;' title='Config 88: EUR 229.429.10'></div><div style='flex:1;min-width:2px;background:#059669;height:80.4080172403857%;border-radius:1px 1px 0 0;' title='Config 89: EUR 230.055.62'></div><div style='flex:1;min-width:2px;background:#059669;height:80.56399497256879%;border-radius:1px 1px 0 0;' title='Config 90: EUR 230.967.74'></div><div style='flex:1;min-width:2px;background:#059669;height:81.08382327325526%;border-radius:1px 1px 0 0;' title='Config 91: EUR 234.007.57'></div><div style='flex:1;min-width:2px;background:#059669;height:81.14218239339527%;border-radius:1px 1px 0 0;' title='Config 92: EUR 234.348.84'></div><div style='flex:1;min-width:2px;background:#059669;height:83.81575926417472%;border-radius:1px 1px 0 0;' title='Config 93: EUR 249.983.27'></div><div style='flex:1;min-width:2px;background:#059669;height:83.98646742859287%;border-radius:1px 1px 0 0;' title='Config 94: EUR 250.981.53'></div><div style='flex:1;min-width:2px;background:#059669;height:84.31792096451053%;border-radius:1px 1px 0 0;' title='Config 95: EUR 252.919.79'></div><div style='flex:1;min-width:2px;background:#059669;height:84.36719284098942%;border-radius:1px 1px 0 0;' title='Config 96: EUR 253.207.92'></div><div style='flex:1;min-width:2px;background:#059669;height:85.40080268030252%;border-radius:1px 1px 0 0;' title='Config 97: EUR 259.252.22'></div><div style='flex:1;min-width:2px;background:#059669;height:88.24302538658492%;border-radius:1px 1px 0 0;' title='Config 98: EUR 275.872.85'></div><div style='flex:1;min-width:2px;background:#059669;height:90.29692201000528%;border-radius:1px 1px 0 0;' title='Config 99: EUR 287.883.54'></div><div style='flex:1;min-width:2px;background:#059669;height:100.0%;border-radius:1px 1px 0 0;' title='Config 100: EUR 344.624.79'></div>
+  <div class="section">
+    <h2>Validation Results (Deterministic)</h2>
+    <p style="color:var(--muted);font-size:.9rem;">50 independent seeds, fresh factory per seed, no hidden RNG state. Fully reproducible.</p>
+    <div class="grid">
+      <div class="card"><div class="l">Validated Profit</div><div class="v pos">EUR 278,631.63</div></div>
+      <div class="card"><div class="l">BO Reported Profit</div><div class="v">EUR 278,778.88</div></div>
+      <div class="card"><div class="l">Deviation</div><div class="v">0.05%</div></div>
+      <div class="card"><div class="l">Profit Std Dev</div><div class="v">EUR 15,117.38</div></div>
+      <div class="card"><div class="l">Coefficient of Var</div><div class="v">5.4%</div></div>
+      <div class="card"><div class="l">Revenue</div><div class="v">EUR 618,212.81</div></div>
+      <div class="card"><div class="l">Cost</div><div class="v">EUR 339,581.18</div></div>
+      <div class="card"><div class="l">Bookings</div><div class="v">2169</div></div>
+      <div class="card"><div class="l">Utilization</div><div class="v">5.5%</div></div>
+      <div class="card"><div class="l">Validation Seeds</div><div class="v">50</div></div>
+      <div class="card"><div class="l">Validation Duration</div><div class="v">108s</div></div>
+    </div>
   </div>
-  <p style="font-size:.8rem;color:var(--muted)">
-    Green = profitable, Red = loss. X-axis: configs sorted by profit. Y-axis: relative profit scale.
-    Best: EUR 344.624.79 - Worst: EUR -240.150.99 - Median: EUR 143.690.83
-  </p>
-</section>
 
-<section>
-  <h2>Complete Results (All Configurations)</h2>
-  <table>
-    <tr><th>Config</th><th class="n">Profit</th><th class="n">Weekend</th><th class="n">Per-hr</th><th class="n">Per-day</th><th class="n">Per-km</th></tr>
-    <tr><td>1</td><td class='n'>EUR -145.835.95</td><td class='n'>1.217x</td><td class='n'>1929</td><td class='n'>9607</td><td class='n'>41</td></tr><tr><td>2</td><td class='n'>EUR 45.692.77</td><td class='n'>1.041x</td><td class='n'>1964</td><td class='n'>11314</td><td class='n'>32</td></tr><tr><td>3</td><td class='n'>EUR -91.446.12</td><td class='n'>1.120x</td><td class='n'>1845</td><td class='n'>11760</td><td class='n'>21</td></tr><tr><td>4</td><td class='n'>EUR -28.556.26</td><td class='n'>1.470x</td><td class='n'>2245</td><td class='n'>17669</td><td class='n'>21</td></tr><tr><td>5</td><td class='n'>EUR -103.361.68</td><td class='n'>1.345x</td><td class='n'>896</td><td class='n'>7745</td><td class='n'>21</td></tr><tr><td>6</td><td class='n'>EUR 159.504.12</td><td class='n'>0.895x</td><td class='n'>1952</td><td class='n'>15203</td><td class='n'>23</td></tr><tr><td>7</td><td class='n'>EUR -29.914.11</td><td class='n'>0.825x</td><td class='n'>2426</td><td class='n'>17422</td><td class='n'>19</td></tr><tr><td>8</td><td class='n'>EUR -86.793.09</td><td class='n'>0.813x</td><td class='n'>1423</td><td class='n'>14507</td><td class='n'>26</td></tr><tr><td>9</td><td class='n'>EUR 2.092.63</td><td class='n'>1.011x</td><td class='n'>1293</td><td class='n'>15556</td><td class='n'>46</td></tr><tr><td>10</td><td class='n'>EUR 3.521.56</td><td class='n'>1.100x</td><td class='n'>1547</td><td class='n'>17744</td><td class='n'>17</td></tr><tr><td>11</td><td class='n'>EUR 3.550.85</td><td class='n'>1.012x</td><td class='n'>2395</td><td class='n'>8563</td><td class='n'>19</td></tr><tr><td>12</td><td class='n'>EUR 105.573.43</td><td class='n'>1.072x</td><td class='n'>2030</td><td class='n'>12918</td><td class='n'>34</td></tr><tr><td>13</td><td class='n'>EUR 14.045.65</td><td class='n'>1.141x</td><td class='n'>1471</td><td class='n'>10397</td><td class='n'>13</td></tr><tr><td>14</td><td class='n'>EUR -181.950.65</td><td class='n'>0.941x</td><td class='n'>2302</td><td class='n'>5874</td><td class='n'>37</td></tr><tr><td>15</td><td class='n'>EUR -57.585.95</td><td class='n'>1.326x</td><td class='n'>2277</td><td class='n'>12995</td><td class='n'>47</td></tr><tr><td>16</td><td class='n'>EUR -122.809.81</td><td class='n'>0.999x</td><td class='n'>1699</td><td class='n'>5289</td><td class='n'>32</td></tr><tr><td>17</td><td class='n'>EUR -173.918.04</td><td class='n'>0.921x</td><td class='n'>1285</td><td class='n'>5398</td><td class='n'>44</td></tr><tr><td>18</td><td class='n'>EUR 2.077.89</td><td class='n'>1.103x</td><td class='n'>1348</td><td class='n'>17009</td><td class='n'>39</td></tr><tr><td>19</td><td class='n'>EUR -136.028.77</td><td class='n'>1.438x</td><td class='n'>1518</td><td class='n'>14893</td><td class='n'>45</td></tr><tr><td>20</td><td class='n'>EUR 213.018.07</td><td class='n'>1.038x</td><td class='n'>2409</td><td class='n'>17627</td><td class='n'>33</td></tr><tr><td>21</td><td class='n'>EUR 213.605.20</td><td class='n'>1.396x</td><td class='n'>2457</td><td class='n'>17129</td><td class='n'>35</td></tr><tr><td>22</td><td class='n'>EUR 151.373.35</td><td class='n'>1.394x</td><td class='n'>2483</td><td class='n'>15402</td><td class='n'>37</td></tr><tr><td>23</td><td class='n'>EUR 94.677.13</td><td class='n'>1.253x</td><td class='n'>2350</td><td class='n'>17450</td><td class='n'>45</td></tr><tr><td>24</td><td class='n'>EUR 230.055.62</td><td class='n'>0.954x</td><td class='n'>2472</td><td class='n'>17066</td><td class='n'>38</td></tr><tr><td>25</td><td class='n'>EUR 118.854.78</td><td class='n'>1.405x</td><td class='n'>2146</td><td class='n'>17571</td><td class='n'>37</td></tr><tr><td>26</td><td class='n'>EUR 131.779.40</td><td class='n'>0.827x</td><td class='n'>2423</td><td class='n'>17429</td><td class='n'>40</td></tr><tr><td>27</td><td class='n'>EUR 139.632.81</td><td class='n'>1.259x</td><td class='n'>2479</td><td class='n'>17837</td><td class='n'>28</td></tr><tr><td>28</td><td class='n'>EUR 234.007.57</td><td class='n'>1.072x</td><td class='n'>2483</td><td class='n'>16983</td><td class='n'>23</td></tr><tr><td>29</td><td class='n'>EUR 287.883.54</td><td class='n'>1.144x</td><td class='n'>2442</td><td class='n'>17077</td><td class='n'>50</td></tr><tr><td>30</td><td class='n'>EUR 101.951.70</td><td class='n'>1.090x</td><td class='n'>2489</td><td class='n'>11585</td><td class='n'>40</td></tr><tr><td>31</td><td class='n'>EUR 87.321.69</td><td class='n'>1.088x</td><td class='n'>2089</td><td class='n'>17967</td><td class='n'>19</td></tr><tr><td>32</td><td class='n'>EUR 223.633.86</td><td class='n'>1.114x</td><td class='n'>2493</td><td class='n'>17366</td><td class='n'>39</td></tr><tr><td>33</td><td class='n'>EUR 147.576.74</td><td class='n'>0.872x</td><td class='n'>2421</td><td class='n'>15682</td><td class='n'>50</td></tr><tr><td>34</td><td class='n'>EUR -69.400.08</td><td class='n'>0.977x</td><td class='n'>827</td><td class='n'>17874</td><td class='n'>39</td></tr><tr><td>35</td><td class='n'>EUR -64.745.14</td><td class='n'>1.040x</td><td class='n'>2446</td><td class='n'>5546</td><td class='n'>19</td></tr><tr><td>36</td><td class='n'>EUR 275.872.85</td><td class='n'>1.204x</td><td class='n'>2442</td><td class='n'>17605</td><td class='n'>29</td></tr><tr><td>37</td><td class='n'>EUR 116.808.71</td><td class='n'>1.372x</td><td class='n'>2393</td><td class='n'>17416</td><td class='n'>43</td></tr><tr><td>38</td><td class='n'>EUR 117.899.56</td><td class='n'>1.330x</td><td class='n'>2476</td><td class='n'>16589</td><td class='n'>49</td></tr><tr><td>39</td><td class='n'>EUR 161.876.09</td><td class='n'>0.874x</td><td class='n'>2493</td><td class='n'>17852</td><td class='n'>24</td></tr><tr><td>40</td><td class='n'>EUR 206.265.34</td><td class='n'>1.091x</td><td class='n'>2480</td><td class='n'>17366</td><td class='n'>10</td></tr><tr><td>41</td><td class='n'>EUR 143.690.83</td><td class='n'>0.983x</td><td class='n'>2493</td><td class='n'>17646</td><td class='n'>45</td></tr><tr><td>42</td><td class='n'>EUR -155.016.52</td><td class='n'>0.859x</td><td class='n'>920</td><td class='n'>5126</td><td class='n'>27</td></tr><tr><td>43</td><td class='n'>EUR 218.349.86</td><td class='n'>1.324x</td><td class='n'>2478</td><td class='n'>17948</td><td class='n'>44</td></tr><tr><td>44</td><td class='n'>EUR 141.282.38</td><td class='n'>1.200x</td><td class='n'>2499</td><td class='n'>17489</td><td class='n'>41</td></tr><tr><td>45</td><td class='n'>EUR 253.207.92</td><td class='n'>0.917x</td><td class='n'>2488</td><td class='n'>17718</td><td class='n'>36</td></tr><tr><td>46</td><td class='n'>EUR 187.437.50</td><td class='n'>0.895x</td><td class='n'>2403</td><td class='n'>17907</td><td class='n'>46</td></tr><tr><td>47</td><td class='n'>EUR 250.981.53</td><td class='n'>0.983x</td><td class='n'>2467</td><td class='n'>17592</td><td class='n'>39</td></tr><tr><td>48</td><td class='n'>EUR 153.881.50</td><td class='n'>1.395x</td><td class='n'>2391</td><td class='n'>17826</td><td class='n'>35</td></tr><tr><td>49</td><td class='n'>EUR 218.421.72</td><td class='n'>0.850x</td><td class='n'>2441</td><td class='n'>17956</td><td class='n'>24</td></tr><tr><td>50</td><td class='n'>EUR 181.602.89</td><td class='n'>0.802x</td><td class='n'>2450</td><td class='n'>16740</td><td class='n'>28</td></tr><tr><td>51</td><td class='n'>EUR -31.547.71</td><td class='n'>1.497x</td><td class='n'>2498</td><td class='n'>6382</td><td class='n'>45</td></tr><tr><td>52</td><td class='n'>EUR 344.624.79</td><td class='n'>0.825x</td><td class='n'>2391</td><td class='n'>17820</td><td class='n'>12</td></tr><tr><td>53</td><td class='n'>EUR 75.072.86</td><td class='n'>1.434x</td><td class='n'>2050</td><td class='n'>17816</td><td class='n'>16</td></tr><tr><td>54</td><td class='n'>EUR 252.919.79</td><td class='n'>1.437x</td><td class='n'>2489</td><td class='n'>17999</td><td class='n'>34</td></tr><tr><td>55</td><td class='n'>EUR 191.451.12</td><td class='n'>1.433x</td><td class='n'>2450</td><td class='n'>16954</td><td class='n'>11</td></tr><tr><td>56</td><td class='n'>EUR 196.984.39</td><td class='n'>0.805x</td><td class='n'>2473</td><td class='n'>17277</td><td class='n'>13</td></tr><tr><td>57</td><td class='n'>EUR 150.141.87</td><td class='n'>0.804x</td><td class='n'>2389</td><td class='n'>16023</td><td class='n'>17</td></tr><tr><td>58</td><td class='n'>EUR 229.429.10</td><td class='n'>1.444x</td><td class='n'>2458</td><td class='n'>17926</td><td class='n'>11</td></tr><tr><td>59</td><td class='n'>EUR 216.735.48</td><td class='n'>1.470x</td><td class='n'>2445</td><td class='n'>17952</td><td class='n'>50</td></tr><tr><td>60</td><td class='n'>EUR -64.443.13</td><td class='n'>1.473x</td><td class='n'>1075</td><td class='n'>17997</td><td class='n'>43</td></tr><tr><td>61</td><td class='n'>EUR -240.150.99</td><td class='n'>1.415x</td><td class='n'>826</td><td class='n'>5012</td><td class='n'>46</td></tr><tr><td>62</td><td class='n'>EUR -198.480.62</td><td class='n'>0.803x</td><td class='n'>841</td><td class='n'>16458</td><td class='n'>45</td></tr><tr><td>63</td><td class='n'>EUR 177.176.04</td><td class='n'>1.192x</td><td class='n'>2468</td><td class='n'>17751</td><td class='n'>13</td></tr><tr><td>64</td><td class='n'>EUR 199.186.15</td><td class='n'>0.817x</td><td class='n'>2436</td><td class='n'>16755</td><td class='n'>14</td></tr><tr><td>65</td><td class='n'>EUR 194.052.48</td><td class='n'>0.835x</td><td class='n'>2421</td><td class='n'>17938</td><td class='n'>16</td></tr><tr><td>66</td><td class='n'>EUR 167.615.32</td><td class='n'>0.804x</td><td class='n'>2309</td><td class='n'>17987</td><td class='n'>12</td></tr><tr><td>67</td><td class='n'>EUR -91.652.92</td><td class='n'>1.495x</td><td class='n'>2491</td><td class='n'>17874</td><td class='n'>24</td></tr><tr><td>68</td><td class='n'>EUR -192.375.27</td><td class='n'>1.473x</td><td class='n'>892</td><td class='n'>5517</td><td class='n'>16</td></tr><tr><td>69</td><td class='n'>EUR 170.687.78</td><td class='n'>1.467x</td><td class='n'>2439</td><td class='n'>17603</td><td class='n'>40</td></tr><tr><td>70</td><td class='n'>EUR 177.971.14</td><td class='n'>0.808x</td><td class='n'>2240</td><td class='n'>17715</td><td class='n'>17</td></tr><tr><td>71</td><td class='n'>EUR -10.007.25</td><td class='n'>1.494x</td><td class='n'>2453</td><td class='n'>9032</td><td class='n'>13</td></tr><tr><td>72</td><td class='n'>EUR 139.007.91</td><td class='n'>1.425x</td><td class='n'>2416</td><td class='n'>17598</td><td class='n'>38</td></tr><tr><td>73</td><td class='n'>EUR 218.207.31</td><td class='n'>0.900x</td><td class='n'>2498</td><td class='n'>17990</td><td class='n'>42</td></tr><tr><td>74</td><td class='n'>EUR 25.109.97</td><td class='n'>0.821x</td><td class='n'>859</td><td class='n'>17970</td><td class='n'>42</td></tr><tr><td>75</td><td class='n'>EUR -31.240.38</td><td class='n'>0.812x</td><td class='n'>2491</td><td class='n'>5347</td><td class='n'>19</td></tr><tr><td>76</td><td class='n'>EUR 197.591.36</td><td class='n'>0.846x</td><td class='n'>2494</td><td class='n'>17595</td><td class='n'>40</td></tr><tr><td>77</td><td class='n'>EUR 180.838.10</td><td class='n'>0.822x</td><td class='n'>2424</td><td class='n'>17989</td><td class='n'>27</td></tr><tr><td>78</td><td class='n'>EUR 38.928.28</td><td class='n'>0.822x</td><td class='n'>2450</td><td class='n'>12353</td><td class='n'>30</td></tr><tr><td>79</td><td class='n'>EUR 142.596.39</td><td class='n'>0.813x</td><td class='n'>2436</td><td class='n'>17337</td><td class='n'>45</td></tr><tr><td>80</td><td class='n'>EUR 226.223.24</td><td class='n'>1.494x</td><td class='n'>2489</td><td class='n'>17190</td><td class='n'>31</td></tr><tr><td>81</td><td class='n'>EUR 158.061.96</td><td class='n'>0.801x</td><td class='n'>1793</td><td class='n'>17769</td><td class='n'>49</td></tr><tr><td>82</td><td class='n'>EUR -190.181.02</td><td class='n'>1.496x</td><td class='n'>2474</td><td class='n'>5142</td><td class='n'>48</td></tr><tr><td>83</td><td class='n'>EUR -116.359.03</td><td class='n'>0.880x</td><td class='n'>2472</td><td class='n'>17647</td><td class='n'>30</td></tr><tr><td>84</td><td class='n'>EUR 176.608.13</td><td class='n'>1.486x</td><td class='n'>2469</td><td class='n'>17983</td><td class='n'>42</td></tr><tr><td>85</td><td class='n'>EUR -103.594.43</td><td class='n'>1.492x</td><td class='n'>843</td><td class='n'>16995</td><td class='n'>26</td></tr><tr><td>86</td><td class='n'>EUR 145.297.88</td><td class='n'>0.808x</td><td class='n'>1799</td><td class='n'>17922</td><td class='n'>12</td></tr><tr><td>87</td><td class='n'>EUR 187.518.30</td><td class='n'>1.387x</td><td class='n'>2499</td><td class='n'>17817</td><td class='n'>37</td></tr><tr><td>88</td><td class='n'>EUR 41.856.10</td><td class='n'>1.415x</td><td class='n'>2475</td><td class='n'>17932</td><td class='n'>11</td></tr><tr><td>89</td><td class='n'>EUR 195.289.37</td><td class='n'>1.084x</td><td class='n'>2431</td><td class='n'>17765</td><td class='n'>13</td></tr><tr><td>90</td><td class='n'>EUR 234.348.84</td><td class='n'>0.846x</td><td class='n'>2441</td><td class='n'>17605</td><td class='n'>36</td></tr><tr><td>91</td><td class='n'>EUR -128.312.21</td><td class='n'>1.423x</td><td class='n'>2490</td><td class='n'>6078</td><td class='n'>22</td></tr><tr><td>92</td><td class='n'>EUR -54.867.38</td><td class='n'>1.496x</td><td class='n'>884</td><td class='n'>17738</td><td class='n'>31</td></tr><tr><td>93</td><td class='n'>EUR 187.842.27</td><td class='n'>1.244x</td><td class='n'>2436</td><td class='n'>17786</td><td class='n'>13</td></tr><tr><td>94</td><td class='n'>EUR 211.549.73</td><td class='n'>1.471x</td><td class='n'>2450</td><td class='n'>17753</td><td class='n'>46</td></tr><tr><td>95</td><td class='n'>EUR 249.983.27</td><td class='n'>1.498x</td><td class='n'>2415</td><td class='n'>17926</td><td class='n'>24</td></tr><tr><td>96</td><td class='n'>EUR 230.967.74</td><td class='n'>0.808x</td><td class='n'>2487</td><td class='n'>16975</td><td class='n'>10</td></tr><tr><td>97</td><td class='n'>EUR 121.425.56</td><td class='n'>0.831x</td><td class='n'>2466</td><td class='n'>17970</td><td class='n'>11</td></tr><tr><td>98</td><td class='n'>EUR 259.252.22</td><td class='n'>0.811x</td><td class='n'>2469</td><td class='n'>17856</td><td class='n'>26</td></tr><tr><td>99</td><td class='n'>EUR 149.372.62</td><td class='n'>1.453x</td><td class='n'>2468</td><td class='n'>17733</td><td class='n'>33</td></tr><tr><td>100</td><td class='n'>EUR 227.389.64</td><td class='n'>0.934x</td><td class='n'>2455</td><td class='n'>17902</td><td class='n'>24</td></tr>
-  </table>
-</section>
+  <div class="section">
+    <h2>Best Configuration</h2>
+    <div class="grid">
+      <div class="card"><div class="l">Weekend Pricing</div><div class="v">1.09×</div></div>
+      <div class="card"><div class="l">Per Hour</div><div class="v">24.59 EUR</div></div>
+      <div class="card"><div class="l">Per Day</div><div class="v">178.55 EUR</div></div>
+      <div class="card"><div class="l">Per Km</div><div class="v">0.30 EUR</div></div>
+      <div class="card"><div class="l">Km Included/Day</div><div class="v">68</div></div>
+      <div class="card"><div class="l">Fleet Total</div><div class="v">81 vehicles</div></div>
+      <div class="card"><div class="l">Active Stations</div><div class="v">34</div></div>
+      <div class="card"><div class="l">Campaigns</div><div class="v">0</div></div>
+    </div>
 
-<section>
-  <h2>Methodology</h2>
-  <p>Bayesian Optimization uses a Gaussian Process surrogate model to efficiently explore a 10-dimensional continuous/integer parameter space. Each "call" evaluates a candidate configuration by running 10 independent full-year simulations (365 days, ~2,000 customer twins, 81 vehicles, 35 stations) and averaging the net profit.</p>
-  <p>The objective function is negated mean profit (gp_minimize minimizes). The Expected Improvement acquisition function balances exploration (uncertain regions) and exploitation (regions near the current best).</p>
-  <p>20 random initialization points seed the surrogate before model-guided acquisition begins. This ensures global coverage before local refinement.</p>
-  <div class="hb"><strong>Determinism note:</strong> Auxiliary parameters (DOW multipliers, hourly multipliers, segment multipliers, station overrides) are derived deterministically from a hash of the core parameter vector. This ensures the same vector always produces the exact same JointState, removing stochastic noise from the BO objective.</div>
-</section>
+    <h3>Fleet Allocation (Top 10)</h3>
+    <table>
+      <thead><tr><th>Station ID</th><th>Vehicles</th><th>Share</th></tr></thead>
+      <tbody>
+        <tr><td>Station #35</td><td class='num'>18</td><td class='num'>22.2%</td></tr>
+        <tr><td>Station #7</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #13</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #19</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #20</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #25</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #31</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #34</td><td class='num'>3</td><td class='num'>3.7%</td></tr>
+        <tr><td>Station #1</td><td class='num'>2</td><td class='num'>2.5%</td></tr>
+        <tr><td>Station #2</td><td class='num'>2</td><td class='num'>2.5%</td></tr>
+      </tbody>
+    </table>
+    <h3>Yield Curve (Occupancy → Multiplier)</h3>
+    <div class='grid'>
+      <div class='card'><div class='l'>0% Occupancy</div><div class='v'>1.28×</div></div>
+      <div class='card'><div class='l'>30% Occupancy</div><div class='v'>1.56×</div></div>
+      <div class='card'><div class='l'>50% Occupancy</div><div class='v'>1.69×</div></div>
+      <div class='card'><div class='l'>70% Occupancy</div><div class='v'>1.87×</div></div>
+      <div class='card'><div class='l'>85% Occupancy</div><div class='v'>2.29×</div></div>
+      <div class='card'><div class='l'>100% Occupancy</div><div class='v'>3.00×</div></div>
+    </div>
 
-<footer>
-  <p>Agent Revenue Simulator v1.0 - Proprietary - Generated 2026-05-20 12:47</p>
-  <p>Technical report for simulation developer. Contains configuration details and optimization diagnostics.</p>
-</footer>
-</div></body></html>
+  </div>
+
+  <div class="section">
+    <h2>Profit Distribution (All 200 Configurations)</h2>
+    <div class="chart-container">
+      <canvas id="profitChart"></canvas>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Top 10 Configurations</h2>
+    <table>
+      <thead><tr><th>Rank</th><th>Config</th><th class="num">Profit (EUR)</th><th class="num">Weekend×</th><th class="num">Per-Hr</th><th class="num">Per-Day</th><th class="num">Per-Km</th></tr></thead>
+      <tbody>
+        <tr><td>#1</td><td>C100</td><td class='num pos'>EUR 278,778.88</td><td class='num'>1.090×</td><td class='num'>2459c</td><td class='num'>17855c</td><td class='num'>30c</td></tr>
+        <tr><td>#2</td><td>C120</td><td class='num pos'>EUR 203,503.65</td><td class='num'>1.000×</td><td class='num'>2494c</td><td class='num'>17857c</td><td class='num'>17c</td></tr>
+        <tr><td>#3</td><td>C130</td><td class='num pos'>EUR 203,059.07</td><td class='num'>0.816×</td><td class='num'>2495c</td><td class='num'>17803c</td><td class='num'>23c</td></tr>
+        <tr><td>#4</td><td>C116</td><td class='num pos'>EUR 202,767.34</td><td class='num'>1.494×</td><td class='num'>2466c</td><td class='num'>17949c</td><td class='num'>19c</td></tr>
+        <tr><td>#5</td><td>C134</td><td class='num pos'>EUR 199,588.09</td><td class='num'>0.834×</td><td class='num'>2455c</td><td class='num'>17838c</td><td class='num'>43c</td></tr>
+        <tr><td>#6</td><td>C68</td><td class='num pos'>EUR 194,506.27</td><td class='num'>1.066×</td><td class='num'>2351c</td><td class='num'>17940c</td><td class='num'>42c</td></tr>
+        <tr><td>#7</td><td>C198</td><td class='num pos'>EUR 193,380.92</td><td class='num'>0.818×</td><td class='num'>2493c</td><td class='num'>17599c</td><td class='num'>13c</td></tr>
+        <tr><td>#8</td><td>C157</td><td class='num pos'>EUR 189,791.02</td><td class='num'>1.419×</td><td class='num'>2472c</td><td class='num'>17937c</td><td class='num'>11c</td></tr>
+        <tr><td>#9</td><td>C86</td><td class='num pos'>EUR 189,316.05</td><td class='num'>0.814×</td><td class='num'>2141c</td><td class='num'>17889c</td><td class='num'>18c</td></tr>
+        <tr><td>#10</td><td>C63</td><td class='num pos'>EUR 189,172.05</td><td class='num'>1.100×</td><td class='num'>2439c</td><td class='num'>17763c</td><td class='num'>20c</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>All Results</h2>
+    <table>
+      <thead><tr><th>Config</th><th class="num">Profit</th><th class="num">Weekend×</th><th class="num">Per-Hr</th><th class="num">Per-Day</th><th class="num">Per-Km</th><th class="num">Km-Incl</th></th></tr></thead>
+      <tbody>
+        <tr><td>C1</td><td class='num neg'>EUR -25,767.74</td><td class='num'>1.431×</td><td class='num'>1353c</td><td class='num'>14522c</td><td class='num'>13c</td><td class='num'>79</td></tr>
+        <tr><td>C2</td><td class='num neg'>EUR -39,920.79</td><td class='num'>0.887×</td><td class='num'>2146c</td><td class='num'>13071c</td><td class='num'>46c</td><td class='num'>197</td></tr>
+        <tr><td>C3</td><td class='num neg'>EUR -118,493.65</td><td class='num'>0.986×</td><td class='num'>1289c</td><td class='num'>17314c</td><td class='num'>15c</td><td class='num'>123</td></tr>
+        <tr><td>C4</td><td class='num neg'>EUR -1,892.49</td><td class='num'>1.073×</td><td class='num'>2324c</td><td class='num'>11793c</td><td class='num'>21c</td><td class='num'>240</td></tr>
+        <tr><td>C5</td><td class='num neg'>EUR -32,971.29</td><td class='num'>1.301×</td><td class='num'>1829c</td><td class='num'>9887c</td><td class='num'>31c</td><td class='num'>280</td></tr>
+        <tr><td>C6</td><td class='num neg'>EUR -40,894.48</td><td class='num'>1.427×</td><td class='num'>1045c</td><td class='num'>13394c</td><td class='num'>14c</td><td class='num'>177</td></tr>
+        <tr><td>C7</td><td class='num neg'>EUR -176,874.05</td><td class='num'>1.226×</td><td class='num'>2368c</td><td class='num'>7504c</td><td class='num'>17c</td><td class='num'>147</td></tr>
+        <tr><td>C8</td><td class='num neg'>EUR -30,346.44</td><td class='num'>1.305×</td><td class='num'>861c</td><td class='num'>16745c</td><td class='num'>16c</td><td class='num'>296</td></tr>
+        <tr><td>C9</td><td class='num neg'>EUR -24,483.93</td><td class='num'>1.418×</td><td class='num'>1167c</td><td class='num'>13747c</td><td class='num'>48c</td><td class='num'>194</td></tr>
+        <tr><td>C10</td><td class='num neg'>EUR -19,068.62</td><td class='num'>1.024×</td><td class='num'>1100c</td><td class='num'>16368c</td><td class='num'>15c</td><td class='num'>249</td></tr>
+        <tr><td>C11</td><td class='num neg'>EUR -180,014.23</td><td class='num'>1.239×</td><td class='num'>1513c</td><td class='num'>12325c</td><td class='num'>31c</td><td class='num'>236</td></tr>
+        <tr><td>C12</td><td class='num neg'>EUR -182,400.93</td><td class='num'>0.855×</td><td class='num'>2079c</td><td class='num'>5263c</td><td class='num'>34c</td><td class='num'>281</td></tr>
+        <tr><td>C13</td><td class='num neg'>EUR -148,915.37</td><td class='num'>1.138×</td><td class='num'>1810c</td><td class='num'>16233c</td><td class='num'>32c</td><td class='num'>284</td></tr>
+        <tr><td>C14</td><td class='num neg'>EUR -73,187.08</td><td class='num'>1.231×</td><td class='num'>2374c</td><td class='num'>11152c</td><td class='num'>34c</td><td class='num'>233</td></tr>
+        <tr><td>C15</td><td class='num neg'>EUR -184,904.20</td><td class='num'>0.919×</td><td class='num'>2290c</td><td class='num'>6059c</td><td class='num'>16c</td><td class='num'>78</td></tr>
+        <tr><td>C16</td><td class='num pos'>EUR 92,497.24</td><td class='num'>1.177×</td><td class='num'>1550c</td><td class='num'>17186c</td><td class='num'>11c</td><td class='num'>294</td></tr>
+        <tr><td>C17</td><td class='num pos'>EUR 1,744.47</td><td class='num'>1.168×</td><td class='num'>1101c</td><td class='num'>16572c</td><td class='num'>27c</td><td class='num'>148</td></tr>
+        <tr><td>C18</td><td class='num neg'>EUR -110,895.68</td><td class='num'>1.278×</td><td class='num'>872c</td><td class='num'>16556c</td><td class='num'>25c</td><td class='num'>238</td></tr>
+        <tr><td>C19</td><td class='num pos'>EUR 8,516.55</td><td class='num'>1.340×</td><td class='num'>1927c</td><td class='num'>16323c</td><td class='num'>31c</td><td class='num'>206</td></tr>
+        <tr><td>C20</td><td class='num pos'>EUR 13,686.10</td><td class='num'>1.064×</td><td class='num'>1427c</td><td class='num'>17817c</td><td class='num'>35c</td><td class='num'>300</td></tr>
+        <tr><td>C21</td><td class='num pos'>EUR 2,070.08</td><td class='num'>0.877×</td><td class='num'>2339c</td><td class='num'>12399c</td><td class='num'>29c</td><td class='num'>245</td></tr>
+        <tr><td>C22</td><td class='num neg'>EUR -85,131.45</td><td class='num'>1.447×</td><td class='num'>1978c</td><td class='num'>14102c</td><td class='num'>39c</td><td class='num'>186</td></tr>
+        <tr><td>C23</td><td class='num neg'>EUR -130,563.36</td><td class='num'>1.364×</td><td class='num'>1967c</td><td class='num'>9013c</td><td class='num'>23c</td><td class='num'>109</td></tr>
+        <tr><td>C24</td><td class='num pos'>EUR 94,211.74</td><td class='num'>1.261×</td><td class='num'>2057c</td><td class='num'>17520c</td><td class='num'>28c</td><td class='num'>219</td></tr>
+        <tr><td>C25</td><td class='num neg'>EUR -15,767.54</td><td class='num'>1.151×</td><td class='num'>1472c</td><td class='num'>12436c</td><td class='num'>34c</td><td class='num'>164</td></tr>
+        <tr><td>C26</td><td class='num neg'>EUR -170,014.85</td><td class='num'>0.862×</td><td class='num'>1763c</td><td class='num'>5253c</td><td class='num'>20c</td><td class='num'>288</td></tr>
+        <tr><td>C27</td><td class='num neg'>EUR -28,938.85</td><td class='num'>1.056×</td><td class='num'>1598c</td><td class='num'>15956c</td><td class='num'>11c</td><td class='num'>67</td></tr>
+        <tr><td>C28</td><td class='num neg'>EUR -41,584.34</td><td class='num'>1.160×</td><td class='num'>1149c</td><td class='num'>12603c</td><td class='num'>47c</td><td class='num'>124</td></tr>
+        <tr><td>C29</td><td class='num pos'>EUR 20,033.55</td><td class='num'>1.139×</td><td class='num'>1679c</td><td class='num'>16032c</td><td class='num'>32c</td><td class='num'>242</td></tr>
+        <tr><td>C30</td><td class='num neg'>EUR -117,971.36</td><td class='num'>1.399×</td><td class='num'>2442c</td><td class='num'>7493c</td><td class='num'>25c</td><td class='num'>190</td></tr>
+        <tr><td>C31</td><td class='num neg'>EUR -236,637.96</td><td class='num'>1.115×</td><td class='num'>1845c</td><td class='num'>5897c</td><td class='num'>29c</td><td class='num'>149</td></tr>
+        <tr><td>C32</td><td class='num neg'>EUR -226,741.53</td><td class='num'>0.825×</td><td class='num'>2149c</td><td class='num'>5552c</td><td class='num'>20c</td><td class='num'>100</td></tr>
+        <tr><td>C33</td><td class='num neg'>EUR -49,544.26</td><td class='num'>0.833×</td><td class='num'>1895c</td><td class='num'>9693c</td><td class='num'>32c</td><td class='num'>107</td></tr>
+        <tr><td>C34</td><td class='num neg'>EUR -229,642.75</td><td class='num'>0.979×</td><td class='num'>2051c</td><td class='num'>7408c</td><td class='num'>24c</td><td class='num'>158</td></tr>
+        <tr><td>C35</td><td class='num neg'>EUR -191,430.08</td><td class='num'>0.954×</td><td class='num'>2467c</td><td class='num'>5732c</td><td class='num'>12c</td><td class='num'>135</td></tr>
+        <tr><td>C36</td><td class='num neg'>EUR -10,920.06</td><td class='num'>0.847×</td><td class='num'>1545c</td><td class='num'>14131c</td><td class='num'>40c</td><td class='num'>241</td></tr>
+        <tr><td>C37</td><td class='num pos'>EUR 68,437.17</td><td class='num'>1.047×</td><td class='num'>2489c</td><td class='num'>16387c</td><td class='num'>45c</td><td class='num'>100</td></tr>
+        <tr><td>C38</td><td class='num neg'>EUR -137,006.35</td><td class='num'>1.060×</td><td class='num'>2159c</td><td class='num'>5987c</td><td class='num'>43c</td><td class='num'>63</td></tr>
+        <tr><td>C39</td><td class='num pos'>EUR 103,697.76</td><td class='num'>0.880×</td><td class='num'>1560c</td><td class='num'>17826c</td><td class='num'>22c</td><td class='num'>76</td></tr>
+        <tr><td>C40</td><td class='num neg'>EUR -59,315.88</td><td class='num'>1.249×</td><td class='num'>1740c</td><td class='num'>9528c</td><td class='num'>23c</td><td class='num'>107</td></tr>
+        <tr><td>C41</td><td class='num neg'>EUR -94,667.68</td><td class='num'>1.322×</td><td class='num'>2139c</td><td class='num'>10317c</td><td class='num'>37c</td><td class='num'>82</td></tr>
+        <tr><td>C42</td><td class='num neg'>EUR -41,419.02</td><td class='num'>1.087×</td><td class='num'>1309c</td><td class='num'>10449c</td><td class='num'>45c</td><td class='num'>210</td></tr>
+        <tr><td>C43</td><td class='num neg'>EUR -11,792.41</td><td class='num'>1.382×</td><td class='num'>904c</td><td class='num'>17983c</td><td class='num'>38c</td><td class='num'>121</td></tr>
+        <tr><td>C44</td><td class='num pos'>EUR 48,844.05</td><td class='num'>1.198×</td><td class='num'>1487c</td><td class='num'>14697c</td><td class='num'>12c</td><td class='num'>119</td></tr>
+        <tr><td>C45</td><td class='num neg'>EUR -157,820.13</td><td class='num'>0.895×</td><td class='num'>1711c</td><td class='num'>5725c</td><td class='num'>21c</td><td class='num'>208</td></tr>
+        <tr><td>C46</td><td class='num neg'>EUR -137,827.19</td><td class='num'>1.298×</td><td class='num'>1439c</td><td class='num'>14790c</td><td class='num'>35c</td><td class='num'>241</td></tr>
+        <tr><td>C47</td><td class='num neg'>EUR -147,062.66</td><td class='num'>0.908×</td><td class='num'>1292c</td><td class='num'>5628c</td><td class='num'>25c</td><td class='num'>254</td></tr>
+        <tr><td>C48</td><td class='num neg'>EUR -42,132.76</td><td class='num'>1.303×</td><td class='num'>2357c</td><td class='num'>11115c</td><td class='num'>29c</td><td class='num'>104</td></tr>
+        <tr><td>C49</td><td class='num neg'>EUR -89,809.74</td><td class='num'>1.068×</td><td class='num'>1747c</td><td class='num'>9719c</td><td class='num'>29c</td><td class='num'>184</td></tr>
+        <tr><td>C50</td><td class='num neg'>EUR -219,093.86</td><td class='num'>1.209×</td><td class='num'>2184c</td><td class='num'>6326c</td><td class='num'>19c</td><td class='num'>55</td></tr>
+        <tr><td>C51</td><td class='num pos'>EUR 147,731.61</td><td class='num'>0.810×</td><td class='num'>2207c</td><td class='num'>17846c</td><td class='num'>15c</td><td class='num'>219</td></tr>
+        <tr><td>C52</td><td class='num pos'>EUR 88,360.25</td><td class='num'>0.862×</td><td class='num'>1739c</td><td class='num'>17949c</td><td class='num'>31c</td><td class='num'>260</td></tr>
+        <tr><td>C53</td><td class='num pos'>EUR 95,286.76</td><td class='num'>0.869×</td><td class='num'>2445c</td><td class='num'>17821c</td><td class='num'>26c</td><td class='num'>161</td></tr>
+        <tr><td>C54</td><td class='num pos'>EUR 37,531.55</td><td class='num'>1.329×</td><td class='num'>2495c</td><td class='num'>17956c</td><td class='num'>26c</td><td class='num'>217</td></tr>
+        <tr><td>C55</td><td class='num pos'>EUR 124,813.62</td><td class='num'>1.040×</td><td class='num'>2115c</td><td class='num'>17750c</td><td class='num'>50c</td><td class='num'>97</td></tr>
+        <tr><td>C56</td><td class='num pos'>EUR 96,924.73</td><td class='num'>1.485×</td><td class='num'>2487c</td><td class='num'>17894c</td><td class='num'>23c</td><td class='num'>67</td></tr>
+        <tr><td>C57</td><td class='num pos'>EUR 108,410.05</td><td class='num'>1.131×</td><td class='num'>2084c</td><td class='num'>17972c</td><td class='num'>49c</td><td class='num'>140</td></tr>
+        <tr><td>C58</td><td class='num pos'>EUR 78,343.78</td><td class='num'>1.425×</td><td class='num'>1953c</td><td class='num'>17947c</td><td class='num'>41c</td><td class='num'>54</td></tr>
+        <tr><td>C59</td><td class='num pos'>EUR 94,220.47</td><td class='num'>1.064×</td><td class='num'>2456c</td><td class='num'>17564c</td><td class='num'>31c</td><td class='num'>239</td></tr>
+        <tr><td>C60</td><td class='num pos'>EUR 150,030.44</td><td class='num'>1.263×</td><td class='num'>2495c</td><td class='num'>17995c</td><td class='num'>46c</td><td class='num'>232</td></tr>
+        <tr><td>C61</td><td class='num pos'>EUR 141,459.16</td><td class='num'>0.858×</td><td class='num'>2464c</td><td class='num'>17656c</td><td class='num'>47c</td><td class='num'>211</td></tr>
+        <tr><td>C62</td><td class='num pos'>EUR 133,991.38</td><td class='num'>1.314×</td><td class='num'>2292c</td><td class='num'>17953c</td><td class='num'>14c</td><td class='num'>56</td></tr>
+        <tr><td>C63</td><td class='num pos'>EUR 189,172.05</td><td class='num'>1.100×</td><td class='num'>2439c</td><td class='num'>17763c</td><td class='num'>20c</td><td class='num'>195</td></tr>
+        <tr><td>C64</td><td class='num pos'>EUR 113,874.64</td><td class='num'>1.126×</td><td class='num'>2483c</td><td class='num'>17980c</td><td class='num'>31c</td><td class='num'>186</td></tr>
+        <tr><td>C65</td><td class='num pos'>EUR 137,328.74</td><td class='num'>1.024×</td><td class='num'>2399c</td><td class='num'>17785c</td><td class='num'>36c</td><td class='num'>205</td></tr>
+        <tr><td>C66</td><td class='num pos'>EUR 44,988.50</td><td class='num'>1.286×</td><td class='num'>1754c</td><td class='num'>17826c</td><td class='num'>11c</td><td class='num'>122</td></tr>
+        <tr><td>C67</td><td class='num pos'>EUR 108,814.56</td><td class='num'>1.006×</td><td class='num'>2496c</td><td class='num'>17850c</td><td class='num'>38c</td><td class='num'>114</td></tr>
+        <tr><td>C68</td><td class='num pos'>EUR 194,506.27</td><td class='num'>1.066×</td><td class='num'>2351c</td><td class='num'>17940c</td><td class='num'>42c</td><td class='num'>83</td></tr>
+        <tr><td>C69</td><td class='num pos'>EUR 58,303.30</td><td class='num'>0.946×</td><td class='num'>2026c</td><td class='num'>17589c</td><td class='num'>39c</td><td class='num'>255</td></tr>
+        <tr><td>C70</td><td class='num pos'>EUR 84,889.35</td><td class='num'>1.268×</td><td class='num'>2470c</td><td class='num'>17929c</td><td class='num'>15c</td><td class='num'>157</td></tr>
+        <tr><td>C71</td><td class='num neg'>EUR -1,296.48</td><td class='num'>1.437×</td><td class='num'>2465c</td><td class='num'>17932c</td><td class='num'>17c</td><td class='num'>98</td></tr>
+        <tr><td>C72</td><td class='num pos'>EUR 150,151.52</td><td class='num'>0.848×</td><td class='num'>2407c</td><td class='num'>17821c</td><td class='num'>37c</td><td class='num'>55</td></tr>
+        <tr><td>C73</td><td class='num pos'>EUR 146,576.31</td><td class='num'>0.822×</td><td class='num'>2398c</td><td class='num'>17621c</td><td class='num'>32c</td><td class='num'>146</td></tr>
+        <tr><td>C74</td><td class='num pos'>EUR 110,221.69</td><td class='num'>0.810×</td><td class='num'>2373c</td><td class='num'>17885c</td><td class='num'>46c</td><td class='num'>172</td></tr>
+        <tr><td>C75</td><td class='num pos'>EUR 91,823.62</td><td class='num'>0.804×</td><td class='num'>2497c</td><td class='num'>17635c</td><td class='num'>16c</td><td class='num'>77</td></tr>
+        <tr><td>C76</td><td class='num pos'>EUR 118,268.32</td><td class='num'>0.816×</td><td class='num'>2306c</td><td class='num'>17419c</td><td class='num'>26c</td><td class='num'>140</td></tr>
+        <tr><td>C77</td><td class='num pos'>EUR 133,918.43</td><td class='num'>0.826×</td><td class='num'>1577c</td><td class='num'>17617c</td><td class='num'>27c</td><td class='num'>199</td></tr>
+        <tr><td>C78</td><td class='num pos'>EUR 67,718.84</td><td class='num'>0.857×</td><td class='num'>2392c</td><td class='num'>17743c</td><td class='num'>42c</td><td class='num'>151</td></tr>
+        <tr><td>C79</td><td class='num neg'>EUR -23,574.05</td><td class='num'>0.818×</td><td class='num'>943c</td><td class='num'>17403c</td><td class='num'>21c</td><td class='num'>282</td></tr>
+        <tr><td>C80</td><td class='num pos'>EUR 141,002.31</td><td class='num'>1.211×</td><td class='num'>2380c</td><td class='num'>17934c</td><td class='num'>39c</td><td class='num'>232</td></tr>
+        <tr><td>C81</td><td class='num pos'>EUR 104,754.75</td><td class='num'>0.849×</td><td class='num'>2430c</td><td class='num'>17386c</td><td class='num'>34c</td><td class='num'>152</td></tr>
+        <tr><td>C82</td><td class='num pos'>EUR 110,214.74</td><td class='num'>1.469×</td><td class='num'>2347c</td><td class='num'>17580c</td><td class='num'>48c</td><td class='num'>289</td></tr>
+        <tr><td>C83</td><td class='num pos'>EUR 150,710.16</td><td class='num'>0.833×</td><td class='num'>1819c</td><td class='num'>17840c</td><td class='num'>26c</td><td class='num'>133</td></tr>
+        <tr><td>C84</td><td class='num pos'>EUR 87,716.50</td><td class='num'>0.994×</td><td class='num'>1794c</td><td class='num'>17979c</td><td class='num'>25c</td><td class='num'>252</td></tr>
+        <tr><td>C85</td><td class='num pos'>EUR 148,144.94</td><td class='num'>0.946×</td><td class='num'>2008c</td><td class='num'>17959c</td><td class='num'>23c</td><td class='num'>140</td></tr>
+        <tr><td>C86</td><td class='num pos'>EUR 189,316.05</td><td class='num'>0.814×</td><td class='num'>2141c</td><td class='num'>17889c</td><td class='num'>18c</td><td class='num'>210</td></tr>
+        <tr><td>C87</td><td class='num pos'>EUR 93,599.63</td><td class='num'>0.813×</td><td class='num'>1896c</td><td class='num'>17678c</td><td class='num'>31c</td><td class='num'>270</td></tr>
+        <tr><td>C88</td><td class='num neg'>EUR -213,510.51</td><td class='num'>1.498×</td><td class='num'>825c</td><td class='num'>5801c</td><td class='num'>19c</td><td class='num'>174</td></tr>
+        <tr><td>C89</td><td class='num neg'>EUR -12,584.36</td><td class='num'>1.263×</td><td class='num'>2497c</td><td class='num'>17965c</td><td class='num'>17c</td><td class='num'>76</td></tr>
+        <tr><td>C90</td><td class='num pos'>EUR 101,824.29</td><td class='num'>0.829×</td><td class='num'>2493c</td><td class='num'>17547c</td><td class='num'>12c</td><td class='num'>143</td></tr>
+        <tr><td>C91</td><td class='num pos'>EUR 166,594.06</td><td class='num'>0.800×</td><td class='num'>2217c</td><td class='num'>17577c</td><td class='num'>28c</td><td class='num'>223</td></tr>
+        <tr><td>C92</td><td class='num pos'>EUR 53,900.89</td><td class='num'>0.824×</td><td class='num'>2476c</td><td class='num'>17572c</td><td class='num'>21c</td><td class='num'>218</td></tr>
+        <tr><td>C93</td><td class='num pos'>EUR 143,700.86</td><td class='num'>1.489×</td><td class='num'>2389c</td><td class='num'>17958c</td><td class='num'>21c</td><td class='num'>297</td></tr>
+        <tr><td>C94</td><td class='num pos'>EUR 84,387.76</td><td class='num'>1.432×</td><td class='num'>2470c</td><td class='num'>17873c</td><td class='num'>10c</td><td class='num'>195</td></tr>
+        <tr><td>C95</td><td class='num pos'>EUR 141,312.63</td><td class='num'>0.824×</td><td class='num'>2456c</td><td class='num'>17673c</td><td class='num'>34c</td><td class='num'>169</td></tr>
+        <tr><td>C96</td><td class='num pos'>EUR 45,351.37</td><td class='num'>0.822×</td><td class='num'>1944c</td><td class='num'>17771c</td><td class='num'>12c</td><td class='num'>51</td></tr>
+        <tr><td>C97</td><td class='num pos'>EUR 134,293.44</td><td class='num'>0.861×</td><td class='num'>2174c</td><td class='num'>17957c</td><td class='num'>27c</td><td class='num'>289</td></tr>
+        <tr><td>C98</td><td class='num pos'>EUR 128,011.66</td><td class='num'>0.809×</td><td class='num'>2456c</td><td class='num'>17995c</td><td class='num'>34c</td><td class='num'>85</td></tr>
+        <tr><td>C99</td><td class='num pos'>EUR 105,822.81</td><td class='num'>0.801×</td><td class='num'>2488c</td><td class='num'>17827c</td><td class='num'>24c</td><td class='num'>235</td></tr>
+        <tr><td>C100</td><td class='num pos'>EUR 278,778.88</td><td class='num'>1.090×</td><td class='num'>2459c</td><td class='num'>17855c</td><td class='num'>30c</td><td class='num'>68</td></tr>
+        <tr><td>C101</td><td class='num neg'>EUR -251,784.54</td><td class='num'>1.485×</td><td class='num'>870c</td><td class='num'>5863c</td><td class='num'>32c</td><td class='num'>138</td></tr>
+        <tr><td>C102</td><td class='num neg'>EUR -68,526.72</td><td class='num'>1.472×</td><td class='num'>930c</td><td class='num'>17857c</td><td class='num'>34c</td><td class='num'>64</td></tr>
+        <tr><td>C103</td><td class='num neg'>EUR -6,459.63</td><td class='num'>0.810×</td><td class='num'>2444c</td><td class='num'>17662c</td><td class='num'>21c</td><td class='num'>126</td></tr>
+        <tr><td>C104</td><td class='num neg'>EUR -214,375.26</td><td class='num'>0.811×</td><td class='num'>892c</td><td class='num'>17602c</td><td class='num'>32c</td><td class='num'>131</td></tr>
+        <tr><td>C105</td><td class='num neg'>EUR -128,563.19</td><td class='num'>1.486×</td><td class='num'>983c</td><td class='num'>17963c</td><td class='num'>43c</td><td class='num'>127</td></tr>
+        <tr><td>C106</td><td class='num neg'>EUR -59,958.47</td><td class='num'>0.824×</td><td class='num'>802c</td><td class='num'>16370c</td><td class='num'>23c</td><td class='num'>140</td></tr>
+        <tr><td>C107</td><td class='num neg'>EUR -184,495.95</td><td class='num'>0.809×</td><td class='num'>2427c</td><td class='num'>6444c</td><td class='num'>12c</td><td class='num'>192</td></tr>
+        <tr><td>C108</td><td class='num neg'>EUR -203,799.99</td><td class='num'>0.815×</td><td class='num'>802c</td><td class='num'>5735c</td><td class='num'>48c</td><td class='num'>54</td></tr>
+        <tr><td>C109</td><td class='num pos'>EUR 89,607.76</td><td class='num'>1.481×</td><td class='num'>1999c</td><td class='num'>17891c</td><td class='num'>35c</td><td class='num'>134</td></tr>
+        <tr><td>C110</td><td class='num neg'>EUR -45,827.49</td><td class='num'>1.491×</td><td class='num'>2441c</td><td class='num'>17989c</td><td class='num'>14c</td><td class='num'>283</td></tr>
+        <tr><td>C111</td><td class='num pos'>EUR 137,884.28</td><td class='num'>1.475×</td><td class='num'>2479c</td><td class='num'>17703c</td><td class='num'>30c</td><td class='num'>86</td></tr>
+        <tr><td>C112</td><td class='num neg'>EUR -109,982.66</td><td class='num'>0.806×</td><td class='num'>2438c</td><td class='num'>17879c</td><td class='num'>35c</td><td class='num'>85</td></tr>
+        <tr><td>C113</td><td class='num neg'>EUR -21,577.46</td><td class='num'>0.815×</td><td class='num'>801c</td><td class='num'>17098c</td><td class='num'>38c</td><td class='num'>261</td></tr>
+        <tr><td>C114</td><td class='num pos'>EUR 99,487.75</td><td class='num'>0.880×</td><td class='num'>2458c</td><td class='num'>17864c</td><td class='num'>26c</td><td class='num'>269</td></tr>
+        <tr><td>C115</td><td class='num pos'>EUR 103,614.60</td><td class='num'>1.463×</td><td class='num'>2496c</td><td class='num'>16914c</td><td class='num'>49c</td><td class='num'>171</td></tr>
+        <tr><td>C116</td><td class='num pos'>EUR 202,767.34</td><td class='num'>1.494×</td><td class='num'>2466c</td><td class='num'>17949c</td><td class='num'>19c</td><td class='num'>63</td></tr>
+        <tr><td>C117</td><td class='num pos'>EUR 156,845.13</td><td class='num'>0.818×</td><td class='num'>2441c</td><td class='num'>17693c</td><td class='num'>22c</td><td class='num'>127</td></tr>
+        <tr><td>C118</td><td class='num neg'>EUR -45,598.38</td><td class='num'>1.493×</td><td class='num'>1748c</td><td class='num'>17963c</td><td class='num'>13c</td><td class='num'>187</td></tr>
+        <tr><td>C119</td><td class='num pos'>EUR 165,910.35</td><td class='num'>1.439×</td><td class='num'>2460c</td><td class='num'>17958c</td><td class='num'>39c</td><td class='num'>72</td></tr>
+        <tr><td>C120</td><td class='num pos'>EUR 203,503.65</td><td class='num'>1.000×</td><td class='num'>2494c</td><td class='num'>17857c</td><td class='num'>17c</td><td class='num'>103</td></tr>
+        <tr><td>C121</td><td class='num neg'>EUR -188,892.31</td><td class='num'>0.822×</td><td class='num'>934c</td><td class='num'>5343c</td><td class='num'>11c</td><td class='num'>80</td></tr>
+        <tr><td>C122</td><td class='num neg'>EUR -191,501.71</td><td class='num'>1.477×</td><td class='num'>2471c</td><td class='num'>5143c</td><td class='num'>29c</td><td class='num'>216</td></tr>
+        <tr><td>C123</td><td class='num pos'>EUR 81,864.05</td><td class='num'>1.133×</td><td class='num'>2449c</td><td class='num'>17618c</td><td class='num'>45c</td><td class='num'>71</td></tr>
+        <tr><td>C124</td><td class='num neg'>EUR -147,615.94</td><td class='num'>1.473×</td><td class='num'>837c</td><td class='num'>5930c</td><td class='num'>43c</td><td class='num'>158</td></tr>
+        <tr><td>C125</td><td class='num pos'>EUR 59,292.69</td><td class='num'>0.842×</td><td class='num'>1659c</td><td class='num'>17925c</td><td class='num'>18c</td><td class='num'>58</td></tr>
+        <tr><td>C126</td><td class='num pos'>EUR 77,806.72</td><td class='num'>1.490×</td><td class='num'>2486c</td><td class='num'>15431c</td><td class='num'>49c</td><td class='num'>253</td></tr>
+        <tr><td>C127</td><td class='num neg'>EUR -17,031.24</td><td class='num'>0.807×</td><td class='num'>928c</td><td class='num'>17798c</td><td class='num'>10c</td><td class='num'>76</td></tr>
+        <tr><td>C128</td><td class='num pos'>EUR 141,127.75</td><td class='num'>1.327×</td><td class='num'>2457c</td><td class='num'>17876c</td><td class='num'>49c</td><td class='num'>94</td></tr>
+        <tr><td>C129</td><td class='num pos'>EUR 133,082.17</td><td class='num'>1.439×</td><td class='num'>2417c</td><td class='num'>17968c</td><td class='num'>27c</td><td class='num'>114</td></tr>
+        <tr><td>C130</td><td class='num pos'>EUR 203,059.07</td><td class='num'>0.816×</td><td class='num'>2495c</td><td class='num'>17803c</td><td class='num'>23c</td><td class='num'>286</td></tr>
+        <tr><td>C131</td><td class='num pos'>EUR 118,161.32</td><td class='num'>0.845×</td><td class='num'>2499c</td><td class='num'>17512c</td><td class='num'>49c</td><td class='num'>277</td></tr>
+        <tr><td>C132</td><td class='num neg'>EUR -224,216.03</td><td class='num'>1.494×</td><td class='num'>2484c</td><td class='num'>6266c</td><td class='num'>15c</td><td class='num'>245</td></tr>
+        <tr><td>C133</td><td class='num pos'>EUR 157,369.35</td><td class='num'>0.808×</td><td class='num'>2497c</td><td class='num'>17993c</td><td class='num'>24c</td><td class='num'>59</td></tr>
+        <tr><td>C134</td><td class='num pos'>EUR 199,588.09</td><td class='num'>0.834×</td><td class='num'>2455c</td><td class='num'>17838c</td><td class='num'>43c</td><td class='num'>175</td></tr>
+        <tr><td>C135</td><td class='num pos'>EUR 107,359.74</td><td class='num'>1.422×</td><td class='num'>2484c</td><td class='num'>17722c</td><td class='num'>34c</td><td class='num'>281</td></tr>
+        <tr><td>C136</td><td class='num pos'>EUR 55,387.27</td><td class='num'>0.806×</td><td class='num'>2427c</td><td class='num'>17799c</td><td class='num'>15c</td><td class='num'>202</td></tr>
+        <tr><td>C137</td><td class='num pos'>EUR 57,830.44</td><td class='num'>0.844×</td><td class='num'>2455c</td><td class='num'>17927c</td><td class='num'>47c</td><td class='num'>66</td></tr>
+        <tr><td>C138</td><td class='num pos'>EUR 414.98</td><td class='num'>1.439×</td><td class='num'>2500c</td><td class='num'>17546c</td><td class='num'>43c</td><td class='num'>92</td></tr>
+        <tr><td>C139</td><td class='num neg'>EUR -153.89</td><td class='num'>1.458×</td><td class='num'>2496c</td><td class='num'>17769c</td><td class='num'>32c</td><td class='num'>196</td></tr>
+        <tr><td>C140</td><td class='num pos'>EUR 37,031.84</td><td class='num'>0.804×</td><td class='num'>2494c</td><td class='num'>14819c</td><td class='num'>28c</td><td class='num'>177</td></tr>
+        <tr><td>C141</td><td class='num neg'>EUR -274,047.24</td><td class='num'>0.876×</td><td class='num'>964c</td><td class='num'>5230c</td><td class='num'>14c</td><td class='num'>268</td></tr>
+        <tr><td>C142</td><td class='num pos'>EUR 154,889.48</td><td class='num'>0.808×</td><td class='num'>2458c</td><td class='num'>17896c</td><td class='num'>42c</td><td class='num'>79</td></tr>
+        <tr><td>C143</td><td class='num neg'>EUR -18,164.13</td><td class='num'>1.497×</td><td class='num'>815c</td><td class='num'>17657c</td><td class='num'>10c</td><td class='num'>62</td></tr>
+        <tr><td>C144</td><td class='num pos'>EUR 33,998.46</td><td class='num'>1.498×</td><td class='num'>1456c</td><td class='num'>17975c</td><td class='num'>40c</td><td class='num'>135</td></tr>
+        <tr><td>C145</td><td class='num pos'>EUR 90,132.85</td><td class='num'>1.488×</td><td class='num'>2491c</td><td class='num'>17911c</td><td class='num'>45c</td><td class='num'>74</td></tr>
+        <tr><td>C146</td><td class='num pos'>EUR 732.01</td><td class='num'>1.500×</td><td class='num'>2487c</td><td class='num'>13323c</td><td class='num'>18c</td><td class='num'>107</td></tr>
+        <tr><td>C147</td><td class='num neg'>EUR -83,233.12</td><td class='num'>1.497×</td><td class='num'>908c</td><td class='num'>17919c</td><td class='num'>34c</td><td class='num'>238</td></tr>
+        <tr><td>C148</td><td class='num pos'>EUR 76,511.62</td><td class='num'>0.816×</td><td class='num'>2485c</td><td class='num'>14833c</td><td class='num'>23c</td><td class='num'>281</td></tr>
+        <tr><td>C149</td><td class='num neg'>EUR -103,317.50</td><td class='num'>1.463×</td><td class='num'>2484c</td><td class='num'>16652c</td><td class='num'>23c</td><td class='num'>69</td></tr>
+        <tr><td>C150</td><td class='num pos'>EUR 95,220.11</td><td class='num'>0.817×</td><td class='num'>2407c</td><td class='num'>17958c</td><td class='num'>15c</td><td class='num'>78</td></tr>
+        <tr><td>C151</td><td class='num pos'>EUR 156,488.89</td><td class='num'>1.080×</td><td class='num'>2469c</td><td class='num'>17749c</td><td class='num'>15c</td><td class='num'>93</td></tr>
+        <tr><td>C152</td><td class='num pos'>EUR 79,202.65</td><td class='num'>1.151×</td><td class='num'>2473c</td><td class='num'>17762c</td><td class='num'>43c</td><td class='num'>269</td></tr>
+        <tr><td>C153</td><td class='num pos'>EUR 44,591.81</td><td class='num'>0.809×</td><td class='num'>2482c</td><td class='num'>12864c</td><td class='num'>29c</td><td class='num'>168</td></tr>
+        <tr><td>C154</td><td class='num pos'>EUR 39,111.98</td><td class='num'>0.803×</td><td class='num'>1307c</td><td class='num'>17800c</td><td class='num'>38c</td><td class='num'>272</td></tr>
+        <tr><td>C155</td><td class='num pos'>EUR 93,102.57</td><td class='num'>0.801×</td><td class='num'>2496c</td><td class='num'>17795c</td><td class='num'>22c</td><td class='num'>243</td></tr>
+        <tr><td>C156</td><td class='num pos'>EUR 29,740.42</td><td class='num'>1.495×</td><td class='num'>2453c</td><td class='num'>17671c</td><td class='num'>42c</td><td class='num'>287</td></tr>
+        <tr><td>C157</td><td class='num pos'>EUR 189,791.02</td><td class='num'>1.419×</td><td class='num'>2472c</td><td class='num'>17937c</td><td class='num'>11c</td><td class='num'>232</td></tr>
+        <tr><td>C158</td><td class='num neg'>EUR -223,346.29</td><td class='num'>0.812×</td><td class='num'>2477c</td><td class='num'>7745c</td><td class='num'>47c</td><td class='num'>73</td></tr>
+        <tr><td>C159</td><td class='num neg'>EUR -27,561.17</td><td class='num'>0.848×</td><td class='num'>837c</td><td class='num'>17807c</td><td class='num'>34c</td><td class='num'>190</td></tr>
+        <tr><td>C160</td><td class='num pos'>EUR 188,382.85</td><td class='num'>1.182×</td><td class='num'>2487c</td><td class='num'>17856c</td><td class='num'>32c</td><td class='num'>182</td></tr>
+        <tr><td>C161</td><td class='num pos'>EUR 54,135.43</td><td class='num'>1.466×</td><td class='num'>2491c</td><td class='num'>17742c</td><td class='num'>12c</td><td class='num'>94</td></tr>
+        <tr><td>C162</td><td class='num pos'>EUR 149,885.25</td><td class='num'>1.276×</td><td class='num'>2481c</td><td class='num'>17941c</td><td class='num'>30c</td><td class='num'>104</td></tr>
+        <tr><td>C163</td><td class='num pos'>EUR 137,607.54</td><td class='num'>1.027×</td><td class='num'>2469c</td><td class='num'>17972c</td><td class='num'>26c</td><td class='num'>238</td></tr>
+        <tr><td>C164</td><td class='num pos'>EUR 61,794.81</td><td class='num'>1.485×</td><td class='num'>1853c</td><td class='num'>17929c</td><td class='num'>29c</td><td class='num'>73</td></tr>
+        <tr><td>C165</td><td class='num pos'>EUR 123,863.87</td><td class='num'>0.821×</td><td class='num'>1910c</td><td class='num'>17964c</td><td class='num'>39c</td><td class='num'>52</td></tr>
+        <tr><td>C166</td><td class='num neg'>EUR -116,578.57</td><td class='num'>0.802×</td><td class='num'>832c</td><td class='num'>17952c</td><td class='num'>33c</td><td class='num'>93</td></tr>
+        <tr><td>C167</td><td class='num pos'>EUR 68,144.71</td><td class='num'>0.858×</td><td class='num'>2486c</td><td class='num'>17814c</td><td class='num'>17c</td><td class='num'>175</td></tr>
+        <tr><td>C168</td><td class='num pos'>EUR 80,518.16</td><td class='num'>0.805×</td><td class='num'>1827c</td><td class='num'>17961c</td><td class='num'>41c</td><td class='num'>278</td></tr>
+        <tr><td>C169</td><td class='num pos'>EUR 54,515.45</td><td class='num'>1.486×</td><td class='num'>1784c</td><td class='num'>17977c</td><td class='num'>38c</td><td class='num'>282</td></tr>
+        <tr><td>C170</td><td class='num pos'>EUR 181,385.30</td><td class='num'>0.928×</td><td class='num'>2468c</td><td class='num'>17938c</td><td class='num'>34c</td><td class='num'>191</td></tr>
+        <tr><td>C171</td><td class='num pos'>EUR 36,466.81</td><td class='num'>1.159×</td><td class='num'>2422c</td><td class='num'>17936c</td><td class='num'>42c</td><td class='num'>172</td></tr>
+        <tr><td>C172</td><td class='num pos'>EUR 153,129.92</td><td class='num'>1.315×</td><td class='num'>2496c</td><td class='num'>17995c</td><td class='num'>32c</td><td class='num'>232</td></tr>
+        <tr><td>C173</td><td class='num pos'>EUR 100,015.42</td><td class='num'>1.277×</td><td class='num'>2367c</td><td class='num'>17576c</td><td class='num'>13c</td><td class='num'>240</td></tr>
+        <tr><td>C174</td><td class='num neg'>EUR -15,582.51</td><td class='num'>0.813×</td><td class='num'>1071c</td><td class='num'>17081c</td><td class='num'>47c</td><td class='num'>245</td></tr>
+        <tr><td>C175</td><td class='num pos'>EUR 35,522.83</td><td class='num'>1.483×</td><td class='num'>2494c</td><td class='num'>17330c</td><td class='num'>32c</td><td class='num'>79</td></tr>
+        <tr><td>C176</td><td class='num pos'>EUR 73,661.75</td><td class='num'>0.819×</td><td class='num'>2325c</td><td class='num'>17235c</td><td class='num'>33c</td><td class='num'>235</td></tr>
+        <tr><td>C177</td><td class='num pos'>EUR 126,108.67</td><td class='num'>1.015×</td><td class='num'>2485c</td><td class='num'>17963c</td><td class='num'>43c</td><td class='num'>248</td></tr>
+        <tr><td>C178</td><td class='num pos'>EUR 128,554.51</td><td class='num'>1.224×</td><td class='num'>1874c</td><td class='num'>17696c</td><td class='num'>49c</td><td class='num'>85</td></tr>
+        <tr><td>C179</td><td class='num pos'>EUR 81,921.01</td><td class='num'>1.072×</td><td class='num'>2060c</td><td class='num'>17974c</td><td class='num'>11c</td><td class='num'>193</td></tr>
+        <tr><td>C180</td><td class='num pos'>EUR 86,127.83</td><td class='num'>1.493×</td><td class='num'>2451c</td><td class='num'>17445c</td><td class='num'>34c</td><td class='num'>111</td></tr>
+        <tr><td>C181</td><td class='num neg'>EUR -149,998.54</td><td class='num'>1.489×</td><td class='num'>1167c</td><td class='num'>17661c</td><td class='num'>14c</td><td class='num'>182</td></tr>
+        <tr><td>C182</td><td class='num pos'>EUR 120,821.31</td><td class='num'>0.802×</td><td class='num'>2363c</td><td class='num'>16523c</td><td class='num'>17c</td><td class='num'>120</td></tr>
+        <tr><td>C183</td><td class='num neg'>EUR -115,389.82</td><td class='num'>0.802×</td><td class='num'>2212c</td><td class='num'>17123c</td><td class='num'>43c</td><td class='num'>58</td></tr>
+        <tr><td>C184</td><td class='num pos'>EUR 124,709.02</td><td class='num'>0.812×</td><td class='num'>2416c</td><td class='num'>17883c</td><td class='num'>22c</td><td class='num'>166</td></tr>
+        <tr><td>C185</td><td class='num pos'>EUR 105,482.11</td><td class='num'>1.189×</td><td class='num'>2462c</td><td class='num'>17805c</td><td class='num'>13c</td><td class='num'>120</td></tr>
+        <tr><td>C186</td><td class='num pos'>EUR 104,403.85</td><td class='num'>0.815×</td><td class='num'>2379c</td><td class='num'>17804c</td><td class='num'>12c</td><td class='num'>97</td></tr>
+        <tr><td>C187</td><td class='num neg'>EUR -12,456.95</td><td class='num'>1.500×</td><td class='num'>892c</td><td class='num'>17799c</td><td class='num'>30c</td><td class='num'>194</td></tr>
+        <tr><td>C188</td><td class='num pos'>EUR 158,295.84</td><td class='num'>0.825×</td><td class='num'>2487c</td><td class='num'>17680c</td><td class='num'>50c</td><td class='num'>269</td></tr>
+        <tr><td>C189</td><td class='num neg'>EUR -198,974.75</td><td class='num'>1.480×</td><td class='num'>801c</td><td class='num'>5049c</td><td class='num'>46c</td><td class='num'>104</td></tr>
+        <tr><td>C190</td><td class='num neg'>EUR -95,237.93</td><td class='num'>0.806×</td><td class='num'>830c</td><td class='num'>10566c</td><td class='num'>21c</td><td class='num'>173</td></tr>
+        <tr><td>C191</td><td class='num pos'>EUR 63,025.71</td><td class='num'>1.495×</td><td class='num'>2489c</td><td class='num'>17702c</td><td class='num'>22c</td><td class='num'>247</td></tr>
+        <tr><td>C192</td><td class='num pos'>EUR 144,257.30</td><td class='num'>0.803×</td><td class='num'>2048c</td><td class='num'>17971c</td><td class='num'>31c</td><td class='num'>200</td></tr>
+        <tr><td>C193</td><td class='num neg'>EUR -166,582.68</td><td class='num'>1.484×</td><td class='num'>2392c</td><td class='num'>5087c</td><td class='num'>45c</td><td class='num'>298</td></tr>
+        <tr><td>C194</td><td class='num pos'>EUR 83,565.88</td><td class='num'>0.801×</td><td class='num'>2484c</td><td class='num'>13980c</td><td class='num'>33c</td><td class='num'>64</td></tr>
+        <tr><td>C195</td><td class='num pos'>EUR 148,405.97</td><td class='num'>1.138×</td><td class='num'>2486c</td><td class='num'>17992c</td><td class='num'>31c</td><td class='num'>128</td></tr>
+        <tr><td>C196</td><td class='num pos'>EUR 137,335.42</td><td class='num'>0.816×</td><td class='num'>2496c</td><td class='num'>17198c</td><td class='num'>47c</td><td class='num'>258</td></tr>
+        <tr><td>C197</td><td class='num pos'>EUR 176,447.80</td><td class='num'>0.807×</td><td class='num'>2486c</td><td class='num'>17975c</td><td class='num'>45c</td><td class='num'>150</td></tr>
+        <tr><td>C198</td><td class='num pos'>EUR 193,380.92</td><td class='num'>0.818×</td><td class='num'>2493c</td><td class='num'>17599c</td><td class='num'>13c</td><td class='num'>162</td></tr>
+        <tr><td>C199</td><td class='num pos'>EUR 149,090.77</td><td class='num'>0.989×</td><td class='num'>2494c</td><td class='num'>17863c</td><td class='num'>24c</td><td class='num'>149</td></tr>
+        <tr><td>C200</td><td class='num neg'>EUR -165,932.09</td><td class='num'>0.818×</td><td class='num'>810c</td><td class='num'>5970c</td><td class='num'>47c</td><td class='num'>204</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('profitChart').getContext('2d');
+    const labels = ["C141", "C101", "C31", "C34", "C32", "C132", "C158", "C50", "C104", "C88", "C108", "C189", "C122", "C35", "C121", "C15", "C107", "C12", "C11", "C7", "C26", "C193", "C200", "C45", "C181", "C13", "C124", "C47", "C46", "C38", "C23", "C105", "C3", "C30", "C166", "C183", "C18", "C112", "C149", "C190", "C41", "C49", "C22", "C147", "C14", "C102", "C106", "C40", "C33", "C110", "C118", "C48", "C28", "C42", "C6", "C2", "C5", "C8", "C27", "C159", "C1", "C9", "C79", "C113", "C10", "C143", "C127", "C25", "C174", "C89", "C187", "C43", "C36", "C103", "C4", "C71", "C139", "C138", "C146", "C17", "C21", "C19", "C20", "C29", "C156", "C144", "C175", "C171", "C140", "C54", "C154", "C153", "C66", "C96", "C44", "C92", "C161", "C169", "C136", "C137", "C69", "C125", "C164", "C191", "C78", "C167", "C37", "C176", "C148", "C126", "C58", "C152", "C168", "C123", "C179", "C194", "C94", "C70", "C180", "C84", "C52", "C109", "C145", "C75", "C16", "C155", "C87", "C24", "C59", "C150", "C53", "C56", "C114", "C173", "C90", "C115", "C39", "C186", "C81", "C185", "C99", "C135", "C57", "C67", "C82", "C74", "C64", "C131", "C76", "C182", "C165", "C184", "C55", "C177", "C98", "C178", "C129", "C77", "C62", "C97", "C65", "C196", "C163", "C111", "C80", "C128", "C95", "C61", "C93", "C192", "C73", "C51", "C85", "C195", "C199", "C162", "C60", "C72", "C83", "C172", "C142", "C151", "C117", "C133", "C188", "C119", "C91", "C197", "C170", "C160", "C63", "C86", "C157", "C198", "C68", "C134", "C116", "C130", "C120", "C100"];
+    const data = [-274047.24, -251784.54, -236637.96, -229642.75, -226741.53, -224216.03, -223346.29, -219093.86, -214375.26, -213510.51, -203799.99, -198974.75, -191501.71, -191430.08, -188892.31, -184904.2, -184495.95, -182400.93, -180014.23, -176874.05, -170014.85, -166582.68, -165932.09, -157820.13, -149998.54, -148915.37, -147615.94, -147062.66, -137827.19, -137006.35, -130563.36, -128563.19, -118493.65, -117971.36, -116578.57, -115389.82, -110895.68, -109982.66, -103317.5, -95237.93, -94667.68, -89809.74, -85131.45, -83233.12, -73187.08, -68526.72, -59958.47, -59315.88, -49544.26, -45827.49, -45598.38, -42132.76, -41584.34, -41419.02, -40894.48, -39920.79, -32971.29, -30346.44, -28938.85, -27561.17, -25767.74, -24483.93, -23574.05, -21577.46, -19068.62, -18164.13, -17031.24, -15767.54, -15582.51, -12584.36, -12456.95, -11792.41, -10920.06, -6459.63, -1892.49, -1296.48, -153.89, 414.98, 732.01, 1744.47, 2070.08, 8516.55, 13686.1, 20033.55, 29740.42, 33998.46, 35522.83, 36466.81, 37031.84, 37531.55, 39111.98, 44591.81, 44988.5, 45351.37, 48844.05, 53900.89, 54135.43, 54515.45, 55387.27, 57830.44, 58303.3, 59292.69, 61794.81, 63025.71, 67718.84, 68144.71, 68437.17, 73661.75, 76511.62, 77806.72, 78343.78, 79202.65, 80518.16, 81864.05, 81921.01, 83565.88, 84387.76, 84889.35, 86127.83, 87716.5, 88360.25, 89607.76, 90132.85, 91823.62, 92497.24, 93102.57, 93599.63, 94211.74, 94220.47, 95220.11, 95286.76, 96924.73, 99487.75, 100015.42, 101824.29, 103614.6, 103697.76, 104403.85, 104754.75, 105482.11, 105822.81, 107359.74, 108410.05, 108814.56, 110214.74, 110221.69, 113874.64, 118161.32, 118268.32, 120821.31, 123863.87, 124709.02, 124813.62, 126108.67, 128011.66, 128554.51, 133082.17, 133918.43, 133991.38, 134293.44, 137328.74, 137335.42, 137607.54, 137884.28, 141002.31, 141127.75, 141312.63, 141459.16, 143700.86, 144257.3, 146576.31, 147731.61, 148144.94, 148405.97, 149090.77, 149885.25, 150030.44, 150151.52, 150710.16, 153129.92, 154889.48, 156488.89, 156845.13, 157369.35, 158295.84, 165910.35, 166594.06, 176447.8, 181385.3, 188382.85, 189172.05, 189316.05, 189791.02, 193380.92, 194506.27, 199588.09, 202767.34, 203059.07, 203503.65, 278778.88];
+    const bg = data.map(v => v >= 0 ? '#22c55e' : '#ef4444');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Net Profit (EUR)',
+          data: data,
+          backgroundColor: bg,
+          borderColor: bg,
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => 'EUR ' + c.parsed.y.toFixed(2) } } },
+        scales: {
+          x: { title: { display: true, text: 'Configuration' }, ticks: { maxRotation: 90, minRotation: 90, font: { size: 8 } } },
+          y: { title: { display: true, text: 'Net Profit (EUR)' }, ticks: { callback: v => 'EUR ' + v.toLocaleString() } }
+        }
+      }
+    });
+  </script>
+
+  <div class="section">
+    <h2>Validation Details</h2>
+    <p style="color:var(--muted);font-size:.9rem;">
+      Git commit: dfca10e | 
+      Method: fresh_factory_per_seed_stochastic_false | 
+      Seeds: 50 | 
+      Base seed: 999999 | 
+      Duration: 108s
+    </p>
+    <p style="color:var(--muted);font-size:.9rem;">
+      Each seed uses a fresh SimulatorFactory with explicit seed, stochastic=False.
+      This eliminates hidden RNG state and makes results fully reproducible.
+    </p>
+  </div>
+
+  <footer style="text-align:center;color:var(--muted);font-size:.8rem;padding:2rem 0;">
+    Agent Revenue Simulator — Technical Report — Generated 2026-05-21 09:36
+  </footer>
+</body>
+</html>

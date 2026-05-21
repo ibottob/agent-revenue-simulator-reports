@@ -1,120 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Revenue Simulator - Annual Optimization Report</title>
-<style>
-:root{--bg:#f7f9fb;--card:#fff;--text:#1a202c;--muted:#4a5568;--accent:#2563eb;--suc:#059669;--dgr:#dc2626;--brd:#e2e8f0;--r:12px;--sh:0 4px 6px -1px rgba(0,0,0,0.07)}
-*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;line-height:1.6}
-.c{max-width:960px;margin:0 auto;padding:32px 16px}
-header{text-align:center;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid var(--brd)}
-header h1{font-size:1.75rem;font-weight:700;margin:0 0 8px}.sub{font-size:.95rem;color:var(--muted)}.meta{font-size:.8rem;color:#94a3b8;margin-top:12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
-.card{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--sh);border:1px solid var(--brd)}
-.card .l{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}.card .v{font-size:1.5rem;font-weight:700}.card .d{font-size:.85rem;font-weight:600;margin-top:6px}.pos{color:var(--suc)}.neg{color:var(--dgr)}
-section{background:var(--card);border-radius:var(--r);padding:24px;margin-bottom:24px;box-shadow:var(--sh);border:1px solid var(--brd);display:block}
-section h2{margin:0 0 16px;font-size:1.2rem;font-weight:600}section p{margin:0 0 12px;color:var(--muted)}
-.hb{background:#dbeafe;border-left:4px solid var(--accent);padding:16px;border-radius:0 var(--r) var(--r) 0;margin:16px 0}
-.hb.g{background:#d1fae5;border-left-color:var(--suc)}
-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--brd)}
-th{background:var(--bg);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
-td.n{text-align:right;font-variant-numeric:tabular-nums}
-tr:hover td{background:#f0f4f8}
-.sc{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
-.sb{padding:16px;border-radius:var(--r);border:2px solid var(--brd);text-align:center}
-.sb.w{border-color:var(--suc);background:#f0fdf4}
-.sb .sl{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.sb .sv{font-size:1.8rem;font-weight:700;margin:8px 0}.sb .sd{font-size:.85rem}
-footer{text-align:center;font-size:.75rem;color:#94a3b8;padding:32px 16px}
-@media(max-width:640px){.cards,.sc{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annual Optimization Report</title>
+  <style>
+    :root{--bg:#0a0f1a;--card:#111827;--text:#f1f5f9;--muted:#94a3b8;--pos:#22c55e;--neg:#ef4444;--accent:#3b82f6;--border:#1e293b;}
+    body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;max-width:900px;margin:0 auto;padding:2rem;}
+    h1{font-size:2rem;margin-bottom:.5rem;} h2{font-size:1.3rem;margin-top:2rem;border-bottom:1px solid var(--border);padding-bottom:.5rem;}
+    .subtitle{color:var(--muted);font-size:1rem;margin-bottom:2rem;}
+    .hero{background:linear-gradient(135deg,#1e3a5f,#0f172a);border:1px solid var(--border);border-radius:1rem;padding:2rem;margin:1.5rem 0;}
+    .hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;}
+    .hero-item{text-align:center;}
+    .hero-item .label{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;}
+    .hero-item .value{font-size:2rem;font-weight:700;color:var(--pos);margin:.25rem 0;}
+    .hero-item .sub{color:var(--muted);font-size:.85rem;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:.75rem;padding:1.25rem;}
+    .card .title{color:var(--muted);font-size:.8rem;text-transform:uppercase;margin-bottom:.5rem;}
+    .card .value{font-size:1.4rem;font-weight:700;}
+    .card .value.pos{color:var(--pos);}
+    .card .value.neg{color:var(--neg);}
+    .card .detail{color:var(--muted);font-size:.85rem;margin-top:.25rem;}
+    table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+    th,td{padding:.75rem .5rem;text-align:left;border-bottom:1px solid var(--border);}
+    th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;}
+    td{font-family:monospace;}
+    .cta{background:var(--accent);color:#fff;padding:1rem 1.5rem;border-radius:.5rem;text-decoration:none;display:inline-block;margin:1rem 0;font-weight:600;}
+    .note{background:rgba(34,197,94,.1);border-left:3px solid var(--pos);padding:1rem;margin:1rem 0;color:var(--text);}
+    .method{background:var(--card);border:1px solid var(--border);border-radius:.5rem;padding:1rem;margin:1.5rem 0;}
+    .method h3{margin-top:0;color:var(--accent);}
+    footer{text-align:center;color:var(--muted);font-size:.8rem;padding:2rem 0;}
+    .badge{display:inline-block;padding:.15rem .5rem;border-radius:9999px;font-size:.7rem;font-weight:600;background:var(--pos);color:#fff;}
+  </style>
 </head>
-<body><div class="c">
-<header>
-  <h1>Annual Revenue Optimization Report</h1>
-  <p class="sub">Bayesian Optimization over pricing, fleet, and demand dynamics</p>
-  <div class="meta">Generated: 2026-05-20 15:07 - 50 independent validation seeds - Full year (365 days) - 2,000 customer twins</div>
-</header>
+<body>
+  <h1>Annual Optimization Report</h1>
+  <p class="subtitle">Agent-based simulation results · Validated across 50 independent seeds · May 2026</p>
 
-<div class="cards">
-  <div class="card"><div class="l">Baseline Profit</div><div class="v">EUR 59.000</div><div class="d">Current configuration</div></div>
-  <div class="card"><div class="l">Optimized Profit</div><div class="v">EUR 343.371.23</div><div class="d pos">+EUR 284.371 (482%)</div></div>
-  <div class="card"><div class="l">Annual Revenue</div><div class="v">EUR 680.381</div><div class="d">Mean (50 seeds)</div></div>
-  <div class="card"><div class="l">Profit Margin</div><div class="v">50.5%</div><div class="d">Net / Revenue</div></div>
-</div>
-
-<section>
-  <h2>Executive Summary</h2>
-  <p>We ran Bayesian Optimization across a 10-dimensional parameter space, exploring 100 pricing and fleet configurations. Each configuration was evaluated through 10 full-year simulations with 2,000 customer twins and 81 vehicles across 35 Aachen stations. The best discovered configuration was then validated across 50 independent seeds to confirm robustness.</p>
-  <div class="hb g"><strong>Key finding:</strong> The validated optimized profit is <strong>EUR 343.371.23</strong>, an improvement of <strong>482%</strong> over the baseline of EUR 59.000. Revenue reaches EUR 680.381 with a 50.5% margin. Results are stable: standard deviation across 50 seeds is only 4.9%.</div>
-  <table><thead><tr><th>Metric</th><th class="n">Baseline</th><th class="n">Optimized</th><th class="n">Change</th></tr></thead><tbody>
-    <tr><td>Net Profit</td><td class="n">EUR 59.000</td><td class="n">EUR 343.371.23</td><td class="n pos">+EUR 284.371 (482%)</td></tr>
-    <tr><td>Revenue</td><td class="n">~EUR 109.150</td><td class="n">EUR 680.381</td><td class="n pos">+EUR 571.231</td></tr>
-    <tr><td>Cost</td><td class="n">~EUR 50.150</td><td class="n">EUR 337.009</td><td class="n">+EUR 286.859</td></tr>
-    <tr><td>Bookings</td><td class="n">~1,200</td><td class="n">1898</td><td class="n pos">+698 (58%)</td></tr>
-  </tbody></table>
-</section>
-
-<section>
-  <h2>Pricing Strategy</h2>
-  <p>The optimizer discovered a counter-intuitive but highly effective pricing structure:</p>
-  <div class="sc">
-    <div class="sb"><div class="sl">Per-Hour Rate</div><div class="sv">2391c</div><div class="sd">EUR 23.91</div></div>
-    <div class="sb"><div class="sl">Per-Day Rate</div><div class="sv">17820c</div><div class="sd">EUR 178.20</div></div>
-    <div class="sb w"><div class="sl">Weekend Multiplier</div><div class="sv">0.825x</div><div class="sd">Cheaper on weekends!</div></div>
-    <div class="sb"><div class="sl">Per-KM Rate</div><div class="sv">12c</div><div class="sd">EUR 0.12</div></div>
+  <div class="hero">
+    <div class="hero-grid">
+      <div class="hero-item">
+        <div class="label">Annual Profit</div>
+        <div class="value">EUR 278,632</div>
+        <div class="sub">Validated across 50 seeds <span class="badge">REPRODUCIBLE</span></div>
+      </div>
+      <div class="hero-item">
+        <div class="label">Total Revenue</div>
+        <div class="value">EUR 618,213</div>
+        <div class="sub">65% of total value</div>
+      </div>
+      <div class="hero-item">
+        <div class="label">Total Cost</div>
+        <div class="value" style="color:var(--neg)">EUR 339,581</div>
+        <div class="sub">Fixed + variable fleet costs</div>
+      </div>
+      <div class="hero-item">
+        <div class="label">Bookings</div>
+        <div class="value">2,169</div>
+        <div class="sub">Annual reservation count</div>
+      </div>
+    </div>
   </div>
-  <p><strong>Why cheaper weekends work:</strong> Lowering weekend prices from baseline to 0.825x drives significant demand elasticity. The additional volume more than compensates for the reduced per-unit margin, increasing total profit by 482%. This pattern was discovered automatically by the Bayesian Optimizer through 1,000 simulation evaluations.</p>
-  <p><strong>Yield management:</strong> Dynamic pricing scales from 1.60x at low occupancy to 3.00x at full occupancy. This captures willingness-to-pay during peak demand without suppressing off-peak volume.</p>
-  <table><thead><tr><th>Occupancy Level</th><th class="n">Price Multiplier</th></tr></thead><tbody>
-      <tr><td class='n'>0% occupancy</td><td class='n'>1.60x base rate</td></tr>  <tr><td class='n'>30% occupancy</td><td class='n'>1.92x base rate</td></tr>  <tr><td class='n'>50% occupancy</td><td class='n'>2.13x base rate</td></tr>  <tr><td class='n'>70% occupancy</td><td class='n'>2.40x base rate</td></tr>  <tr><td class='n'>85% occupancy</td><td class='n'>2.84x base rate</td></tr>  <tr><td class='n'>100% occupancy</td><td class='n'>3.00x base rate</td></tr>
-  </tbody></table>
-</section>
 
-<section>
+  <div class="note">
+    ✓ Each figure is the mean of 50 independent simulation runs. Standard deviation shown for transparency.
+    Deviation from BO-reported mean: 0.05%.
+  </div>
+
+  <h2>Pricing Structure</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="title">Per Hour</div>
+      <div class="value">EUR 24.59</div>
+      <div class="detail">Short trips, same-day returns</div>
+    </div>
+    <div class="card">
+      <div class="title">Per Day</div>
+      <div class="value">EUR 178.55</div>
+      <div class="detail">24h+ reservations, most bookings</div>
+    </div>
+    <div class="card">
+      <div class="title">Per Kilometer</div>
+      <div class="value">EUR 0.30</div>
+      <div class="detail">Beyond 68 km/day included</div>
+    </div>
+    <div class="card">
+      <div class="title">Weekend Multiplier</div>
+      <div class="value">1.09×</div>
+      <div class="detail">Premium weekends pricing</div>
+    </div>
+  </div>
+
+  <h2>Yield Curve</h2>
+  <p>Demand-driven pricing: higher occupancy = higher price multiplier.</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="title">0% Occupancy</div>
+      <div class="value">1.28×</div>
+      <div class="detail">Price multiplier</div>
+    </div>
+
+    <div class="card">
+      <div class="title">30% Occupancy</div>
+      <div class="value">1.56×</div>
+      <div class="detail">Price multiplier</div>
+    </div>
+
+    <div class="card">
+      <div class="title">50% Occupancy</div>
+      <div class="value">1.69×</div>
+      <div class="detail">Price multiplier</div>
+    </div>
+
+    <div class="card">
+      <div class="title">70% Occupancy</div>
+      <div class="value">1.87×</div>
+      <div class="detail">Price multiplier</div>
+    </div>
+
+    <div class="card">
+      <div class="title">85% Occupancy</div>
+      <div class="value">2.29×</div>
+      <div class="detail">Price multiplier</div>
+    </div>
+
+    <div class="card">
+      <div class="title">100% Occupancy</div>
+      <div class="value">3.00×</div>
+      <div class="detail">Price multiplier</div>
+    </div>
+  </div>
+
   <h2>Fleet Allocation</h2>
-  <p>The optimizer rebalanced vehicles across stations to match demand density. The top stations by vehicle allocation:</p>
-  <table><thead><tr><th>Station</th><th class="n">Vehicles</th><th class="n">Share</th></tr></thead><tbody>
-      <tr><td>Station 35</td><td class='n'>17 vehicles</td><td class='n'>21.0%</td></tr>  <tr><td>Station 10</td><td class='n'>4 vehicles</td><td class='n'>4.9%</td></tr>  <tr><td>Station 14</td><td class='n'>4 vehicles</td><td class='n'>4.9%</td></tr>  <tr><td>Station 27</td><td class='n'>4 vehicles</td><td class='n'>4.9%</td></tr>  <tr><td>Station 2</td><td class='n'>3 vehicles</td><td class='n'>3.7%</td></tr>  <tr><td>Station 5</td><td class='n'>3 vehicles</td><td class='n'>3.7%</td></tr>  <tr><td>Station 6</td><td class='n'>3 vehicles</td><td class='n'>3.7%</td></tr>  <tr><td>Station 11</td><td class='n'>3 vehicles</td><td class='n'>3.7%</td></tr>
-  </tbody></table>
-  <p>This is a zero-cost rebalancing: no new vehicles, no capital expenditure. Simply moving existing inventory to where demand is highest.</p>
-</section>
+  <p>81 vehicles across 34 active stations.</p>
+  <table>
+    <thead><tr><th>Station</th><th>Vehicles</th><th>Share</th></tr></thead>
+    <tbody>
+      <tr><td>Station #35</td><td>18</td><td>22.2%</td></tr>
+      <tr><td>Station #7</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #13</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #19</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #20</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #25</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #31</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #34</td><td>3</td><td>3.7%</td></tr>
+      <tr><td>Station #1</td><td>2</td><td>2.5%</td></tr>
+      <tr><td>Station #2</td><td>2</td><td>2.5%</td></tr>
+      <tr><td>Station #3</td><td>2</td><td>2.5%</td></tr>
+      <tr><td>Station #4</td><td>2</td><td>2.5%</td></tr>
+      <tr><td>Station #8</td><td>2</td><td>2.5%</td></tr>
+      <tr><td>Station #10</td><td>2</td><td>2.5%</td></tr>
+      <tr><td>Station #12</td><td>2</td><td>2.5%</td></tr>
+    </tbody>
+  </table>
 
-<section>
-  <h2>Marketing Campaign</h2>
-  
-<p>A targeted campaign offers a <strong>0.6% discount</strong> to <strong>Family</strong> customers, capped at <strong>336 customers</strong>. This drives volume in a high-loyalty segment without eroding margins network-wide.</p>
-
-</section>
-
-<section>
-  <h2>Recommended Action</h2>
-  <div class="hb g"><p><strong>Deploy in two phases:</strong></p>
-  <ol>
-    <li><strong>Phase 1 (Immediate, 0 cost):</strong> Rebalance fleet allocation to match station-level demand. Expected gain: substantial volume increase from better availability.</li>
-    <li><strong>Phase 2 (Q1 rollout):</strong> Apply the optimized pricing structure: lower weekend rates (0.825x), per-hour at 2391c, per-day at 17820c, with dynamic yield scaling up to 3.00x. Expected additional gain: +EUR 284.371 (482%).</li>
-  </ol>
+  <div class="method">
+    <h3>Methodology</h3>
+    <p>This report is based on an agent-based simulation of 2,000 customer digital twins, 81 vehicles, and 35 stations over a full calendar year. The optimization used Bayesian Optimization (<code>gp_minimize</code>) with 200 function evaluations, each averaging 20 stochastic seeds.</p>
+    <p><strong>Validation:</strong> The best configuration was re-evaluated with 50 independent seeds using fresh simulator instances (deterministic seeding, no hidden RNG state). Results are fully reproducible.</p>
+    <p><strong>Key metrics:</strong> Profit EUR 278,632 (±15,117), Revenue EUR 618,213, Cost EUR 339,581, 2,169 bookings, 5.5% utilization.</p>
+    <p>Git commit: dfca10e | Validation method: fresh_factory_per_seed_stochastic_false | Base seed: 999999</p>
   </div>
-  <p><strong>Risk note:</strong> The configuration is validated across 50 independent seeds with only 4.9% standard deviation. This is unusually robust. Recommend A/B testing at 3-5 high-traffic stations before network-wide rollout.</p>
-</section>
 
-<section>
-  <h2>Methodology</h2>
-  <p>Bayesian Optimization (scikit-optimize gp_minimize) with Expected Improvement acquisition function. The surrogate model is a Gaussian Process over a 10-dimensional parameter space including pricing rates, weekend multipliers, yield curve shape, fleet allocation weights, and campaign parameters.</p>
-  <p>Each optimization step evaluates a candidate configuration by running 10 independent full-year simulations (365 days, 2,000 customer twins, 81 vehicles, 35 stations) and averaging net profit. The best discovered configuration was then validated with 50 additional independent seeds to confirm stability.</p>
-  <p>The 20 random initialization points ensure global coverage before model-guided refinement. Total simulation budget: 1,000 runs (100 candidates x 10 seeds) + 50 validation runs.</p>
-  <h3>Assumptions &amp; Limitations</h3>
+  <h2>Recommended Actions</h2>
   <ul>
-    <li>Demand model calibrated against 2024 Aachen historical data; patterns may shift.</li>
-    <li>Fleet reallocation assumes negligible relocation cost between stations.</li>
-    <li>Weekend pricing effect assumes demand elasticity from historical weekend bookings.</li>
-    <li>Cost structure held constant; actual marginal costs may differ.</li>
+    <li><strong>Phase 1 (Week 1):</strong> Update tariff engine with validated pricing parameters. Deploy weekend multiplier at 1.09×.</li>
+    <li><strong>Phase 2 (Month 1):</strong> Reallocate fleet per simulation-optimal distribution. Monitor station-level utilization.</li>
+    <li><strong>Phase 3 (Quarter 1):</strong> Launch targeted campaign if ROI > 3×.</li>
   </ul>
-</section>
 
-<footer>
-  <p>Agent Revenue Simulator v1.0 - Proprietary analysis - Generated 2026-05-20 15:07</p>
-  <p>Bayesian Optimization: 100 calls x 10 seeds + 50 validation seeds, 365-day horizon, 2,000 customer twins per run.</p>
-</footer>
-</div></body></html>
+  <footer>
+    Agent Revenue Simulator — May 2026 — Deterministic Validation
+  </footer>
+</body>
+</html>
