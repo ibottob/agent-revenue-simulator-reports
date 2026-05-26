@@ -1,4 +1,6 @@
-# Only HTML reports published here
+# HARD GUARD: agent-revenue-simulator-reports
+# This repo must contain ONLY rendered HTML reports.
+
 *.py
 *.json
 *.csv
@@ -14,6 +16,8 @@
 *.sh
 *.bat
 *.ps1
+*.js
+*.css
 *.svg
 *.png
 *.jpg
