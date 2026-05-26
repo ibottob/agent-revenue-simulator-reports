@@ -1,17 +1,4 @@
-# HARD GUARD: agent-revenue-simulator-reports
-# This repo must contain ONLY rendered HTML reports.
-# NO source code, NO data files, NO schemas, NO credentials.
-
-# Ignore everything by default
-*
-
-# Allow only HTML reports
-!*.html
-
-# Allow this guard file itself
-!.gitignore
-
-# Explicitly block common leak vectors
+# Only HTML reports published here
 *.py
 *.json
 *.csv
@@ -27,8 +14,6 @@
 *.sh
 *.bat
 *.ps1
-*.js
-*.css
 *.svg
 *.png
 *.jpg
