@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMPANY — Pitch Deck</title>
+<style>
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Reveal.js minimal CSS */
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: #0a1628;
+  color: #c8d4e0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.reveal {
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.slides {
+  width: 100%; height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide {
+  width: 100%; height: 100vh;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  position: relative;
+  padding: 4rem 5rem;
+}
+
+/* Typography */
+h1, h2, h3 { color: #f0a500; font-weight: 700; }
+h1 { font-size: 3.2rem; margin-bottom: 0.5em; }
+h2 { font-size: 2.4rem; margin-bottom: 0.8em; }
+h3 { font-size: 1.6rem; color: #4cc9f0; margin-bottom: 0.5em; }
+p { font-size: 1.3rem; line-height: 1.6; margin-bottom: 0.8em; }
+
+/* Colors */
+.highlight { color: #f0a500; font-weight: 600; }
+.cyan { color: #4cc9f0; }
+.muted { color: #6b7d94; font-size: 0.9rem; }
+
+/* CSS Bar Chart */
+.bar-chart { display: flex; align-items: flex-end; gap: 2rem; height: 300px; margin: 2rem 0; }
+.bar { width: 80px; background: #4cc9f0; border-radius: 4px 4px 0 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 8px; transition: height 0.8s ease; }
+.bar.highlight { background: #f0a500; }
+.bar-label { margin-top: 12px; font-size: 0.85rem; color: #6b7d94; text-align: center; }
+
+/* Comparison Table */
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+th { text-align: left; padding: 12px 16px; color: #f0a500; border-bottom: 2px solid #f0a500; font-weight: 600; }
+td { padding: 10px 16px; border-bottom: 1px solid #1a2a42; }
+.check { color: #4cc9f0; font-weight: 700; }
+.x { color: #ff4444; }
+
+/* Fragment animations */
+.fragment { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fragment.visible { opacity: 1; transform: translateY(0); }
+
+/* Slide number */
+.slide-num { position: absolute; bottom: 20px; right: 30px; font-size: 0.8rem; color: #6b7d94; }
+
+/* Progress bar */
+.progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: #4cc9f0; transition: width 0.3s ease; z-index: 100; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides" id="slides">
+
+<!-- SLIDE 1: Title -->
+<section class="slide" style="text-align:center;">
+  <h1 style="font-size:3.5rem;">COMPANY</h1>
+  <p style="font-size:1.6rem; color:#4cc9f0; margin-top:0.5em;">One-line value proposition</p>
+  <p class="muted" style="margin-top:2em;">Target audience</p>
+  <div class="fragment" style="margin-top:3em;">
+    <p style="font-size:2.5rem; color:#f0a500; font-weight:700;">+XX% impact metric</p>
+    <p class="muted">vs. baseline</p>
+  </div>
+  <span class="slide-num">1 / 16</span>
+</section>
+
+<!-- SLIDE 2: Problem -->
+<section class="slide">
+  <h2>The Problem</h2>
+  <div class="fragment" style="margin-top:1em;">
+    <p>Turbo-boost the Problem Description</p>
+  </div>
+  <div class="fragment" style="margin-top:2em; padding:1.5em; background:rgba(255,68,68,0.1); border-radius:8px; border-left:4px solid #ff4444;">
+    <p style="color:#ff4444; font-weight:600; margin-bottom:0.5em;">Critical Failure Mode</p>
+    <p>Describe the failure</p>
+  </div>
+  <span class="slide-num">2 / 16</span>
+</section>
+
+<!-- ... Add remaining 14 slides ... -->
+
+</div>
+</div>
+
+<div class="progress-bar" id="progress"></div>
+
+<script>
+// Minimal Reveal.js implementation
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(n) {
+  if (n < 0) n = 0; if (n >= total) n = total - 1;
+  current = n;
+  slides.forEach((s, i) => {
+    s.style.display = i === current ? 'flex' : 'none';
+  });
+  document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+  // Trigger fragments
+  slides[current].querySelectorAll('.fragment').forEach((f, i) => {
+    setTimeout(() => f.classList.add('visible'), 200 * (i + 1));
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') showSlide(current + 1);
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') showSlide(current - 1);
+  else if (e.key === 'Home') showSlide(0);
+  else if (e.key === 'End') showSlide(total - 1);
+  else if (e.key === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+showSlide(0);
+</script>
+</body>
+</html>
