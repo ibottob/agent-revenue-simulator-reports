@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Mobility — Pitch Deck (Print)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #fcfffe;
+  --card: #ffffff;
+  --text: #1e1e1e;
+  --text-muted: #334155;
+  --text-light: #737373;
+  --border: rgba(0,0,0,0.06);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --accent-green: #01b784;
+  --accent-green-dark: #008c64;
+  --accent-red: #d7263d;
+  --cta: #212121;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  font-family: var(--font);
+  background: #fff;
+  color: var(--text);
+}
+
+/* Each slide is a standalone page */
+.slide {
+  position: relative;
+  width: 100%;
+  min-height: 210mm;
+  padding: 15mm 20mm;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  break-after: page;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.slide:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+/* Hide interactive / decorative elements */
+.brand-mark, .confidential, .slide-counter, .progress-track {
+  display: none !important;
+}
+
+/* Typography scaled for print */
+.hero { font-size: 48pt; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--text); }
+.headline { font-size: 32pt; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: var(--text); }
+.subhead { font-size: 20pt; font-weight: 400; line-height: 1.4; letter-spacing: -0.01em; color: var(--text-muted); }
+.body { font-size: 16pt; font-weight: 400; line-height: 1.55; color: var(--text); }
+.body-muted { font-size: 14pt; font-weight: 400; line-height: 1.5; color: var(--text-muted); }
+.caption { font-size: 12pt; font-weight: 400; line-height: 1.5; color: var(--text-light); }
+.label { font-size: 11pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
+
+.big-number { font-size: 56pt; font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: var(--text); }
+.big-number.green { color: var(--accent-green-dark); }
+.big-number.red { color: var(--accent-red); }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; box-shadow: var(--shadow); }
+.pill { display: inline-flex; align-items: center; justify-content: center; background: var(--cta); color: #fff; border: none; border-radius: 999px; padding: 10px 24px; font-family: var(--font); font-size: 14pt; font-weight: 500; }
+.green-band { background: linear-gradient(180deg, var(--accent-green-dark), var(--accent-green)); color: #fff; }
+.tag { display: inline-block; background: rgba(1,183,132,0.12); color: var(--accent-green-dark); padding: 4px 10px; border-radius: 6px; font-size: 11pt; font-weight: 600; }
+.tag-red { background: rgba(215,38,61,0.1); color: var(--accent-red); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-16 { gap: 12px; }
+.gap-24 { gap: 18px; }
+.gap-32 { gap: 24px; }
+.gap-48 { gap: 32px; }
+.mt-auto { margin-top: auto; }
+.text-center { text-align: center; }
+.w-full { width: 100%; }
+
+/* Fragments always visible in print */
+.fragment { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* Print page settings */
+@page { size: 297mm 210mm; margin: 0; }
+
+</style>
+</head>
+<body>
+<section class="slide active" data-slide="1">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col justify-center items-center text-center" style="height:100%">
+    <div class="fragment">
+      <p class="label" style="margin-bottom:24px">Pitch Deck — June 2026 · Confidential</p>
+      <h1 class="hero" style="max-width:1100px; margin-bottom:56px">
+        Carsharing is run like airlines in the 1970s.
+      </h1>
+      <div class="fragment d2">
+        <p class="body" style="font-weight:600; color:var(--accent-green-dark)">
+          We are bringing revenue management to shared mobility.
+        </p>
+      </div>
+    </div>
+    <div class="fragment d3 mt-auto flex gap-32" style="padding:24px 40px; background:var(--card); border:1px solid var(--border); border-radius:16px;">
+      <div class="text-center">
+        <p class="body" style="font-weight:700; font-size:28px; color:var(--accent-green-dark)">€400K</p>
+        <p class="caption">Angel Ask</p>
+      </div>
+      <div style="width:1px; background:var(--border)"></div>
+      <div class="text-center">
+        <p class="body" style="font-weight:700; font-size:28px; color:var(--accent-green-dark)">15</p>
+        <p class="caption">Operators</p>
+      </div>
+      <div style="width:1px; background:var(--border)"></div>
+      <div class="text-center">
+        <p class="body" style="font-weight:700; font-size:28px; color:var(--accent-green-dark)">7</p>
+        <p class="caption">Paying</p>
+      </div>
+      <div style="width:1px; background:var(--border)"></div>
+      <div class="text-center">
+        <p class="body" style="font-weight:700; font-size:28px; color:var(--accent-green-dark)">+21.8%</p>
+        <p class="caption">Simulated Uplift</p>
+      </div>
+      <div style="width:1px; background:var(--border)"></div>
+      <div class="text-center">
+        <p class="body" style="font-weight:700; font-size:28px; color:var(--accent-green-dark)">18</p>
+        <p class="caption">Months</p>
+      </div>
+    </div>
+    <div class="fragment d3 mt-auto">
+      <p class="caption">Trace Mobility GmbH · Aachen, Germany · 18 months old</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="2">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">The Problem</p>
+    <h2 class="headline" style="max-width:1000px; margin-bottom:48px">
+      Carsharing operators lose <span style="color:var(--accent-red)">profit every day</span> because three decisions are made in isolation.
+    </h2>
+
+    <div class="flex gap-48" style="flex:1">
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-16">
+          <div style="width:48px;height:48px;border-radius:12px;background:rgba(215,38,61,0.1);display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:22px;font-weight:700;color:var(--accent-red)">1</span>
+          </div>
+          <p class="body" style="font-weight:600">Fleet: moved by intuition</p>
+        </div>
+        <p class="body-muted">Cars repositioned for yesterday's demand. No model of today's actual demand per station, per hour, per individual.</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-16">
+          <div style="width:48px;height:48px;border-radius:12px;background:rgba(215,38,61,0.1);display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:22px;font-weight:700;color:var(--accent-red)">2</span>
+          </div>
+          <p class="body" style="font-weight:600">Pricing: flat and static</p>
+        </div>
+        <p class="body-muted">Same rate Monday morning and Saturday night. No yield management. No response to real-time availability.</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-16">
+          <div style="width:48px;height:48px;border-radius:12px;background:rgba(215,38,61,0.1);display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:22px;font-weight:700;color:var(--accent-red)">3</span>
+          </div>
+          <p class="body" style="font-weight:600">Marketing: sprays and prays</p>
+        </div>
+        <p class="body-muted">Discounts to everyone regardless of demand mismatch. Budget spent. Incremental revenue unknown.</p>
+      </div>
+    </div>
+
+    <div class="fragment mt-auto" style="margin-top:32px">
+      <p class="caption"><strong>The cost:</strong> Simulated +21.8% profit uplift is currently unharvested because these three levers are optimized separately, not jointly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="3">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">The Precedent</p>
+    <h2 class="headline" style="max-width:1000px; margin-bottom:48px">
+      Airlines used <strong>statistical averages</strong> in the 1980s. We simulate <strong>every individual</strong>.
+    </h2>
+
+    <div class="flex gap-48" style="flex:1; align-items:stretch;">
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <p class="body" style="font-weight:600; font-size:28px">Airlines in the 1980s</p>
+        <p class="body-muted">Yield management: <strong>segment-based pricing</strong> on fixed schedules. Statistical models. Averages, not individuals.</p>
+        <div style="width:100%;height:1px;background:var(--border);margin:8px 0"></div>
+        <p class="body" style="font-weight:600; font-size:28px">Trace Mobility</p>
+        <p class="body-muted"><strong>Agent-based simulation</strong> where every customer is an individual digital twin. Calibrated from real booking history. LLM-augmented reasoning for behavioral nuance no statistical model captures.</p>
+      </div>
+
+      <div class="card flex flex-col justify-center items-center text-center" style="flex:1">
+        <p class="big-number green" style="font-size:56px">1→2000</p>
+        <p class="body" style="font-weight:600">Customer granularity</p>
+        <p class="caption">From 1 segment to 2,000 individual agents</p>
+        <div style="width:48px;height:2px;background:var(--border);margin:24px 0"></div>
+        <p class="body" style="font-weight:600">Calibrated twins, not averages</p>
+        <p class="caption">Every agent fitted from actual bookings</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <p class="body" style="font-weight:600; font-size:28px">Carsharing today</p>
+        <p class="body-muted">Fleet moves by gut feel. Prices are flat. Marketing sprays discounts blindly. The same profit is sitting there, unharvested.</p>
+        <div style="width:100%;height:1px;background:var(--border);margin:8px 0"></div>
+        <p class="body" style="font-weight:600; font-size:28px">Trace Mobility</p>
+        <p class="body-muted">Fleet, pricing, and marketing <strong>jointly optimized</strong> through simulation. Every recommendation validated against historical actuals before it is trusted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="4">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">The Solution</p>
+    <h2 class="headline" style="max-width:1000px; margin-bottom:48px">
+      A <strong>decision engine</strong> that optimizes fleet, pricing, and marketing <strong>jointly</strong>.
+    </h2>
+
+    <div class="flex gap-48" style="flex:1">
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <p class="big-number green" style="font-size:56px">01</p>
+        <p class="body" style="font-weight:600">Digital Twins</p>
+        <p class="body-muted">Every customer modelled individually — booking rate, price sensitivity, station preference, coupon redemption, churn risk. Not averages. Individuals.</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <p class="big-number green" style="font-size:56px">02</p>
+        <p class="body" style="font-weight:600">Joint Optimization</p>
+        <p class="body-muted">Fleet allocation × pricing strategy × marketing plan searched simultaneously. Simulated annealing finds configurations no siloed team would discover.</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <p class="big-number green" style="font-size:56px">03</p>
+        <p class="body" style="font-weight:600">Validate & Attribute</p>
+        <p class="body-muted">Baseline must match historical actuals within ±5%. Every recommendation reproducible. Then we tell you exactly how much profit came from fleet, pricing, marketing, and their interactions.</p>
+      </div>
+    </div>
+
+    <div class="fragment d2 mt-auto" style="margin-top:32px">
+      <p class="caption" style="text-align:center">
+        <span class="tag">Calibrate</span>&nbsp;&nbsp;<span style="color:var(--text-light)">→</span>&nbsp;&nbsp;
+        <span class="tag">Simulate</span>&nbsp;&nbsp;<span style="color:var(--text-light)">→</span>&nbsp;&nbsp;
+        <span class="tag">Optimize</span>&nbsp;&nbsp;<span style="color:var(--text-light)">→</span>&nbsp;&nbsp;
+        <span class="tag">Attribute</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="5">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">Simulation Result — Mock Data</p>
+    <h2 class="headline" style="max-width:1000px; margin-bottom:16px">
+      +21.8% net profit on simulated Aachen data.
+    </h2>
+    <p class="subhead" style="max-width:800px; margin-bottom:40px">
+      Decomposed into fleet (+6.5%), pricing (+13%), marketing (+5%), and their interaction (+4%). Simulated on Aachen mock data. Pilots will validate on live operators.
+    </p>
+
+    <div class="flex gap-32" style="flex:1">
+      <div class="card flex flex-col items-center text-center" style="flex:1">
+        <p class="big-number green" style="font-size:72px; margin-bottom:12px">+6.5%</p>
+        <p class="body" style="font-weight:600">Fleet rebalancing</p>
+        <p class="caption" style="margin-top:8px">Move vehicles to where demand actually is</p>
+      </div>
+
+      <div class="card flex flex-col items-center text-center" style="flex:1">
+        <p class="big-number green" style="font-size:72px; margin-bottom:12px">+13%</p>
+        <p class="body" style="font-weight:600">Yield management</p>
+        <p class="caption" style="margin-top:8px">Peak-hour pricing, station-specific rates</p>
+      </div>
+
+      <div class="card flex flex-col items-center text-center" style="flex:1">
+        <p class="big-number green" style="font-size:72px; margin-bottom:12px">+5%</p>
+        <p class="body" style="font-weight:600">Targeted marketing</p>
+        <p class="caption" style="margin-top:8px">Segment-specific campaigns, not blanket blasts</p>
+      </div>
+
+      <div class="card flex flex-col items-center text-center" style="flex:1">
+        <p class="big-number" style="font-size:72px; margin-bottom:12px">+4%</p>
+        <p class="body" style="font-weight:600">Interaction effects</p>
+        <p class="caption" style="margin-top:8px">Fleet × pricing × marketing together</p>
+      </div>
+    </div>
+
+    <div class="flex gap-32 mt-auto" style="margin-top:32px">
+      <div class="card" style="flex:1">
+        <p class="body" style="font-weight:600; margin-bottom:8px">±5% Baseline Fidelity</p>
+        <p class="body-muted">Calibrated model must match historical actuals on revenue, bookings, duration, station-level accuracy before any recommendation is trusted.</p>
+      </div>
+      <div class="card" style="flex:1">
+        <p class="body" style="font-weight:600; margin-bottom:8px">Deterministic & Auditable</p>
+        <p class="body-muted">Same inputs + same seed = same output. Every recommendation reproducible. No black box.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="6">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">Our Moat</p>
+    <h2 class="headline" style="margin-bottom:48px">
+      Our <strong>18 months of live data</strong> is a moat no competitor can replicate overnight.
+    </h2>
+
+    <div class="flex gap-48" style="flex:1">
+      <div class="flex flex-col gap-32" style="flex:1">
+        <div class="card">
+          <p class="body" style="font-weight:600; margin-bottom:12px">Essential Insights Package</p>
+          <p class="body-muted">Our daily reporting product operators already pay for. Every report enriches the digital twin of their fleet, demand, and customers.</p>
+          <p class="caption" style="margin-top:12px">Monetized today. Strategic tomorrow.</p>
+        </div>
+        <div class="card">
+          <p class="body" style="font-weight:600; margin-bottom:12px">Live Data Relationships</p>
+          <p class="body-muted">15 operators. Real booking histories. Real demand patterns by station, by hour, by segment. Not synthetic data — operational reality.</p>
+        </div>
+      </div>
+
+      <div class="card flex flex-col justify-center items-center text-center" style="flex:1">
+        <p class="big-number" style="margin-bottom:16px">15</p>
+        <p class="body-muted">Operators in our database<br>across Germany and Europe</p>
+        <div style="width:48px;height:2px;background:var(--border);margin:24px 0"></div>
+        <p class="big-number" style="margin-bottom:16px">7</p>
+        <p class="body-muted">Paying customers for<br>Essential Insights Package</p>
+        <div style="width:48px;height:2px;background:var(--border);margin:24px 0"></div>
+        <p class="big-number green" style="margin-bottom:16px">18</p>
+        <p class="body-muted">Months of live data relationships<br>and operational trust</p>
+      </div>
+    </div>
+
+    <div class="fragment mt-auto" style="margin-top:24px">
+      <p class="caption">Including <strong>Finkster by Deutsche Bahn</strong> — national rail operator's car-sharing subsidiary, live data partnership.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="7">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">Business Model</p>
+    <h2 class="headline" style="margin-bottom:24px">
+      Two revenue streams. One data foundation.
+    </h2>
+    <p class="subhead" style="max-width:800px; margin-bottom:40px">
+      Our Essential Insights Package funds today's operations. The Agent Revenue Simulator builds tomorrow's ARR.
+    </p>
+
+    <div class="flex gap-48" style="flex:1">
+      <!-- MRR Column -->
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-16" style="margin-bottom:8px">
+          <span class="tag tag-red">MRR</span>
+          <p class="body" style="font-weight:600">Monthly Recurring Revenue</p>
+        </div>
+
+        <div class="flex flex-col gap-16">
+          <div>
+            <p class="body" style="font-weight:600">Essential Insights Package</p>
+            <p class="body-muted">Daily fleet intelligence reports operators already pay for. 7 customers live.</p>
+          </div>
+          <div style="width:100%;height:1px;background:var(--border)"></div>
+          <div>
+            <p class="body" style="font-weight:600">API Integrations</p>
+            <p class="body-muted">Dynamic pricing plugged into booking platforms. Marketing triggers wired to CRM and campaign tools. Integration fees + ongoing service retainers.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARR Column -->
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-16" style="margin-bottom:8px">
+          <span class="tag">ARR</span>
+          <p class="body" style="font-weight:600">Annual Recurring Revenue</p>
+        </div>
+
+        <div class="flex flex-col gap-16">
+          <div>
+            <p class="body" style="font-weight:600">Optimization Results</p>
+            <p class="body-muted">Annual profit uplift studies. % of demonstrated improvement, with minimum guarantees.</p>
+          </div>
+          <div style="width:100%;height:1px;background:var(--border)"></div>
+          <div>
+            <p class="body" style="font-weight:600">Why it compounds</p>
+            <p class="body-muted">First-year gains are largest. Then boundary conditions shift — new stations, new competitors, new regulations. Operators re-buy annually because the world changes, our models improve, and they already trust the results.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fragment d2 mt-auto" style="margin-top:32px">
+      <p class="caption" style="text-align:center">
+        Natural upsell path: EIP customer → pilot → annual optimization contract → platform integration.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="8">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">Team</p>
+    <h2 class="headline" style="margin-bottom:48px">
+      Built by operators, for operators.
+    </h2>
+
+    <div class="flex gap-48" style="flex:1">
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-24">
+          <div style="width:72px;height:72px;border-radius:50%;background:var(--accent-green-dark);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;">T</div>
+          <div>
+            <p class="body" style="font-weight:700; font-size:28px">Tobias</p>
+            <p class="caption">Founder & CEO</p>
+          </div>
+        </div>
+        <p class="body-muted">Built Trace Mobility from zero to 15 operators and 7 paying customers in 18 months. Deep domain expertise in shared mobility operations and BI.</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-24">
+          <div style="width:72px;height:72px;border-radius:50%;background:var(--accent-green-dark);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;">L</div>
+          <div>
+            <p class="body" style="font-weight:700; font-size:28px">Luca</p>
+            <p class="caption">Co-founder & Product</p>
+          </div>
+        </div>
+        <p class="body-muted">Product strategy, operator relationships, go-to-market. Deep understanding of fleet economics and customer workflows.</p>
+      </div>
+
+      <div class="card flex flex-col gap-24" style="flex:1">
+        <div class="flex items-center gap-24">
+          <div style="width:72px;height:72px;border-radius:50%;background:var(--accent-green-dark);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;">M</div>
+          <div>
+            <p class="body" style="font-weight:700; font-size:28px">Marcello</p>
+            <p class="caption">Simulation & Optimization</p>
+          </div>
+        </div>
+        <p class="body-muted">Scientific assistant at university. Brings academic rigour to agent-based modelling, simulated annealing, and statistical validation.</p>
+        <p class="caption" style="color:var(--accent-green-dark); font-weight:600;">→ Transitioning to full-time with this round</p>
+      </div>
+    </div>
+
+    <div class="fragment mt-auto" style="margin-top:32px; text-align:center">
+      <p class="caption">Proudly part of <strong>aachen.digital</strong> — NRW's deep-tech ecosystem.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="9">
+  <div class="brand-mark">Trace Mobility</div>
+  <div class="confidential">Confidential</div>
+  <div class="flex flex-col" style="height:100%">
+    <p class="label" style="margin-bottom:16px">The Ask</p>
+    <h2 class="headline" style="margin-bottom:16px">
+      <span class="big-number" style="font-size:80px">€400K</span> Angel bridge to pre-seed.
+    </h2>
+    <p class="subhead" style="max-width:800px; margin-bottom:40px">18 months to validate +21.8% simulated uplift on 3 live operators, then open the pre-seed round.</p>
+
+    <div class="flex gap-48" style="flex:1">
+      <div class="flex flex-col gap-24" style="flex:1">
+        <div class="card">
+          <p class="big-number green" style="font-size:48px; margin-bottom:8px">38%</p>
+          <p class="body" style="font-weight:600">Product & Validation</p>
+          <p class="body-muted">Complete ARS engine, calibration pipeline, operator UI, reporting layer.</p>
+        </div>
+        <div class="card">
+          <p class="big-number" style="font-size:48px; margin-bottom:8px">25%</p>
+          <p class="body" style="font-weight:600">3 Pilot Operators</p>
+          <p class="body-muted">Free pilot program + case study production + on-site validation.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-24" style="flex:1">
+        <div class="card">
+          <p class="big-number" style="font-size:48px; margin-bottom:8px">25%</p>
+          <p class="body" style="font-weight:600">Team</p>
+          <p class="body-muted">Transition Marcello to full-time. Cover operating costs for Tobias and Luca.</p>
+        </div>
+        <div class="card">
+          <p class="big-number" style="font-size:48px; margin-bottom:8px">12%</p>
+          <p class="body" style="font-weight:600">Pre-Seed Prep</p>
+          <p class="body-muted">Legal, financial audit, investor materials, data room, advisory network.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fragment d2 mt-auto" style="margin-top:32px">
+      <div class="card" style="border-left:4px solid var(--accent-green-dark)">
+        <p class="body" style="font-weight:600; margin-bottom:4px">Pre-Seed Gate — 18 months</p>
+        <p class="body-muted">3 live pilots with validated profit uplift case studies · 10 ARS customers contracted · Full-time technical team · Revenue management proven on real fleets</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-slide="10">
+  <div class="brand-mark" style="color:#fff; opacity:0.7">Trace Mobility</div>
+  <div class="green-band flex flex-col justify-center items-center text-center" style="width:calc(100% + 192px); height:calc(100% + 144px); margin:-72px -96px; padding:72px 96px;">
+    <div class="fragment">
+      <h2 class="headline" style="color:#fff; max-width:900px; margin-bottom:32px;">
+        Airlines used averages in the 1980s.<br>We simulate every individual. Carsharing is next.
+      </h2>
+      <p class="subhead" style="color:rgba(255,255,255,0.85); max-width:640px; margin-bottom:48px;">
+        18 months of data relationships. A working engine. 7 paying customers.<br>
+        €400K to prove revenue management on live fleets.
+      </p>
+    </div>
+    <div class="fragment d2">
+      <a href="mailto:contact@tracemobility.com" class="pill" style="background:#fff; color:var(--accent-green-dark); font-size:22px; padding:16px 40px; margin-bottom:16px;">Book a meeting</a>
+      <p class="caption" style="color:rgba(255,255,255,0.7); margin-top:24px;">
+        Trace Mobility GmbH · Aachen, Germany<br>
+        contact@tracemobility.com · tracemobility.com
+      </p>
+      <p class="caption" style="color:rgba(255,255,255,0.5); margin-top:12px;">Proudly part of aachen.digital</p>
+    </div>
+  </div>
+</section>
+</body>
+</html>
