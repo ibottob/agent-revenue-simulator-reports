@@ -279,25 +279,25 @@
 <section>
   <div class="label">The Solution</div>
   <h2>Agent Revenue Simulator</h2>
-  <p style="font-size:24px; margin-bottom:24px;"><strong>We solve it the way airlines did — but for one person at a time.</strong> A decision engine, not a dashboard. We simulate 500 to 5,000 individual digital twins per operator to find the joint-optimal fleet, pricing, and marketing policy.</p>
+<p style="font-size:22px; margin-bottom:24px;"><strong>We solve it the way airlines did — but for one person at a time.</strong> A decision engine, not a dashboard. We simulate <strong>every registered customer</strong> as an individual digital twin — plus potential customers from ZENSUS census data — to find the joint-optimal fleet, pricing, and marketing policy.</p>
 
-  <div class="grid-3 mb-4">
-    <div class="card">
-      <div style="font-size:40px; margin-bottom:8px;">🧬</div>
-      <h3>Digital Twins</h3>
-      <p style="font-size:18px;">LLM-generated customer profiles. Each with income, trip context, weather sensitivity, and competitor preference.</p>
-    </div>
-    <div class="card">
-      <div style="font-size:40px; margin-bottom:8px;">⚡</div>
-      <h3>Agent-Based Sim</h3>
-      <p style="font-size:18px;">500 to 5,000 agents make independent booking decisions. Fleet positioning, prices, and marketing offers compete in real time.</p>
-    </div>
-    <div class="card">
-      <div style="font-size:40px; margin-bottom:8px;">🎯</div>
-      <h3>Joint Optimization</h3>
-      <p style="font-size:18px;">Fleet + Pricing + Marketing optimized together. Not three silos. One system.</p>
-    </div>
-  </div>
+<div class="grid-3 mb-4">
+<div class="card">
+<div style="font-size:40px; margin-bottom:8px;">🧬</div>
+<h3>Digital Twins</h3>
+<p style="font-size:18px;">LLM-generated behavioral model from real data for every registered customer. ZENSUS enriches the market with non-customers, too.</p>
+</div>
+<div class="card">
+<div style="font-size:40px; margin-bottom:8px;">⚡</div>
+<h3>Agent-Based Sim</h3>
+<p style="font-size:18px;"><strong>All</strong> registered customers as independent agents. Fleet positioning, prices, and marketing offers compete in real time. ZENSUS adds anyone who could become one.</p>
+</div>
+<div class="card">
+<div style="font-size:40px; margin-bottom:8px;">🎯</div>
+<h3>Joint Optimization</h3>
+<p style="font-size:18px;">Fleet + Pricing + Marketing optimized together. Not three silos. One system.</p>
+</div>
+</div>
 
   <div style="display:flex; gap:16px; align-items:center;">
     <span class="mock-label">⚠ Simulation Result — Mock Data</span>
@@ -310,12 +310,12 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 5 — Digital Twins: Scale That Only an LLM Can Deliver
+     SLIDE 5 — Digital Twins: 100% of Customers + ZENSUS Potential
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">The Engine</div>
-  <h2>We know enough to model every customer by hand.<br>Then we let an LLM do it for 500 to 5,000 of them.</h2>
-  <p style="font-size:24px; margin-bottom:32px;">Each digital twin is a behavioral model, not a demographic label. The LLM reads the data, infers parameters, and builds the agent — at the speed of software, not the speed of a data scientist.</p>
+  <h2>Why stop at registered customers? We simulate the entire addressable market.</h2>
+  <p style="font-size:22px; margin-bottom:32px;">Every <strong>registered customer</strong> becomes a behavioral twin — but ZENSUS census data lets us model <em>everyone</em> in the surrounding population who could become one. The LLM reads the data, infers parameters, and builds the agent — for 100% of the database plus the full market.</p>
 
   <div class="grid-2 mb-4">
     <div class="card">
@@ -329,30 +329,42 @@
       </ul>
     </div>
     <div class="card">
+      <div class="label" style="color:var(--accent-green); margin-bottom:12px;">What ZENSUS adds for non-customers</div>
+      <ul style="font-size:18px; line-height:1.7; margin:0; padding-left:20px;">
+        <li>Household income and composition by area</li>
+        <li>Commuting patterns and modal split</li>
+        <li>Car ownership rates per district</li>
+        <li>Population density, age distribution</li>
+        <li>Anybody in the market — modeled as potential agent</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2 mb-4">
+    <div class="card">
       <div class="label" style="color:var(--accent-red); margin-bottom:12px;">What a human would do</div>
       <div style="font-size:18px; line-height:1.6; margin-bottom:16px;">
-        Read the profile. Infer behavioral parameters. Tune the twin. Iterate.
+        Read the profile, infer parameters, tune the twin, repeat — for all customers.
       </div>
       <div class="flex-row" style="justify-content:space-between; background:rgba(215,38,61,0.06); padding:16px 20px; border-radius:12px;">
         <span style="font-size:16px; font-weight:600; color:var(--accent-red);">3 hours per customer</span>
-        <span style="font-size:16px; font-weight:700; color:var(--accent-red);">~6,000 hours total</span>
+        <span style="font-size:16px; font-weight:700; color:var(--accent-red);">~210,000 hours total for 70K</span>
       </div>
-      <div style="margin-top:16px; text-align:center;">
-        <span style="font-size:48px; color:var(--muted);">↓</span>
-      </div>
-      <div class="label" style="color:var(--accent-green); margin-top:16px; margin-bottom:12px;">What the LLM does</div>
+    </div>
+    <div class="card">
+      <div class="label" style="color:var(--accent-green); margin-bottom:12px;">What the LLM does</div>
       <div style="font-size:18px; line-height:1.6; margin-bottom:16px;">
-        Same inference. Same parameters. Automated, consistent, scalable.
+        Same inference, same parameters, plus ZENSUS enrichment. Automated, consistent, scalable.
       </div>
       <div class="flex-row" style="justify-content:space-between; background:rgba(1,183,132,0.08); padding:16px 20px; border-radius:12px;">
         <span style="font-size:16px; font-weight:600; color:var(--accent-green);">Minutes per customer</span>
-        <span style="font-size:16px; font-weight:700; color:var(--accent-green);">At the speed of software</span>
+        <span style="font-size:16px; font-weight:700; color:var(--accent-green);">Full fleet + market in hours</span>
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:20px; margin:0;"><strong>The LLM is not guessing.</strong> It is doing what a data scientist would do — reading profiles, inferring parameters, building behavioral models — for every single customer, at the speed of software.</p>
+    <p style="font-size:20px; margin:0;"><strong>The LLM is not guessing.</strong> It does what a data scientist would do — reading profiles, inferring parameters, building behavioral models — for <em>every single person in the database</em>, then layers ZENSUS data to model the rest of the market.</p>
   </div>
 </section>
 
