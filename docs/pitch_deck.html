@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trace Mobility — Angel Bridge Deck</title>
+<title>Trace Mobility — Pre-Seed Deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.css">
@@ -192,7 +192,7 @@
      SLIDE 1 — Hook + TL;DR
      ═══════════════════════════════════════════ -->
 <section>
-  <div class="label">€400K Angel Bridge · May 2026</div>
+  <div class="label">€400K Pre-Seed · May 2026</div>
   <h1 style="font-size:64px;">Higher Profits in Shared<br>and Autonomous Mobility.</h1>
   <h3 style="font-weight:400; color:var(--muted);">Through Agent-Based Revenue Optimization with LLM-supported Digital Twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable manifestos.</h3>
 
@@ -229,15 +229,30 @@
   </div>
 
   <div class="card" style="padding:24px 32px;">
-    <div class="flex-row" style="justify-content:space-between; align-items:center;">
-      <div>
-        <span class="label" style="margin-bottom:4px;">Addressable Market</span>
-        <p style="font-size:20px; margin:0;"><strong>~2,000 carsharing operators</strong> worldwide. From 10 to 10,000 vehicles. Every fleet leaves profit on the table when decisions are made on intuition.</p>
+    <div style="margin-bottom:20px;">
+      <span class="label" style="margin-bottom:4px;">Addressable Market</span>
+      <p style="font-size:20px; margin:0;"><strong>Carsharing alone is €40M.</strong> But the exact same optimization problem applies to ridepooling, microtransit, last-mile logistics, and EV fleet operators — larger fleets that pay higher ACVs. <strong>The expanded SAM is €100M+ today and growing.</strong></p>
+    </div>
+    <div class="grid-4" style="gap:16px;">
+      <div class="card" style="padding:20px; text-align:center;">
+        <div style="font-size:32px; font-weight:800; color:var(--accent-green);">~2,000</div>
+        <div style="font-size:14px; color:var(--muted);">Carsharing operators (€20K ACV)</div>
       </div>
-      <div style="text-align:center; min-width:140px;">
-        <div style="font-size:48px; font-weight:800; color:var(--accent-green);">500+</div>
-        <div style="font-size:14px; color:var(--muted);">in Europe</div>
+      <div class="card" style="padding:20px; text-align:center;">
+        <div style="font-size:32px; font-weight:800; color:var(--accent-green);">~3,500+</div>
+        <div style="font-size:14px; color:var(--muted);">Shared-mobility ops (ridepool + logistics)</div>
       </div>
+      <div class="card" style="padding:20px; text-align:center;">
+        <div style="font-size:32px; font-weight:800; color:var(--accent-green);">€20-100K</div>
+        <div style="font-size:14px; color:var(--muted);">Annual ACV range (carsharing to enterprise)</div>
+      </div>
+      <div class="card" style="padding:20px; text-align:center;">
+        <div style="font-size:32px; font-weight:800; color:var(--accent-green);">€100M+</div>
+        <div style="font-size:14px; color:var(--muted);">Combined SAM</div>
+      </div>
+    </div>
+    <div style="margin-top:20px; padding:16px 20px; background:rgba(1,183,132,0.06); border-radius:12px;">
+      <p style="font-size:16px; margin:0;"><strong>Path to €10M ARR:</strong> 150 operators at blended €65K ACV = <strong>3% of addressable ops.</strong> Not 25% of carsharing alone — a realistic target across segments.</p>
     </div>
   </div>
 </section>
@@ -350,11 +365,14 @@
     <div class="card">
       <div class="label" style="color:var(--accent-green); margin-bottom:12px;">What the LLM does</div>
       <div style="font-size:18px; line-height:1.6; margin-bottom:16px;">
-        Same inference, same parameters, plus ZENSUS enrichment. Automated, consistent, scalable.
+        LLM generates each twin <strong>once</strong>, then structured inference takes over. The simulation itself runs as pure code — <strong>no LLM during simulation</strong>.
       </div>
       <div class="flex-row" style="justify-content:space-between; background:rgba(1,183,132,0.08); padding:16px 20px; border-radius:12px;">
         <span style="font-size:16px; font-weight:600; color:var(--accent-green);">Minutes per customer</span>
-        <span style="font-size:16px; font-weight:700; color:var(--accent-green);">Full fleet + market in hours</span>
+        <span style="font-size:16px; font-weight:700; color:var(--accent-green);">Full fleet generated in hours</span>
+      </div>
+      <div style="margin-top:12px; font-size:14px; color:var(--muted);">
+        ~€3K compute cost per operator for full twin set (LLM generation only, simulation runs as code). Regenerated only when the customer base changes significantly.
       </div>
     </div>
   </div>
@@ -427,13 +445,25 @@
     </div>
   </div>
 
-  <div class="card" style="padding:24px 32px; background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green); margin-bottom:32px;">
-    <div class="flex-row" style="gap:24px; align-items:flex-start;">
-      <div style="font-size:48px;">📦</div>
-      <div>
-        <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:4px;">Go-to-Market — Live Today</p>
-        <p style="font-size:20px; font-weight:600; color:var(--r-main-color); margin-bottom:4px;">Essential Insights Package (EIP)</p>
-        <p style="font-size:18px; margin:0;">Before the simulation was ready, we shipped a data product operators already pay for: <strong>automated KPI dashboards, trend reports, and anomaly detection</strong> pushed to their inbox. <strong>7 operators are paying customers today.</strong> EIP validates our data pipelines, builds operator trust, and funds the simulation layer — the same relationships that will upgrade to the full Agent Revenue Simulator.</p>
+  <div class="grid-2 mb-4">
+    <div class="card" style="padding:24px 32px; background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
+      <div class="flex-row" style="gap:24px; align-items:flex-start;">
+        <div style="font-size:48px;">📦</div>
+        <div>
+          <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:4px;">Go-to-Market — Live Today</p>
+          <p style="font-size:20px; font-weight:600; color:var(--r-main-color); margin-bottom:4px;">Essential Insights Package (EIP)</p>
+          <p style="font-size:18px; margin:0;">Before the simulation was ready, we shipped a data product operators already pay for: <strong>automated KPI dashboards, trend reports, and anomaly detection</strong> pushed to their inbox. <strong>7 operators are paying customers today.</strong> EIP validates our data pipelines, builds operator trust, and funds the simulation layer — the same relationships that will upgrade to the full Agent Revenue Simulator.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:24px 32px; background:rgba(215,38,61,0.04); border-left:4px solid var(--accent-red);">
+      <div class="flex-row" style="gap:24px; align-items:flex-start;">
+        <div style="font-size:48px;">🧪</div>
+        <div>
+          <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-red); margin-bottom:4px;">What €400K validates — still missing</p>
+          <p style="font-size:20px; font-weight:600; color:var(--r-main-color); margin-bottom:4px;">Agent Revenue Simulator (ARS)</p>
+          <p style="font-size:18px; margin:0;">EIP customers are <strong>educated and wired</strong> — ideal for upgrade. But <strong>the ARS engine has not yet been deployed live.</strong> The 7 EIP customers consume dashboards via email. The ARS engine is a code deployment away. €400K pays for that live deployment: code integration with 3 EIP customers, data feed into the simulator, and a <strong>validated profit uplift report on actual fleet data.</strong></p>
+        </div>
       </div>
     </div>
   </div>
@@ -449,8 +479,8 @@
       </div>
     </div>
     <div class="card" style="padding:24px 32px; background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
-      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">IP for Large-Scale Future Markets</p>
-      <p style="font-size:18px; margin:0;">Our model parameters capture <strong>individual behavior and geo-context</strong> — not just carsharing demand. That same IP is the foundation for optimizing any geo-restricted, user-behavior-driven service: <strong>robotaxis, driverless shuttles, ridepooling</strong>, and beyond. Carsharing is the beachhead. The IP is transferable at scale.</p>
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">IP for Adjacent Operators, Not OEMs</p>
+      <p style="font-size:18px; margin:0;">Our model parameters capture <strong>individual behavior and geo-context</strong> — not just carsharing demand. That same IP applies to any shared fleet running human mobility: <strong>ridepooling, microtransit, EV fleet management, last-mile logistics</strong>. Not Tesla. Not Waymo. <strong>The same-sized operators, in adjacent segments.</strong> We sell to operators. Not to OEMs. The segment expands; the customer profile stays the same.</p>
     </div>
   </div>
 
@@ -548,7 +578,7 @@
   </div>
 
   <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:20px; margin:0;"><strong>What this round buys:</strong> Steps 1 and 2 are already live. €400K funds Step 3 — the real-world validation that turns theory into trust and unlocks the pre-seed for Step 4.</p>
+    <p style="font-size:20px; margin:0;"><strong>What this round buys:</strong> Steps 1 and 2 are already live. €400K funds Step 3 — live deployment with 3 EIP customers, real-world validation, and case studies that unlock a €1.5M seed round for Step 4.</p>
   </div>
 </section>
 
@@ -557,28 +587,38 @@
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">Team</div>
-  <h2>Operator DNA. Academic rigor.</h2>
-  <p style="font-size:24px; margin-bottom:32px;">Three people who have run, built, and simulated carsharing operations.</p>
+  <h2>Operator DNA. Academic rigor. Engineering depth.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">Three founders covering operations, simulation, and product. The round funds one critical first hire.</p>
 
-  <div class="grid-3">
-    <div class="card">
+  <div class="grid-4 mb-4" style="grid-template-columns: repeat(4, 1fr); gap:24px;">
+    <div class="card" style="padding:24px;">
       <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">T</div>
       <h3>Tobias</h3>
       <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">CEO · Founder</p>
-      <p style="font-size:18px;">Built and ran carsharing fleets. Knows the daily pain of gut-feel decisions.</p>
+      <p style="font-size:17px;">Built and ran carsharing fleets. Understands operator P&amp;L, pricing psychology, and fleet economics from the inside.</p>
     </div>
-    <div class="card">
+    <div class="card" style="padding:24px;">
       <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">L</div>
       <h3>Luca</h3>
-      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Product</p>
-      <p style="font-size:18px;">Product and API design. Turns simulation output into actionable operator workflows.</p>
+      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Product · API Design</p>
+      <p style="font-size:17px;">Translates simulation output into operator-facing APIs and workflows. Built the data pipeline and reporting layer that 7 customers use today.</p>
     </div>
-    <div class="card">
+    <div class="card" style="padding:24px;">
       <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">M</div>
       <h3>Marcello</h3>
-      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Simulation · Customer Success</p>
-      <p style="font-size:18px;">PhD-level simulation architect. Also runs customer onboarding and success. Academic depth + operator empathy in one role.</p>
+      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Simulation Lead</p>
+      <p style="font-size:17px;">PhD-level simulation architect. Built the agent-based engine from scratch. Covers customer success today — we hire the first dedicated CS hire from this round.</p>
     </div>
+    <div class="card" style="padding:24px; background:rgba(215,38,61,0.04); border:2px dashed var(--accent-red);">
+      <div style="width:64px; height:64px; border-radius:50%; background:var(--accent-red); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">?</div>
+      <h3 style="color:var(--accent-red);">Head of Engineering</h3>
+      <p style="font-size:14px; font-weight:600; color:var(--accent-red); margin-bottom:8px;">Hiring now · This round funds it</p>
+      <p style="font-size:17px;">€400K covers 12 months of a senior full-stack engineer to own: scalable API, self-healing data pipelines, LLM infrastructure, and integrations. Active search underway.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px 32px;">
+    <p style="font-size:20px; margin:0;"><strong>What changes with this round:</strong> (1) Marcello focuses 100% on simulation research. (2) Dedicated Head of Engineering owns infra and delivery. (3) First CS hire frees Marcello from onboarding. Three hires from €400K: engineer, customer success, and simulation intern.</p>
   </div>
 </section>
 
@@ -587,8 +627,8 @@
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">The Ask</div>
-  <h2>€400K Angel Bridge · 18-month runway</h2>
-  <p style="font-size:24px; margin-bottom:32px;">Validate simulated uplift on live fleets. Unlock pre-seed. Scale to €1M ARR.</p>
+  <h2>€400K Pre-Seed · 18-month runway</h2>
+  <p style="font-size:24px; margin-bottom:32px;">Validate simulated uplift on live fleets. Build 3 live pilots. Unlock seed.</p>
 
   <div class="grid-2 mb-4">
     <div>
