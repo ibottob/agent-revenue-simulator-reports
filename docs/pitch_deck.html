@@ -193,8 +193,8 @@
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">€400K Pre-Seed · May 2026</div>
-  <h1 style="font-size:64px;">Higher Profits in Shared<br>and Autonomous Mobility.</h1>
-  <h3 style="font-weight:400; color:var(--muted);">Through Agent-Based Revenue Optimization with LLM-supported Digital Twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable manifestos.</h3>
+  <h1 style="font-size:64px;">Higher Profits in Shared Mobility.</h1>
+  <h3 style="font-weight:400; color:var(--muted);">Through Agent-Based Revenue Optimization with LLM-supported Digital Twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable recommendations.</h3>
 
   <div class="tldr" style="justify-content:flex-start;">
     <div class="tldr-item" style="text-align:left;">
@@ -383,41 +383,46 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 6 — Simulation Result
+     SLIDE 6 — Validation Methodology
      ═══════════════════════════════════════════ -->
 <section>
-  <div class="label">Validated Impact</div>
-  <div style="display:flex; gap:48px; align-items:flex-start;">
-    <div style="flex:1;">
-      <h2 style="margin-bottom:16px;">+21.8% net profit</h2>
-      <p style="font-size:20px; margin-top:16px;">Factorial decomposition on live operator data across <strong>20 real-world operators</strong> on our platform. Conservative estimate (summed with diminishing returns, not multiplied).</p>
-      <p style="font-size:18px; color:var(--muted); margin-top:12px;">Validated by comparing simulation predictions against actual revenue reports.</p>
+  <div class="label">Validation</div>
+  <h2>How we know it works: back‑testing on historical data.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">Every simulation is calibrated on real operator data and validated against historical earnings. We do not extrapolate. We reconstruct — then compare.</p>
+
+  <div class="grid-3 mb-4">
+    <div class="card">
+      <div style="font-size:48px; font-weight:800; color:var(--accent-green); margin-bottom:12px;">+21.8%</div>
+      <p style="font-size:20px; font-weight:600;">Simulated Profit Uplift</p>
+      <p style="font-size:18px;">On average across <strong>20 real‑world operators</strong> on our platform — using their actual bookings, fleet sizes, and marketing data.</p>
     </div>
-    <div style="flex:1;">
-      <div class="card" style="margin-bottom:16px;">
-        <div class="flex-row" style="justify-content:space-between;">
-          <span style="font-size:20px; font-weight:600;">Time &amp; Location Optimized Pricing</span>
-          <span class="green" style="font-size:28px; font-weight:700;">+13.0%</span>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:16px;">
-        <div class="flex-row" style="justify-content:space-between;">
-          <span style="font-size:20px; font-weight:600;">Targeted Marketing</span>
-          <span class="green" style="font-size:28px; font-weight:700;">+5.0%</span>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:16px;">
-        <div class="flex-row" style="justify-content:space-between;">
-          <span style="font-size:20px; font-weight:600;">Fleet Allocation</span>
-          <span class="green" style="font-size:28px; font-weight:700;">+6.5%</span>
-        </div>
-      </div>
-      <div class="card" style="background:rgba(1,183,132,0.06);">
-        <div class="flex-row" style="justify-content:space-between;">
-          <span style="font-size:20px; font-weight:600;">Interaction Effects</span>
-          <span class="green" style="font-size:28px; font-weight:700;">+4.0%</span>
-        </div>
-      </div>
+    <div class="card">
+      <div style="font-size:40px; font-weight:800; color:var(--accent-red); margin-bottom:12px;">Simulated</div>
+      <p style="font-size:20px; font-weight:600; color:var(--accent-red);">Not yet proven on live fleets</p>
+      <p style="font-size:18px;">The simulation runs offline. The optimized policy has not yet been deployed on a live fleet. <strong>That is exactly what the €400K pilots validate.</strong></p>
+    </div>
+    <div class="card">
+      <div style="font-size:40px; font-weight:800; color:var(--accent-green); margin-bottom:12px;">Back‑tested</div>
+      <p style="font-size:20px; font-weight:600;">Historical data, held‑out validation</p>
+      <p style="font-size:18px;">We train on one period of data, test on the next, and compare predicted vs. actual revenue. The calibration matches <strong>±4% on average</strong> across operators.</p>
+    </div>
+  </div>
+
+  <div class="flex-row" style="gap:20px;">
+    <div class="card" style="flex:1; padding:20px 32px; text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">🧪</div>
+      <p style="font-size:20px; font-weight:600;">Step 1: Historical Calibration</p>
+      <p style="font-size:16px;">Load real customer data, split past from future, fit digital twins on past.</p>
+    </div>
+    <div class="card" style="flex:1; padding:20px 32px; text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">🎯</div>
+      <p style="font-size:20px; font-weight:600;">Step 2: Out‑of‑Sample Simulation</p>
+      <p style="font-size:16px;">Run simulation on held‑out period, apply optimized policy, check revenue.</p>
+    </div>
+    <div class="card" style="flex:1; padding:20px 32px; text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">✅</div>
+      <p style="font-size:20px; font-weight:600;">Step 3: Live Deployment (Step 3 — this round)</p>
+      <p style="font-size:16px;">The only gap: real‑world execution. Closed by the €400K pilots.</p>
     </div>
   </div>
 </section>
@@ -566,7 +571,7 @@
     <div class="roadmap-arrow">→</div>
     <div class="roadmap-step s4">
       <div class="step-num">4</div>
-      <div class="step-fund">With €1.5M Pre-Seed</div>
+      <div class="step-fund">With €1.5M Seed</div>
       <h3>Full Automation</h3>
       <ul>
         <li>Automated operator integrations</li>
@@ -652,7 +657,7 @@
       </div>
       <div class="card">
         <div class="flex-row" style="justify-content:space-between;">
-          <span style="font-size:20px; font-weight:600;">Pre-Seed Prep</span>
+          <span style="font-size:20px; font-weight:600;">Runway Extension</span>
           <span class="green" style="font-size:24px; font-weight:700;">12%</span>
         </div>
       </div>
@@ -679,7 +684,7 @@
      ═══════════════════════════════════════════ -->
 <section class="green-band center">
   <h1 style="font-size:72px; margin-bottom:24px;">Airlines solved pricing with averages.</h1>
-  <h2 style="font-weight:400; opacity:0.9;">We solve mobility with individuals.<br>Shared. Autonomous. Scalable.</h2>
+  <h2 style="font-weight:400; opacity:0.9;">We solve mobility with individuals.<br>Shared. Every person. Scalable.</h2>
 
   <div class="mt-auto">
     <p style="font-size:20px; opacity:0.8; margin-bottom:16px;">Trace Mobility GmbH · Aachen, Germany · aachen.digital</p>
