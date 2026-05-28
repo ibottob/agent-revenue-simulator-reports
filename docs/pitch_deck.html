@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trace Mobility — Pre-Seed Deck</title>
+<title>Trace Mobility — Angel Bridge Deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.css">
@@ -182,6 +182,31 @@
     margin-bottom: 24px;
   }
 
+  /* ── Hybrid Engine ── */
+  .layer-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .layer-ml { background: rgba(1,183,132,0.12); color: var(--accent-green-dark); }
+  .layer-llm { background: rgba(33,33,33,0.08); color: var(--muted); }
+
+  /* ── Adjacent vertical ── */
+  .vertical-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .vertical-card .v-icon {
+    font-size: 36px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -189,10 +214,10 @@
 <div class="slides">
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 1 — Hook + TL;DR
+     SLIDE 1 — Hook + Decision Engine framing
      ═══════════════════════════════════════════ -->
 <section>
-  <div class="label">€400K Pre-Seed · May 2026</div>
+  <div class="label">€400K Angel Bridge · May 2026</div>
   <h1 style="font-size:64px;">Higher Profits in Shared Mobility.</h1>
   <h3 style="font-weight:400; color:var(--muted);">Through Agent-Based Revenue Optimization with LLM-supported Digital Twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable recommendations.</h3>
 
@@ -206,7 +231,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 2 — The Problem + TAM
+     SLIDE 2 — Problem + Adjacent Markets
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">The Problem</div>
@@ -290,38 +315,51 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 4 — The Solution (Simulation)
+     SLIDE 4 — The Solution: Hybrid Engine
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">The Solution</div>
-  <h2>Agent Revenue Simulator</h2>
-  <p style="font-size:22px; margin-bottom:24px;"><strong>We solve it the way airlines did — but for one person at a time.</strong> A decision engine, not a dashboard. We simulate <strong>every registered customer</strong> as an individual digital twin — plus potential customers from ZENSUS census data — to find the joint-optimal fleet, pricing, and marketing policy.</p>
+  <h2>Decision Engine, Not a Dashboard.</h2>
+  <p style="font-size:22px; margin-bottom:24px;"><strong>We solve it the way airlines did — but for one person at a time.</strong> The Agent Revenue Simulator is a unified decision engine that eliminates operational silos. We simulate <strong>every registered customer</strong> as an individual digital twin — plus potential customers from ZENSUS census data — to find the joint-optimal fleet, pricing, and marketing policy.</p>
 
-  <div class="grid-3 mb-4">
-    <div class="card">
-      <div style="font-size:40px; margin-bottom:8px;">🧬</div>
-      <h3>Digital Twins</h3>
-      <p style="font-size:18px;">LLM-generated behavioral model from real data for every registered customer. ZENSUS enriches the market with non-customers, too.</p>
+  <div class="grid-2 mb-4">
+    <div class="card" style="border-left:4px solid var(--accent-green-dark);">
+      <div class="layer-tag layer-ml">Numerical Layer</div>
+      <h3 style="font-size:22px;">Traditional ML · Deterministic</h3>
+      <p style="font-size:18px;">Bayesian optimization and neural nets on structured data: usage patterns, price elasticity, geolocation, walking distances. Guarantees low latency, mathematical consistency, and full explainability.</p>
     </div>
-    <div class="card">
-      <div style="font-size:40px; margin-bottom:8px;">⚡</div>
-      <h3>Agent-Based Sim</h3>
-      <p style="font-size:18px;"><strong>All</strong> registered customers as independent agents. Fleet positioning, prices, and marketing offers compete in real time. ZENSUS adds anyone who could become one.</p>
-    </div>
-    <div class="card">
-      <div style="font-size:40px; margin-bottom:8px;">🎯</div>
-      <h3>Joint Optimization</h3>
-      <p style="font-size:18px;">Fleet + Pricing + Marketing optimized together. Not three silos. One system.</p>
+    <div class="card" style="border-left:4px solid var(--muted);">
+      <div class="layer-tag layer-llm">Human Layer</div>
+      <h3 style="font-size:22px;">LLM · Behavioral Inference</h3>
+      <p style="font-size:18px;">Structured batch-processing of unstructured inputs: customer service chats, app reviews, local context. Maps human sentiment into 50+ model parameters. The LLM runs <strong>once per twin</strong>; simulation is pure code.</p>
     </div>
   </div>
 
-  <div class="mt-2">
-    <p style="font-size:20px;"><strong>Integration:</strong> Lightweight API. Pricing recommendations pushed in &lt;5 minutes. Fleet-size adjustments aligned with station demand cycles. Works alongside existing stack — no rip-and-replace.</p>
+  <div class="grid-3 mb-4">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">🧬</div>
+      <h3 style="font-size:22px;">Digital Twins</h3>
+      <p style="font-size:18px;">LLM-generated behavioral model from real data for every registered customer. ZENSUS enriches the market with non-customers, too.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">⚡</div>
+      <h3 style="font-size:22px;">Agent-Based Sim</h3>
+      <p style="font-size:18px;"><strong>All</strong> registered customers as independent agents competing in real time. Fleet positioning, prices, and marketing offers co-evolve. ZENSUS adds anyone who could become one.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">🎯</div>
+      <h3 style="font-size:22px;">Joint Optimization</h3>
+      <p style="font-size:18px;">Fleet + Pricing + Marketing optimized together. Not three silos. One system. Recommendations pushed via API in &lt;5 minutes.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+    <p style="font-size:20px; margin:0;"><strong>Integration:</strong> Lightweight API. Works alongside the existing stack — no rip-and-replace. Fleet-size adjustments aligned with station demand cycles. Pricing recommendations pushed in &lt;5 minutes.</p>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 5 — Digital Twins: 100% of Customers + ZENSUS Potential
+     SLIDE 5 — The Engine: Twins + Cost
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">The Engine</div>
@@ -378,7 +416,7 @@
   </div>
 
   <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:20px; margin:0;"><strong>The LLM is not guessing.</strong> It does what a data scientist would do — reading profiles, inferring parameters, building behavioral models — for <em>every single person in the database</em>, then layers ZENSUS data to model the rest of the market.</p>
+    <p style="font-size:20px; margin:0;"><strong>Token Deflation Advantage:</strong> Global LLM compute costs are shrinking fast. Our per-operator batch-processing cost is negligible relative to contract value — and decreasing every quarter. The moat is not cost; it is the depth of behavioral data no competitor has accumulated.</p>
   </div>
 </section>
 
@@ -421,23 +459,23 @@
     </div>
     <div class="card" style="flex:1; padding:20px 32px; text-align:center;">
       <div style="font-size:40px; margin-bottom:8px;">✅</div>
-      <p style="font-size:20px; font-weight:600;">Step 3: Live Deployment (Step 3 — this round)</p>
+      <p style="font-size:20px; font-weight:600;">Step 3: Live Deployment (this round)</p>
       <p style="font-size:16px;">The only gap: real‑world execution. Closed by the €400K pilots.</p>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 7 — Knowledge Moat
+     SLIDE 7 — Competitive Moat + Adjacent Use Cases
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">Competitive Moat</div>
   <h2>We are building the deepest model of individual mobility behavior.</h2>
-  <p style="font-size:24px; margin-bottom:32px;">Every simulation teaches us how a specific person decides to move. That knowledge compounds — and transfers.</p>
+  <p style="font-size:24px; margin-bottom:32px;">Every simulation teaches us how a specific person decides to move. That knowledge compounds — and transfers to adjacent segments.</p>
 
   <div class="grid-3 mb-4">
     <div class="card center">
-      <div class="big-number">15</div>
+      <div class="big-number">20</div>
       <p style="font-size:18px;">Operators feeding real data</p>
     </div>
     <div class="card center">
@@ -495,7 +533,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 8 — Business Model
+     SLIDE 8 — Business Model + Adjacent Verticals
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">Business Model</div>
@@ -505,23 +543,30 @@
   <div class="grid-3 mb-4">
     <div class="card" style="border-top:4px solid var(--accent-green);">
       <div class="label" style="color:var(--accent-green);">What we deliver</div>
-      <h3>Optimization Engine</h3>
+      <h3 style="font-size:22px;">Optimization Engine</h3>
       <p style="font-size:18px;">Simulation + digital twin generator + recommendation API. Deployed code, not slides. The customer plugs in their data and receives optimized policies.</p>
     </div>
     <div class="card" style="border-top:4px solid var(--accent-green-dark);">
       <div class="label" style="color:var(--accent-green-dark);">Annual recurring</div>
-      <h3>Year-Over Optimization</h3>
+      <h3 style="font-size:22px;">Year-Over Optimization</h3>
       <p style="font-size:18px;">Models are re-trained on fresh data. Boundary conditions shift annually. The customer re-buys not because of lock-in, but because the value compounds — <strong>trust deepens</strong> with every cycle.</p>
     </div>
     <div class="card" style="border-top:4px solid var(--cta-pill);">
       <div class="label" style="color:var(--cta-pill);">Interface</div>
-      <h3>API + Reports</h3>
+      <h3 style="font-size:22px;">API + Reports</h3>
       <p style="font-size:18px;">Pricing recommendations in &lt;5 minutes via API. Fleet planning reports via portal and email. A conversational BI interface for ad-hoc exploration.</p>
     </div>
   </div>
 
-  <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:20px; margin:0;"><strong>Why annual re-buys:</strong> (1) New competitors, fuel prices, regulations change the game. (2) Our models get better every year. (3) <strong>The trust is already there.</strong></p>
+  <div class="grid-2">
+    <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">Adjacent Verticals</p>
+      <p style="font-size:18px; margin:0;">The same behavioral IP applies to <strong>micromobility rebalancing</strong> (use pricing to turn riders into a voluntary redistribution workforce), <strong>EV charging demand smoothing</strong> (price stalls to shift peaks), and <strong>municipal microtransit</strong> (demand forecasting for public shuttle fleets). Same engine. Same customer profile. New segments.</p>
+    </div>
+    <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">Why annual re-buys</p>
+      <p style="font-size:18px; margin:0;">(1) New competitors, fuel prices, regulations change the game. (2) Our models get better every year. (3) <strong>The trust is already there.</strong></p>
+    </div>
   </div>
 </section>
 
@@ -565,7 +610,7 @@
         <li>Pilots with Flinkster + operators</li>
         <li>Validate +21.8% uplift on live fleets</li>
         <li>Stress-test: weather, strikes, shocks</li>
-        <li>Build case studies for scale</li>
+        <li>EU AI Act transparency prep (Q4 2026)</li>
       </ul>
     </div>
     <div class="roadmap-arrow">→</div>
@@ -632,7 +677,7 @@
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">The Ask</div>
-  <h2>€400K Pre-Seed · 18-month runway</h2>
+  <h2>€400K Angel Bridge · 18-month runway</h2>
   <p style="font-size:24px; margin-bottom:32px;">Validate simulated uplift on live fleets. Build 3 live pilots. Unlock seed.</p>
 
   <div class="grid-2 mb-4">
@@ -664,7 +709,7 @@
     </div>
     <div style="display:flex; flex-direction:column; gap:16px;">
       <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
-        <h3 style="margin-bottom:16px;">Pre-Seed Gate</h3>
+        <h3 style="margin-bottom:16px;">Angel Bridge Gate</h3>
         <ul style="font-size:20px;">
           <li>3 live pilots with validated profit uplift case studies</li>
           <li>10 ARS customers contracted</li>
@@ -673,7 +718,7 @@
       </div>
       <div class="card" style="background:rgba(1,183,132,0.06); border-left:4px solid var(--accent-green);">
         <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">Path to €1M ARR</p>
-        <p style="font-size:18px; margin:0;"><strong>50 operators × €20K annual optimization</strong> = €1M ARR. <strong>Pre-Seed</strong> funds the scale from 3 pilots to 50+ operators with automated onboarding and integrations.</p>
+        <p style="font-size:18px; margin:0;"><strong>50 operators × €20K annual optimization</strong> = €1M ARR. The subsequent Seed round funds the scale from 3 pilots to 50+ operators with automated onboarding and integrations.</p>
       </div>
     </div>
   </div>
