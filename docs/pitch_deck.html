@@ -116,6 +116,72 @@
   @media print {
     .reveal .slides section { page-break-after: always; }
   }
+
+  /* ── Roadmap Flow ── */
+  .roadmap-flow {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 32px;
+  }
+  .roadmap-step {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .roadmap-step::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .roadmap-step.s1::before { background: var(--accent-green); }
+  .roadmap-step.s2::before { background: var(--accent-green-dark); }
+  .roadmap-step.s3::before { background: var(--accent-red); }
+  .roadmap-step.s4::before { background: var(--muted); }
+  .roadmap-step .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .roadmap-step.s1 .step-num { background: var(--accent-green); }
+  .roadmap-step.s2 .step-num { background: var(--accent-green-dark); }
+  .roadmap-step.s3 .step-num { background: var(--accent-red); }
+  .roadmap-step.s4 .step-num { background: var(--muted); }
+  .roadmap-step .step-fund {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+  .roadmap-step.s1 .step-fund { color: var(--accent-green); }
+  .roadmap-step.s2 .step-fund { color: var(--accent-green-dark); }
+  .roadmap-step.s3 .step-fund { color: var(--accent-red); }
+  .roadmap-step.s4 .step-fund { color: var(--muted); }
+  .roadmap-step h3 { font-size: 22px; margin-bottom: 12px; }
+  .roadmap-step ul { font-size: 15px; line-height: 1.5; margin: 0; padding-left: 18px; color: var(--muted); }
+  .roadmap-step ul li { font-size: 15px; margin-bottom: 4px; }
+  .roadmap-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--accent-green); font-weight: 800;
+    min-width: 24px;
+    align-self: center;
+  }
+  .roadmap-wrapper {
+    display: flex;
+    gap: 0px;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+
 </style>
 </head>
 <body>
@@ -411,33 +477,60 @@
      ═══════════════════════════════════════════ -->
 <section>
   <div class="label">Roadmap</div>
-  <h2>From running infrastructure to live validation to full automation.</h2>
-  <p style="font-size:24px; margin-bottom:32px;">Everything on the left is already live. The middle is what we just built. The right is what we raise for.</p>
+  <h2>From infrastructure to simulation to live validation to full automation.</h2>
 
-  <div class="grid-2 mb-4">
-    <div class="card" style="border-left:4px solid var(--accent-green);">
-      <div class="label" style="color:var(--accent-green);">✓ Live today</div>
+  <div class="roadmap-wrapper">
+    <div class="roadmap-step s1">
+      <div class="step-num">1</div>
+      <div class="step-fund">✓ Live today</div>
       <h3>Operational Foundation</h3>
-      <p style="font-size:18px;">DPA contracts. API key management. Customer portal, email reports, and conversational BI. Full ETL pipeline, data cleaning, data model, analysis stack, invoicing, sales CRM, and reliable technical infrastructure — all running.</p>
+      <ul>
+        <li>DPA contracts & API key management</li>
+        <li>Customer portal, email reports, BI chat</li>
+        <li>ETL, data cleaning, analysis stack</li>
+        <li>Invoicing, CRM, reliable infrastructure</li>
+      </ul>
     </div>
-    <div class="card" style="border-left:4px solid var(--accent-green-dark);">
-      <div class="label" style="color:var(--accent-green-dark);">✓ Recently built</div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step s2">
+      <div class="step-num">2</div>
+      <div class="step-fund">✓ Recently built</div>
       <h3>Simulation Core</h3>
-      <p style="font-size:18px;">Agent-based simulation engine. Digital twin behavioral models for shared mobility customers. Bayesian optimization algorithm. Solution space definition and optimization reports. Validated theoretically on mock data.</p>
+      <ul>
+        <li>Agent-based simulation engine</li>
+        <li>Digital twin behavioral models</li>
+        <li>Bayesian optimization algorithm</li>
+        <li>Solution space & optimization reports</li>
+      </ul>
+    </div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step s3">
+      <div class="step-num">3</div>
+      <div class="step-fund">With €400K — this round</div>
+      <h3>Real-World Validation</h3>
+      <ul>
+        <li>Pilots with Flinkster + operators</li>
+        <li>Validate +21.8% uplift on live fleets</li>
+        <li>Stress-test: weather, strikes, shocks</li>
+        <li>Build case studies for scale</li>
+      </ul>
+    </div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step s4">
+      <div class="step-num">4</div>
+      <div class="step-fund">With €1.5M Pre-Seed</div>
+      <h3>Full Automation</h3>
+      <ul>
+        <li>Automated operator integrations</li>
+        <li>Self-healing data pipelines</li>
+        <li>Productized onboarding at scale</li>
+        <li>From 3 pilots to 50+ operators</li>
+      </ul>
     </div>
   </div>
 
-  <div class="grid-2">
-    <div class="card" style="border-left:4px solid var(--accent-red); background:rgba(215,38,61,0.02);">
-      <div class="label" style="color:var(--accent-red);">With €400K — this round</div>
-      <h3>Real-World Validation</h3>
-      <p style="font-size:18px;">Pilot with Flinkster and committed operators. Validate +21.8% simulated uplift on live fleets. Stress-test against weather, transit strikes, demand shocks. Build case studies and trust for scaled deployment.</p>
-    </div>
-    <div class="card" style="border-left:4px solid var(--muted); background:rgba(51,65,85,0.03);">
-      <div class="label" style="color:var(--muted);">With €1.5M Pre-Seed</div>
-      <h3>Full Automation</h3>
-      <p style="font-size:18px;">Automated integrations with operator systems. Self-healing data pipelines. Productized onboarding. Scale from 3 pilots to 50+ operators. Build the revenue optimization layer for all shared mobility.</p>
-    </div>
+  <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+    <p style="font-size:20px; margin:0;"><strong>What this round buys:</strong> Steps 1 and 2 are already live. €400K funds Step 3 — the real-world validation that turns theory into trust and unlocks the pre-seed for Step 4.</p>
   </div>
 </section>
 
