@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Mobility — Partner & Customer Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.css">
+<style>
+  :root {
+    --r-background-color: #fcfffe;
+    --r-main-font: 'Inter', system-ui, -apple-system, sans-serif;
+    --r-heading-font: 'Inter', system-ui, -apple-system, sans-serif;
+    --r-main-color: #1e1e1e;
+    --r-heading-color: #1e1e1e;
+    --r-heading-font-weight: 700;
+    --r-link-color: #01b784;
+    --r-selection-background-color: #01b784;
+    --accent-green: #01b784;
+    --accent-green-dark: #008c64;
+    --accent-red: #d7263d;
+    --muted: #334155;
+    --card-bg: #ffffff;
+    --card-radius: 24px;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    --card-border: rgba(0,0,0,0.06);
+    --green-band: linear-gradient(180deg, #008c64, #01b784);
+    --cta-pill: #212121;
+  }
+
+  .reveal { font-family: var(--r-main-font); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section {
+    padding: 60px 80px;
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .reveal h1 { font-size: 64px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 24px; }
+  .reveal h2 { font-size: 48px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+  .reveal h3 { font-size: 32px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 16px; }
+  .reveal p, .reveal li { font-size: 22px; line-height: 1.6; color: var(--muted); }
+  .reveal .label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; display: block; }
+  .reveal .big-number { font-size: 96px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--accent-green); }
+  .reveal .red { color: var(--accent-red); }
+  .reveal .green { color: var(--accent-green); }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    padding: 32px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .flex-row { display: flex; gap: 24px; align-items: center; }
+  .mt-auto { margin-top: auto; }
+  .mt-2 { margin-top: 16px; }
+  .mt-4 { margin-top: 32px; }
+  .mb-2 { margin-bottom: 16px; }
+  .mb-4 { margin-bottom: 32px; }
+  .center { text-align: center; align-items: center; }
+
+  .cta {
+    display: inline-block;
+    background: var(--cta-pill); color: #fff;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 16px; font-weight: 600; text-decoration: none;
+  }
+
+  .green-band {
+    background: var(--green-band) !important;
+    color: #fff !important;
+  }
+  .green-band h1, .green-band h2, .green-band h3, .green-band p, .green-band li {
+    color: #fff !important;
+  }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1 — The Problem
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">Trace Mobility · Revenue Optimization</div>
+  <h1 style="font-size:64px;">Three teams. Three tools. One leaky P&amp;L.</h1>
+  <h3 style="font-weight:400; color:var(--muted);">Fleet planning, pricing, and marketing run on separate spreadsheets, separate instincts, and separate meetings. Nobody optimizes them jointly — so profit stays on the table.</h3>
+
+  <div class="grid-3 mt-4">
+    <div class="card" style="border-top:4px solid var(--accent-red); text-align:center;">
+      <h3 style="font-size:22px; color:var(--accent-red); margin-top:8px;">Fleet</h3>
+      <p style="font-size:18px;">Cars sit idle where demand is low. Shortages where it is high. Decisions by gut, not by forecast.</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--accent-red); text-align:center;">
+      <h3 style="font-size:22px; color:var(--accent-red); margin-top:8px;">Pricing</h3>
+      <p style="font-size:18px;">Flat rates for commuters, tourists, and sporadic users. Peaks underpriced. Valleys empty.</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--accent-red); text-align:center;">
+      <h3 style="font-size:22px; color:var(--accent-red); margin-top:8px;">Marketing</h3>
+      <p style="font-size:18px;">Vouchers to everyone. Loyal users get the same discount as churning ones. Budget burned.</p>
+    </div>
+  </div>
+
+  <div class="card mt-4" style="background:rgba(215,38,61,0.04); border-left:4px solid var(--accent-red);">
+    <p style="font-size:20px; margin:0;"><strong>The compounding effect:</strong> Bad fleet sizing makes bad pricing worse, and undifferentiated marketing fails on both. The leaks compound — and operators pay for 24 hours while vehicles earn for only a few.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2 — The Solution (One Liner)
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">What We Do</div>
+  <h1 style="font-size:72px;">We optimize fleet, pricing, and marketing as one system.</h1>
+  <h3 style="font-weight:400; color:var(--muted); margin-bottom:32px;">Not three dashboards. Not three teams guessing. One engine that simulates your entire market — every customer, every station, every hour — and tells you exactly what to change.</h3>
+
+  <div class="grid-3 mb-4">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">🧬</div>
+      <h3 style="font-size:22px;">Behavioral Models</h3>
+      <p style="font-size:18px;">Every registered customer is modeled individually — not lumped into averages. Usage patterns, price sensitivity, and churn probability per person.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">⚡</div>
+      <h3 style="font-size:22px;">Agent-Based Simulation</h3>
+      <p style="font-size:18px;">All customers compete in real time. Fleet, prices, and marketing interact dynamically. The model finds the policy that maximizes total profit.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:8px;">🎯</div>
+      <h3 style="font-size:22px;">Direct Recommendations</h3>
+      <p style="font-size:18px;">Not reports to interpret. Concrete actions: move 3 cars to Station A, raise hourly rate by 12%, send vouchers to 180 at-risk users.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+    <p style="font-size:20px; margin:0;"><strong>Analogy:</strong> Airlines solved revenue management in the 1980s — with segments and averages. We solve it for shared mobility — with individuals and real-time simulation.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3 — Monday Morning Output
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">What You Get</div>
+  <h2>Every Monday: specific actions, not charts.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">Our system pushes recommendations to your operations team weekly. Fleet moves, price adjustments, and targeted marketing — all from one engine.</p>
+
+  <div class="grid-3 mb-4">
+    <div class="card" style="border-left:4px solid var(--accent-green);">
+      <div class="label" style="color:var(--accent-green);">Fleet</div>
+      <h3 style="font-size:22px;">"Move 2 vehicles from Inner City North to Campus East. Add 1 at Train Station."</h3>
+      <p style="font-size:18px;">Driven by predicted demand per station, time, and customer walking-distance tolerance.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--accent-green-dark);">
+      <div class="label" style="color:var(--accent-green-dark);">Pricing</div>
+      <h3 style="font-size:22px;">"Raise hourly rate 15% Monday 7–9am. Discount 10% Wednesday 2–5pm."</h3>
+      <p style="font-size:18px;">Respects your floor and ceiling. Tuned to predicted booking pressure per zone and time.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--cta-pill);">
+      <div class="label" style="color:var(--cta-pill);">Marketing</div>
+      <h3 style="font-size:22px;">"Send €5 voucher to 280 inactive users in Postal Code 52062."</h3>
+      <p style="font-size:18px;">Individual targeting based on churn probability and price sensitivity. Not mass mail.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px 32px;">
+    <p style="font-size:20px; margin:0;"><strong>Delivery:</strong> API push (JSON/CSV) or email report. Weekly cycle; daily during peaks. Integrates into your fleet-management or CRM system. <strong>No replacement of existing tools.</strong></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4 — How It Works (Simplified)
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">Process</div>
+  <h2>Your data in. Optimized decisions out.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">We connect to your existing data sources. We deliver recommendations in formats your systems already consume. Four steps. No black magic.</p>
+
+  <div style="display:flex; gap:12px; align-items:center; margin-bottom:32px; flex-wrap:wrap;">
+    <div class="card" style="flex:1; padding:24px; min-width:180px;">
+      <div style="font-size:24px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">01</div>
+      <h3 style="font-size:20px;">Connect Data</h3>
+      <p style="font-size:16px;">Bookings, customers, fleet positions, and pricing history via API or scheduled CSV.</p>
+    </div>
+    <div style="font-size:32px; color:var(--accent-green); font-weight:800;">→</div>
+    <div class="card" style="flex:1; padding:24px; min-width:180px;">
+      <div style="font-size:24px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">02</div>
+      <h3 style="font-size:20px;">Build Models</h3>
+      <p style="font-size:16px;">Every registered customer gets a behavioral model. Census data adds non-customers in the catchment area.</p>
+    </div>
+    <div style="font-size:32px; color:var(--accent-green); font-weight:800;">→</div>
+    <div class="card" style="flex:1; padding:24px; min-width:180px;">
+      <div style="font-size:24px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">03</div>
+      <h3 style="font-size:20px;">Simulate Market</h3>
+      <p style="font-size:16px;">All customers as individual agents competing in real time. Fleet, pricing, and marketing co-evolve.</p>
+    </div>
+    <div style="font-size:32px; color:var(--accent-green); font-weight:800;">→</div>
+    <div class="card" style="flex:1; padding:24px; min-width:180px;">
+      <div style="font-size:24px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">04</div>
+      <h3 style="font-size:20px;">Push Decisions</h3>
+      <p style="font-size:16px;">Recommendations delivered via API or report within 24 hours of data ingest.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="padding:20px 24px; background:rgba(1,183,132,0.04);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">What we need from you</p>
+      <p style="font-size:18px; margin:0;">Booking logs (user ID, station, time, price), fleet inventory (locations, capacity), customer records (registration date, home geoposition), current pricing rules. Standard CSV or REST API.</p>
+    </div>
+    <div class="card" style="padding:20px 24px; background:rgba(1,183,132,0.04);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">What you get back</p>
+      <p style="font-size:18px; margin:0;">JSON or CSV: fleet moves, hourly price multipliers by station, targeted voucher lists with win-back probabilities. Human-readable rationale included.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5 — Proof (Confident, No Apology)
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">Validation</div>
+  <h2>Back-tested on 20 operators. Calibrated on real data.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">We validate every simulation against historical earnings before any recommendation goes live. Here is what we have proven — and what the live pilot proves next.</p>
+
+  <div class="grid-3 mb-4">
+    <div class="card" style="text-align:center;">
+      <div class="big-number">+21.8%</div>
+      <p style="font-size:20px; font-weight:600;">Simulated Profit Uplift</p>
+      <p style="font-size:18px;">Average across 20 real-world operator data sets. Out-of-sample validation matches ±4% on historical earnings.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:48px; font-weight:800; color:var(--accent-green); margin-bottom:12px;">70,000</div>
+      <p style="font-size:20px; font-weight:600;">Customers Modeled</p>
+      <p style="font-size:18px;">Registered users across our operator network. Every one with individual price elasticity and churn probability.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:48px; font-weight:800; color:var(--muted); margin-bottom:12px;">18</div>
+      <p style="font-size:20px; font-weight:600;">Months of Data Partnerships</p>
+      <p style="font-size:18px;">Raw data ingestion and model calibration since early 2025. The models are deep, not shallow.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
+    <p style="font-size:22px; margin:0;"><strong>Live pilots start Q3 2026.</strong> We run the system on your fleet for 90 days. You apply the recommendations. We measure actual revenue vs. baseline. Live validation closes the gap between simulation and reality — with your data.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 — Integration (NEW)
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">Integration</div>
+  <h2>Works with what you already have. Not instead of it.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">The #1 question we hear: "Do we need to change our stack?" The answer is no. Trace plugs in. It does not replace.</p>
+
+  <div class="grid-2 mb-4">
+    <div class="card" style="border-top:4px solid var(--accent-green);">
+      <h3 style="font-size:22px;">📥 Data Ingest</h3>
+      <ul style="font-size:18px; line-height:1.7; margin:0; padding-left:20px;">
+        <li>CSV upload (weekly or daily via SFTP)</li>
+        <li>REST API push from your booking system</li>
+        <li>Standard schema — no custom integration work</li>
+        <li>No PII leaves your infrastructure</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid var(--accent-green-dark);">
+      <h3 style="font-size:22px;">📤 Recommendations Out</h3>
+      <ul style="font-size:18px; line-height:1.7; margin:0; padding-left:20px;">
+        <li>JSON feed for your fleet-management platform</li>
+        <li>CSV email report for operations team</li>
+        <li>Conversational BI for ad-hoc queries</li>
+        <li>Optional: direct API into your pricing engine</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2 mb-4">
+    <div class="card" style="background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">IT effort from you</p>
+      <p style="font-size:18px; margin:0;"><strong>One day.</strong> A developer maps your existing booking and fleet export to our standard schema. No new infrastructure. No software to install. No training for your team.</p>
+    </div>
+    <div class="card" style="background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">Data governance</p>
+      <p style="font-size:18px; margin:0;">DPA contracts in place. Customer data is pseudonymized before ingestion. No PII stored in simulation. EU AI Act transparency documentation prepared per operator.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px 32px;">
+    <p style="font-size:20px; margin:0;"><strong>Typical system landscape:</strong> Trace sits alongside your fleet-management platform (FMS), booking engine, and CRM. It reads data, outputs recommendations, and your existing tools execute. You keep your stack. We add the intelligence layer.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 7 — Application & Price
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">Pilot Program</div>
+  <h2>90 days. Zero upfront cost. Then your decision.</h2>
+  <p style="font-size:24px; margin-bottom:32px;">We are accepting pilot partners for live validation starting Q3 2026. The pilot is structured so you take minimal risk and get measurable proof.</p>
+
+  <div style="display:flex; gap:12px; margin-bottom:32px; flex-wrap:wrap;">
+    <div class="card" style="flex:1; min-width:200px;">
+      <div style="font-size:36px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">Week 1–2</div>
+      <h3 style="font-size:20px;">Data Integration</h3>
+      <p style="font-size:16px;">We connect to your booking and fleet data. Standard CSV or API. One day of effort from your IT.</p>
+    </div>
+    <div style="font-size:32px; color:var(--accent-green); font-weight:800; align-self:center;">→</div>
+    <div class="card" style="flex:1; min-width:200px;">
+      <div style="font-size:36px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">Week 3–4</div>
+      <h3 style="font-size:20px;">Back-Test Preview</h3>
+      <p style="font-size:16px;">We build models and run a historical simulation on your data. You see the predicted uplift before anything goes live.</p>
+    </div>
+    <div style="font-size:32px; color:var(--accent-green); font-weight:800; align-self:center;">→</div>
+    <div class="card" style="flex:1; min-width:200px;">
+      <div style="font-size:36px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">Week 5–12</div>
+      <h3 style="font-size:20px;">Live Application</h3>
+      <p style="font-size:16px;">You apply our recommendations. We track actual revenue, utilization, and margin vs. baseline. Weekly check-ins.</p>
+    </div>
+    <div style="font-size:32px; color:var(--accent-green); font-weight:800; align-self:center;">→</div>
+    <div class="card" style="flex:1; min-width:200px;">
+      <div style="font-size:36px; font-weight:800; color:var(--accent-green); margin-bottom:8px;">Week 13</div>
+      <h3 style="font-size:20px;">Decision</h3>
+      <p style="font-size:16px;">If we proved uplift, you sign an annual contract. If not, we part ways. The data stays with you either way.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">What you pay</p>
+      <p style="font-size:18px; margin:0;"><strong>Nothing during the pilot.</strong> If validated, the annual contract is a fixed fee based on fleet size — typically €15K–€50K per year for fleets of 20 to 500 vehicles. No revenue share. No hidden costs.</p>
+    </div>
+    <div class="card" style="background:rgba(1,183,132,0.04); border-left:4px solid var(--accent-green);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">What we need</p>
+      <p style="font-size:18px; margin:0;">Commitment to apply at least 80% of fleet and pricing recommendations for 8 weeks. Without application there is no measurement; without measurement there is no proof.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 8 — About Us (Compact)
+     ═══════════════════════════════════════════ -->
+<section>
+  <div class="label">About Trace Mobility</div>
+  <h2>Built by operators. Validated by data. Backed by operators.</h2>
+
+  <div class="grid-3 mb-4">
+    <div class="card" style="padding:24px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">T</div>
+      <h3 style="font-size:22px;">Tobias</h3>
+      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">CEO · Founder</p>
+      <p style="font-size:17px;">Built and ran carsharing fleets. Knows operator P&amp;L, pricing psychology, and fleet economics from the inside.</p>
+    </div>
+    <div class="card" style="padding:24px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">L</div>
+      <h3 style="font-size:22px;">Luca</h3>
+      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">CTO</p>
+      <p style="font-size:17px;">Owns architecture, API design, and delivery. Built the data pipeline and simulation infrastructure.</p>
+    </div>
+    <div class="card" style="padding:24px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">M</div>
+      <h3 style="font-size:22px;">Marcello</h3>
+      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Customer Success Manager</p>
+      <p style="font-size:17px;">PhD-level simulation architect. Built the agent-based engine. Leads onboarding and pilot design.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">Live traction</p>
+      <p style="font-size:18px; margin:0;"><strong>7 paying customers</strong> on our Essential Insights Package (automated dashboards and reports). Data partnerships with <strong>Flinkster by Deutsche Bahn</strong> and 19 other operators.</p>
+    </div>
+    <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
+      <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:8px;">Where we are</p>
+      <p style="font-size:18px; margin:0;">Aachen, Germany · Part of aachen.digital · EU AI Act documentation prepared · DPA contracts in place with all data partners.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 9 — Closing / CTA
+     ═══════════════════════════════════════════ -->
+<section class="green-band center">
+  <h1 style="font-size:72px; margin-bottom:24px;">Your fleet data holds the answer.</h1>
+  <h2 style="font-weight:400; opacity: 0.9;">We build the model that finds it. You apply it.</h2>
+
+  <div class="mt-auto">
+    <p style="font-size:20px; opacity:0.8; margin-bottom:16px;">Live pilots starting Q3 2026 · Zero upfront cost · 90-day validation</p>
+    <a href="mailto:hello@tracemobility.com" class="cta">Book a pilot call</a>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: false,
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    width: 1920,
+    height: 1080,
+    margin: 0
+  });
+</script>
+</body>
+</html>
