@@ -5,46 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trace Mobility · Revenue Optimization</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.css">
 <style>
   :root {
-    --r-background-color: #fcfffe;
-    --r-main-font: 'Inter', system-ui, -apple-system, sans-serif;
-    --r-heading-font: 'Inter', system-ui, -apple-system, sans-serif;
-    --r-main-color: #1e1e1e;
-    --r-heading-color: #1e1e1e;
-    --r-heading-font-weight: 700;
-    --r-link-color: #01b784;
-    --r-selection-background-color: #01b784;
-    --accent-green: #01b784;
-    --accent-green-dark: #008c64;
-    --accent-red: #d7263d;
+    --bg: #fcfffe;
+    --text: #1e1e1e;
     --muted: #334155;
+    --accent: #01b784;
+    --accent-dark: #008c64;
     --card-bg: #ffffff;
-    --card-radius: 24px;
-    --card-shadow: 0 4px 24px rgba(0,0,0,0.10);
-    --card-border: rgba(0,0,0,0.06);
-    --green-band: linear-gradient(180deg, #008c64, #01b784);
+    --card-radius: 16px;
+    --card-shadow: 4px 12px 24px rgba(0,0,0,0.18);
+    --card-border: rgba(0,0,0,0.04);
+    --tag-bg: #edf3f4;
     --cta-pill: #212121;
+    --green-band: linear-gradient(180deg, #008c64, #01b784);
   }
 
-  .reveal { font-family: var(--r-main-font); }
+  .reveal { font-family: 'Inter', system-ui, sans-serif; }
   .reveal .slides { text-align: left; }
   .reveal .slides section {
-    padding: 60px 80px;
+    padding: 80px 100px;
     box-sizing: border-box;
     height: 100%;
     display: flex;
     flex-direction: column;
   }
 
-  .reveal h1 { font-size: 52px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 28px; }
-  .reveal h2 { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 24px; }
-  .reveal h3 { font-size: 26px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 14px; }
-  .reveal p, .reveal li { font-size: 20px; line-height: 1.6; color: var(--muted); }
-  .reveal .label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; display: block; }
+  /* Typography */
+  .reveal h1 {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    font-size: 48px; font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1.08;
+    margin-bottom: 20px; color: var(--text);
+  }
+  .reveal h2 {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    font-size: 36px; font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.15;
+    margin-bottom: 20px; color: var(--text);
+  }
+  .reveal h3 {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    font-size: 22px; font-weight: 600;
+    letter-spacing: -0.01em; line-height: 1.3;
+    margin-bottom: 10px; color: var(--text);
+  }
+  .reveal p, .reveal li {
+    font-size: 18px; line-height: 1.65;
+    color: var(--muted);
+  }
 
+  /* Tag / Label (Homepage-Style) */
+  .reveal .label {
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); margin-bottom: 12px;
+    display: block;
+  }
+  .reveal .tag {
+    display: inline-block;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text);
+    background: var(--tag-bg);
+    padding: 6px 14px; border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* Cards (Homepage-Style) */
   .card {
     background: var(--card-bg);
     border-radius: var(--card-radius);
@@ -52,15 +82,23 @@
     border: 1px solid var(--card-border);
     padding: 28px;
   }
+  .card-flat {
+    background: var(--card-bg);
+    border-radius: var(--card-radius);
+    border: 1px solid var(--card-border);
+    padding: 24px;
+  }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  /* Layout helpers */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .mt-auto { margin-top: auto; }
   .mt-3 { margin-top: 24px; }
-  .mt-4 { margin-top: 32px; }
+  .mt-4 { margin-top: 40px; }
   .mb-3 { margin-bottom: 24px; }
   .center { text-align: center; align-items: center; }
 
+  /* CTA */
   .cta {
     display: inline-block;
     background: var(--cta-pill); color: #fff;
@@ -68,6 +106,7 @@
     font-size: 16px; font-weight: 600; text-decoration: none;
   }
 
+  /* Green band */
   .green-band {
     background: var(--green-band) !important;
     color: #fff !important;
@@ -76,116 +115,48 @@
     color: #fff !important;
   }
 
-  .component-node {
-    background: var(--card-bg);
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow);
-    border: 1px solid var(--card-border);
-    padding: 16px 12px;
-    text-align: center;
-    min-height: 110px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .component-node .icon {
-    font-size: 24px;
-    margin-bottom: 6px;
-  }
-  .component-node h4 {
-    font-size: 13px;
-    font-weight: 700;
-    margin: 0 0 4px 0;
-    line-height: 1.2;
-  }
-  .component-node p {
-    font-size: 11px;
-    color: var(--muted);
-    margin: 0;
-    line-height: 1.4;
-  }
-  .arrow-flow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: var(--accent-green);
-    font-weight: 800;
-  }
-
-
-  /* ── Logo + Seitenzahl auf jeder Folie ───────────────────── */
-  .reveal .slides section {
-    position: relative;
-  }
+  /* ── Logo + Page number ── */
+  .reveal .slides section { position: relative; }
   .reveal .slides section::before {
     content: "";
     position: absolute;
-    top: 28px;
-    right: 80px;
-    width: 130px;
-    height: 36px;
+    top: 32px; right: 100px;
+    width: 130px; height: 36px;
     background-image: url("https://assets.ycodeapp.com/assets/app113235/images/published/trace-mobility-logo-black-en8erbjhqa-2000.webp");
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-size: contain; background-repeat: no-repeat;
     background-position: right center;
-    z-index: 10;
-    opacity: 0.85;
-    pointer-events: none;
+    z-index: 10; opacity: 0.85; pointer-events: none;
   }
   .reveal .slides section::after {
     content: attr(data-slide-num);
     position: absolute;
-    bottom: 28px;
-    right: 80px;
-    font-family: var(--r-main-font);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    z-index: 10;
-    pointer-events: none;
+    bottom: 32px; right: 100px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; color: var(--muted);
+    z-index: 10; pointer-events: none;
   }
-  /* Weißes Logo auf grünem Hintergrund */
-  section.green-band::before {
-    filter: brightness(0) invert(1);
-    opacity: 1;
-  }
-  /* Helle Seitenzahl auf grünem Hintergrund */
-  section.green-band::after {
-    color: rgba(255,255,255,0.7);
-  }
+  section.green-band::before { filter: brightness(0) invert(1); opacity: 1; }
+  section.green-band::after  { color: rgba(255,255,255,0.7); }
 
-
-
-  /* ── Architektur-Folie: Interaktives System-Diagramm ────────── */
+  /* ── Architecture Grid ── */
   .arch-layout {
     display: grid;
     grid-template-columns: 230px 1fr 230px;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 16px 32px;
-    flex: 1;
-    position: relative;
-    align-items: center;
-    padding: 8px 0;
-    min-height: 0;
+    gap: 14px 32px;
+    flex: 1; position: relative;
+    align-items: center; padding: 4px 0; min-height: 0;
   }
   .arch-svg-layer {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
   }
   .arch-svg-layer path.conn {
-    fill: none;
-    stroke: #94a3b8;
-    stroke-width: 1.5;
-    stroke-dasharray: 5 4;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    fill: none; stroke: #94a3b8;
+    stroke-width: 1.5; stroke-dasharray: 5 4;
+    opacity: 0; transition: opacity 0.5s ease;
   }
   .arch-svg-layer path.conn.active {
     opacity: 0.45;
@@ -195,82 +166,66 @@
 
   .arch-node {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     box-shadow: var(--card-shadow);
     border: 1px solid var(--card-border);
-    padding: 16px 14px;
-    text-align: center;
+    padding: 16px 14px; text-align: center;
     z-index: 5;
     transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
     cursor: default;
-    opacity: 0;
-    transform: translateY(10px);
-    align-self: center;
-    justify-self: center;
-    width: 100%;
-    max-width: 210px;
+    opacity: 0; transform: translateY(10px);
+    align-self: center; justify-self: center;
+    width: 100%; max-width: 210px;
   }
   .arch-node.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(.34,1.4,.64,1), box-shadow 0.3s, border-color 0.3s;
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.45s ease,
+                transform 0.45s cubic-bezier(.34,1.4,.64,1),
+                box-shadow 0.3s, border-color 0.3s;
   }
   .arch-node:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 32px rgba(0,0,0,0.10);
-    border-color: var(--accent-green);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.15);
+    border-color: var(--accent);
   }
   .arch-node .arch-icon {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     margin: 0 auto 8px auto;
-    color: var(--muted);
-    transition: color 0.3s;
+    color: var(--muted); transition: color 0.3s;
   }
   .arch-node .arch-icon svg { width: 100%; height: 100%; }
-  .arch-node:hover .arch-icon { color: var(--accent-green); }
+  .arch-node:hover .arch-icon { color: var(--accent); }
   .arch-node h4 {
-    font-size: 12.5px;
-    font-weight: 700;
-    margin: 0 0 4px 0;
-    line-height: 1.2;
-    color: var(--r-heading-color);
+    font-family: 'Inter Tight', 'Inter', sans-serif;
+    font-size: 12.5px; font-weight: 700;
+    margin: 0 0 4px 0; line-height: 1.2;
+    color: var(--text);
   }
   .arch-node p {
-    font-size: 11px;
-    color: var(--muted);
-    margin: 0;
-    line-height: 1.4;
+    font-size: 11px; color: var(--muted);
+    margin: 0; line-height: 1.4;
   }
   .arch-node.highlight {
-    border-color: var(--accent-green);
+    border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(1,183,132,0.10), var(--card-shadow);
   }
-  .arch-node.highlight h4 { color: var(--accent-green-dark); }
+  .arch-node.highlight h4 { color: var(--accent-dark); }
 
   .arch-center-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    grid-row: 1 / 4;
-    grid-column: 2;
-    z-index: 5;
-    justify-self: center;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 18px;
+    grid-row: 1 / 4; grid-column: 2;
+    z-index: 5; justify-self: center;
   }
   .arch-center-col .arch-node { max-width: 240px; }
 
   .arch-pulse-ring {
-    position: absolute;
-    left: 50%;
-    top: 52%;
+    position: absolute; left: 50%; top: 52%;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
+    width: 250px; height: 250px;
     border-radius: 50%;
     border: 1.5px solid rgba(1,183,132,0.11);
-    z-index: 0;
-    pointer-events: none;
+    z-index: 0; pointer-events: none;
     animation: archPulse 3s ease-out infinite;
   }
   @keyframes archPulse {
@@ -279,19 +234,28 @@
   }
 
   .arch-caption {
-    margin-top: 16px;
-    padding: 12px 22px;
-    background: #f1f5f9;
-    border-radius: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--muted);
-    opacity: 0;
-    transition: opacity 0.3s;
-    min-height: 42px;
+    margin-top: 14px; padding: 12px 22px;
+    background: var(--tag-bg); border-radius: 10px;
+    font-size: 14px; line-height: 1.5;
+    color: var(--muted); opacity: 0;
+    transition: opacity 0.3s; min-height: 42px;
   }
   .arch-caption.show { opacity: 1; }
 
+  .workflow-bar {
+    padding: 14px 28px;
+    background: var(--tag-bg);
+    border-radius: 10px;
+    margin-top: 16px;
+  }
+  .workflow-bar p {
+    font-size: 14px; margin: 0; color: var(--muted); line-height: 1.55;
+  }
+
+  /* ── Print ── */
+  @media print {
+    .reveal .slides section { page-break-after: always; }
+  }
 </style>
 </head>
 <body>
@@ -299,86 +263,85 @@
 <div class="slides">
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 1 — Deckblatt
+     SLIDE 1 — Title
      ═══════════════════════════════════════════ -->
 <section class="center" data-slide-num="1 / 6">
   <div class="mt-auto" style="margin-bottom:40px;">
-    <img src="https://assets.ycodeapp.com/assets/app113235/images/published/trace-mobility-logo-black-en8erbjhqa-2000.webp" alt="Trace Mobility Logo" style="max-width:300px; margin-bottom:40px;">
-    
-    <h1 style="font-size:64px; margin-bottom:16px;">Unified Revenue Optimization<br>for Fleet, Pricing & Marketing</h1>
-    <h3 style="font-weight:400; color:var(--muted); font-size:26px;">Agent-based simulation with individual, LLM-supported customer digital twins.</h3>
+    <img src="https://assets.ycodeapp.com/assets/app113235/images/published/trace-mobility-logo-black-en8erbjhqa-2000.webp" alt="Trace Mobility Logo" style="max-width:320px; margin-bottom:48px;">
+
+    <h1 style="font-size:56px; margin-bottom:18px;">Unified Revenue Optimization<br>for Fleet, Pricing & Marketing</h1>
+    <p style="font-size:22px; color:var(--muted); max-width:880px; margin:0 auto; line-height:1.55;">Agent-based simulation with individual, LLM-supported customer digital twins. Raw data in. Joint-optimal configuration out.</p>
   </div>
-  <div style="margin-top:auto; margin-bottom:40px;">
-    <p style="font-size:16px; color:var(--muted);">Trace Mobility GmbH · Aachen, Germany</p>
+  <div style="margin-top:auto; margin-bottom:48px;">
+    <p style="font-size:15px; color:var(--muted);">Trace Mobility GmbH · Aachen, Germany</p>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 2 — Your Fleet, Pricing, and Marketing Decisions Are Siloed
+     SLIDE 2 — Problem
      ═══════════════════════════════════════════ -->
 <section data-slide-num="2 / 6">
-  <div class="label">Trace Mobility · Revenue Optimization</div>
-  <h1>Your Fleet, Pricing, and Marketing Decisions Are Siloed.</h1>
-  <h3 style="font-weight:400; color:var(--muted);">Different teams. Different tools. No shared forecast. Customers treated as averages, not individuals.</h3>
+  <div class="label">The Problem</div>
+  <h2 style="font-size:42px;">Your Fleet, Pricing, and Marketing Decisions Are Siloed.</h2>
+  <p style="font-size:20px; color:var(--muted); margin-bottom:32px;">Different teams. Different tools. No shared forecast. Customers treated as averages, not individuals.</p>
 
   <div class="grid-3 mt-4">
-    <div class="card" style="border-top:4px solid var(--accent-red); text-align:center;">
-      <h3 style="font-size:20px; color:var(--accent-red); margin-top:8px;">Fleet</h3>
-      <p style="font-size:17px;">Vehicles where demand is low. Shortages where it is high. Capacity decisions by gut, not by forecast.</p>
+    <div class="card" style="text-align:center; border-top:3px solid #d7263d;">
+      <span class="tag" style="background:rgba(215,38,61,0.08); color:#d7263d;">Fleet</span>
+      <p style="font-size:17px; margin-top:8px;">Vehicles where demand is low. Shortages where it is high. Capacity decisions by gut, not by forecast.</p>
     </div>
-    <div class="card" style="border-top:4px solid var(--accent-red); text-align:center;">
-      <h3 style="font-size:20px; color:var(--accent-red); margin-top:8px;">Pricing</h3>
-      <p style="font-size:17px;">The same rate for commuters, tourists, and first-timers. Peaks underpriced; valleys empty.</p>
+    <div class="card" style="text-align:center; border-top:3px solid #d7263d;">
+      <span class="tag" style="background:rgba(215,38,61,0.08); color:#d7263d;">Pricing</span>
+      <p style="font-size:17px; margin-top:8px;">The same rate for commuters, tourists, and first-timers. Peaks underpriced; valleys empty.</p>
     </div>
-    <div class="card" style="border-top:4px solid var(--accent-red); text-align:center;">
-      <h3 style="font-size:20px; color:var(--accent-red); margin-top:8px;">Marketing</h3>
-      <p style="font-size:17px;">Discounts sent to everyone. Budget spent on users who would book anyway. No individual targeting.</p>
+    <div class="card" style="text-align:center; border-top:3px solid #d7263d;">
+      <span class="tag" style="background:rgba(215,38,61,0.08); color:#d7263d;">Marketing</span>
+      <p style="font-size:17px; margin-top:8px;">Discounts sent to everyone. Budget spent on users who would book anyway. No individual targeting.</p>
     </div>
   </div>
 
-  <div class="card mt-4" style="background:rgba(215,38,61,0.04); border-left:4px solid var(--accent-red);">
-    <p style="font-size:20px; margin:0;"><strong>The result:</strong> Higher profit from the same fleet, customers, and budget when decisions are integrated rather than siloed.</p>
+  <div class="card mt-4" style="background:rgba(215,38,61,0.03); border-left:3px solid #d7263d;">
+    <p style="font-size:19px; margin:0; color:var(--text);"><strong>The result:</strong> <span style="color:var(--muted);">Higher profit from the same fleet, customers, and budget when decisions are integrated rather than siloed.</span></p>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 3 — Trace Mobility Models Every Customer Individually, Then Optimizes All Three Together
+     SLIDE 3 — Solution
      ═══════════════════════════════════════════ -->
 <section data-slide-num="3 / 6">
   <div class="label">What We Do</div>
-  <h1 style="font-size:48px;">Trace Mobility Models Every Customer Individually, Then Optimizes All Three Together.</h1>
+  <h2 style="font-size:42px;">Trace Mobility Models Every Customer Individually, Then Optimizes All Three Together.</h2>
 
   <div class="grid-3 mb-3">
     <div class="card" style="text-align:center;">
-      <div style="font-size:36px; margin-bottom:8px;">🧬</div>
+      <div style="font-size:40px; margin-bottom:10px;">🧬</div>
       <h3 style="font-size:20px;">Customer Digital Twins</h3>
-      <p style="font-size:17px;">Price sensitivity, usage patterns, churn risk — modeled individually for every registered user. Not segments. Not averages.</p>
+      <p style="font-size:16px;">Price sensitivity, usage patterns, churn risk — modeled individually for every registered user. Not segments. Not averages.</p>
     </div>
     <div class="card" style="text-align:center;">
-      <div style="font-size:36px; margin-bottom:8px;">⚡</div>
+      <div style="font-size:40px; margin-bottom:10px;">⚡</div>
       <h3 style="font-size:20px;">Agent-Based Market Simulation</h3>
-      <p style="font-size:17px;">Tests how the whole market reacts to policy changes — including the full population in the catchment area, not just existing registered users. Fleet, price, and marketing co-evolve.</p>
+      <p style="font-size:16px;">Tests how the whole market reacts to policy changes — including the full population in the catchment area, not just existing registered users. Fleet, price, and marketing co-evolve.</p>
     </div>
     <div class="card" style="text-align:center;">
-      <div style="font-size:36px; margin-bottom:8px;">🎯</div>
+      <div style="font-size:40px; margin-bottom:10px;">🎯</div>
       <h3 style="font-size:20px;">Joint Configuration Optimizer</h3>
-      <p style="font-size:17px;">Fleet, Pricing, and Marketing optimized simultaneously. Not sequentially. Not in silos.</p>
+      <p style="font-size:16px;">Fleet, Pricing, and Marketing optimized simultaneously. Not sequentially. Not in silos.</p>
     </div>
   </div>
 
-  <div class="card" style="padding:18px 28px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:19px; margin:0;"><strong>The shift:</strong> Instead of three teams optimizing independently, one system finds the joint-optimal operating configuration — accounting for cross-effects between fleet, price, and marketing that no single team can see alone.</p>
+  <div class="card" style="padding:18px 28px; background:var(--tag-bg);">
+    <p style="font-size:18px; margin:0; color:var(--text);"><strong>The shift:</strong> <span style="color:var(--muted);">Instead of three teams optimizing independently, one system finds the joint-optimal operating configuration — accounting for cross-effects between fleet, price, and marketing that no single team can see alone.</span></p>
   </div>
 </section>
 
-
 <!-- ═══════════════════════════════════════════
-     SLIDE 4 — System Architecture
+     SLIDE 4 — Architecture
      ═══════════════════════════════════════════ -->
 <section data-slide-num="4 / 6">
   <div class="label">System Architecture</div>
-  <h1 style="font-size:40px; margin-bottom:8px;">Raw Data In. Joint-Optimal Configuration Out.</h1>
-  <p style="font-size:18px; color:var(--muted); margin-bottom:24px;">Six integrated components. One profit-maximizing operating point.</p>
+  <h2 style="font-size:38px; margin-bottom:8px;">Raw Data In. Joint-Optimal Configuration Out.</h2>
+  <p style="font-size:17px; color:var(--muted); margin-bottom:24px;">Six integrated components. One profit-maximizing operating point.</p>
 
   <div class="arch-layout" id="archSystem">
     <svg class="arch-svg-layer" id="archSvg" width="100%" height="100%">
@@ -392,21 +355,21 @@
          data-detail="Raw booking, fleet, and pricing data enter via CSV upload, API push, or SFTP — standard formats, no preprocessing required.">
       <div class="arch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
       <h4>Data Ingestion</h4>
-      <p>CSV / API / SFTP ingestion of fleet, pricing & booking data</p>
+      <p>CSV / API / SFTP of fleet, pricing & booking data</p>
     </div>
 
     <div class="arch-node" id="node-twin"
          data-detail="Every registered user gets an individual behavioral model: price sensitivity, trip patterns, and churn risk.">
       <div class="arch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><line x1="17" y1="11" x2="17" y2="14"/><path d="M14 14h6"/></svg></div>
       <h4>Customer Twin Builder</h4>
-      <p>Individual behavioral models per user — not averages</p>
+      <p>Individual behavioral models per user</p>
     </div>
 
     <div class="arch-node" id="node-llm"
          data-detail="LLMs infer latent behavioral traits for cold-start users and enrich sparse profiles so every agent has a complete decision model.">
       <div class="arch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h2M8 12h2M8 15h2M14 9h2M14 12h2M14 15h2"/><path d="M4 8h16"/></svg></div>
       <h4>LLM Enrichment</h4>
-      <p>Offline behavioral inference & profile completion</p>
+      <p>Offline behavioral inference & completion</p>
     </div>
 
     <!-- Center column -->
@@ -415,16 +378,16 @@
            data-detail="A virtual market runs thousands of individual agents — including the full catchment-area population — to test how fleet, price, and marketing co-evolve.">
         <div class="arch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><path d="M7 10.5l3.5-3M13.5 7l3.5 3.5"/><path d="M16.5 13.5l-3.5 3.5M10.5 16.5l-3.5-3.5"/></svg></div>
         <h4>Agent-Based Simulation Engine</h4>
-        <p>Virtual market with thousands of individual decision-makers</p>
+        <p>Virtual market with individual decision-makers</p>
       </div>
 
       <div class="arch-pulse-ring"></div>
       <div class="arch-node highlight" id="node-opt"
-           data-detail="Searches the joint space of fleet, pricing, and marketing configurations for the profit-maximizing operating point — accounting for cross-effects no single team sees.">
+           data-detail="Searches the joint space of fleet, pricing, and marketing configurations for the profit-maximizing operating point.">
         <div class="arch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4l1.4-1.4M17 7l1.4-1.4"/></svg></div>
         <h4>Joint Config Optimizer</h4>
-        <p style="font-size:11px; color:var(--accent-green); font-weight:600;">Fleet, Pricing & Marketing</p>
-        <p>N-dimensional profit search across all levers</p>
+        <p style="font-size:11px; color:var(--accent); font-weight:600;">Fleet, Pricing & Marketing</p>
+        <p>N-dimensional profit search</p>
       </div>
     </div>
 
@@ -433,63 +396,61 @@
          data-detail="Results delivered as concrete, actionable parameters: rebalancing targets, rate recommendations, and campaign segments ready for your systems.">
       <div class="arch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 10l2 2 4-4"/><path d="M8 16h8"/></svg></div>
       <h4>Decision API</h4>
-      <p>JSON / CSV output with concrete parameters</p>
+      <p>JSON / CSV with concrete parameters</p>
     </div>
   </div>
 
   <div class="arch-caption" id="archCaption">Hover over any component to see what it does.</div>
 
-  <div class="card" style="padding:14px 28px; background:rgba(1,183,132,0.04); margin-top:16px;">
-    <p style="font-size:15px; margin:0; color:var(--muted);">
-      <strong>Workflow:</strong> Raw fleet, booking, and pricing data feed individual Customer Digital Twins. The Simulation Engine runs a virtual market. The Optimizer searches across Fleet, Pricing, and Marketing for the configuration that maximizes profit. Results are delivered as concrete, actionable API parameters.
-    </p>
+  <div class="workflow-bar">
+    <p><strong>Workflow:</strong> Raw fleet, booking, and pricing data feed individual Customer Digital Twins. The Simulation Engine runs a virtual market. The Optimizer searches across Fleet, Pricing, and Marketing for the configuration that maximizes profit. Results are delivered as concrete, actionable API parameters.</p>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 5 — Connect in a Day. Your Data, Your Control.
+     SLIDE 5 — Trust / Integration
      ═══════════════════════════════════════════ -->
 <section data-slide-num="5 / 6">
   <div class="label">Integration & Trust</div>
-  <h1 style="font-size:48px;">Connect in a Day. Your Data, Your Control.</h1>
+  <h2 style="font-size:42px;">Connect in a Day. Your Data, Your Control.</h2>
 
   <div class="grid-2 mb-3">
-    <div class="card" style="padding:22px; background:rgba(1,183,132,0.04);">
-      <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:10px;">IT effort</p>
+    <div class="card" style="background:var(--tag-bg);">
+      <span class="tag" style="background:#fff; color:var(--accent-dark);">IT effort</span>
       <p style="font-size:17px; margin:0;"><strong>Standard CSV:</strong> one day to map export fields. <strong>API:</strong> one to two weeks. SaaS-hosted. Nothing to install on your side.</p>
     </div>
-    <div class="card" style="padding:22px; background:rgba(1,183,132,0.04);">
-      <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:10px;">Data governance</p>
+    <div class="card" style="background:var(--tag-bg);">
+      <span class="tag" style="background:#fff; color:var(--accent-dark);">Data governance</span>
       <p style="font-size:17px; margin:0;">DPA in place. Customer IDs hashed before ingestion. No PII stored. EU AI Act transparency documentation available. You retain ownership of all raw data.</p>
     </div>
   </div>
 
   <div class="grid-2">
-    <div class="card" style="padding:22px; background:rgba(1,183,132,0.04);">
-      <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:10px;">No lock-in</p>
-      <p style="font-size:17px; margin:0;">Cancel with 30 days notice during pilot, 90 days on annual contract. All recommendations delivered in standard format (JSON/CSV). No proprietary lock-in. Export everything.</p>
+    <div class="card" style="background:var(--tag-bg);">
+      <span class="tag" style="background:#fff; color:var(--accent-dark);">No lock-in</span>
+      <p style="font-size:17px; margin:0;">Cancel with 30 days notice during pilot, 90 days on annual contract. All recommendations in standard format (JSON/CSV). Export everything.</p>
     </div>
-    <div class="card" style="padding:22px; background:rgba(1,183,132,0.04);">
-      <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:10px;">Hosting</p>
+    <div class="card" style="background:var(--tag-bg);">
+      <span class="tag" style="background:#fff; color:var(--accent-dark);">Hosting</span>
       <p style="font-size:17px; margin:0;">SaaS-hosted on EU infrastructure. ISO 27001-aligned controls. No customer data leaves the EU.</p>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SLIDE 6 — CTA mit Kontaktdaten
+     SLIDE 6 — CTA
      ═══════════════════════════════════════════ -->
-<section class="green-band" style="padding:50px 80px;" data-slide-num="6 / 6">
+<section class="green-band" style="padding:60px 100px;" data-slide-num="6 / 6">
   <div class="label" style="color:rgba(255,255,255,0.8);">Contact</div>
-  <h1 style="font-size:44px; margin-bottom:20px;">Let's Discuss Your Requirements.</h1>
+  <h2 style="font-size:40px; margin-bottom:20px;">Let's Discuss Your Requirements.</h2>
 
-  <p style="font-size:20px; line-height:1.6; color:rgba(255,255,255,0.95); margin-bottom:32px; max-width:900px;">
+  <p style="font-size:20px; line-height:1.6; color:rgba(255,255,255,0.95); margin-bottom:36px; max-width:900px;">
     We would be happy to discuss your individual requirements and the potential for profit optimization through holistic agent-based modeling with LLM-supported individual digital twins.
   </p>
 
-  <div class="grid-2" style="gap:28px; margin-bottom:32px; max-width:1000px;">
+  <div class="grid-2" style="gap:28px; margin-bottom:36px; max-width:1000px;">
     <div class="card" style="background:rgba(255,255,255,0.08); border:none; color:#fff;">
-      <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.7); margin-bottom:10px;">Tobias Meurer</p>
+      <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.7); margin-bottom:10px;">Tobias Meurer</p>
       <p style="font-size:17px; margin:0; color:#fff;"><strong>Geschäftsführer</strong></p>
       <p style="font-size:16px; margin-top:8px; color:#fff; line-height:1.8;">
         Telefon: +49 172 7462204<br>
@@ -497,19 +458,19 @@
       </p>
     </div>
     <div class="card" style="background:rgba(255,255,255,0.08); border:none; color:#fff;">
-      <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.7); margin-bottom:10px;">Trace Mobility GmbH</p>
-      <p style="font-size:16px; margin:0; color:#fff; line-height:1.7;">
-        www.tracemobility.com<br>
+      <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.7); margin-bottom:10px;">Trace Mobility GmbH</p>
+      <p style="font-size:16px; margin:0; color:#fff; line-height:1.8;">
         Jülicher Straße 72a, 52070 Aachen<br>
-        HRB 28717 · Amtsgericht Aachen<br>
-        GF: Tobias Meurer, Luca Giorgi<br>
+        Handelsregister: Amtsgericht Aachen HRB 28717<br>
+        Geschäftsführer: Tobias Meurer, Luca Giorgi<br>
         USt-IdNr.: DE453979913
       </p>
     </div>
   </div>
 
-  <div class="mt-auto" style="padding-top:20px;">
-    <a href="https://outlook.office.com/book/VideoCallTraceMobility@tracemobility.com/?ismsaljsauthenabled" class="cta" style="background:#fff; color:#008c64; font-size:18px; padding:16px 40px;">Book a meeting</a>
+  <div style="margin-top:auto;">
+    <a href="https://outlook.office.com/book/VideoCallTraceMobility@tracemobility.com/?ismsaljsauthenabled" class="cta" style="background:#fff; color:var(--text); margin-right:16px;">Book a video call</a>
+    <a href="mailto:t.meurer@tracemobility.com" class="cta" style="background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.4);">Send e-mail</a>
   </div>
 </section>
 
@@ -518,105 +479,67 @@
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.js"></script>
 <script>
-  Reveal.initialize({
-    hash: true,
-    slideNumber: false,
-    controls: true,
-    progress: true,
-    center: false,
-    transition: 'slide',
-    width: 1920,
-    height: 1080,
-    margin: 0
-  });
-</script>
+  Reveal.initialize({ hash:true, slideNumber:false, controls:true, progress:true, center:false, transition:'slide', width:1920, height:1080, margin:0 });
 
-<script>
-(function(){
-  const slide = document.querySelector('section[data-slide-num="4 / 6"]');
-  if(!slide) return;
-  
-  const sys = slide.querySelector('#archSystem');
-  const svg = slide.querySelector('#archSvg');
-  const detail = slide.querySelector('#archCaption');
+  // Architecture interactions
+  (function(){
+    var nodes = document.querySelectorAll('.arch-node');
+    var caption = document.getElementById('archCaption');
+    var svg = document.getElementById('archSvg');
 
-  function getCenter(el) {
-    const r = el.getBoundingClientRect();
-    const pr = sys.getBoundingClientRect();
-    return {
-      x: (r.left + r.width/2) - pr.left,
-      y: (r.top + r.height/2) - pr.top
-    };
-  }
+    function drawConnections(){
+      if(!svg) return;
+      var sys = document.getElementById('archSystem');
+      if(!sys) return;
+      var sR = sys.getBoundingClientRect();
+      var existing = svg.querySelectorAll('path.conn');
+      existing.forEach(function(p){ p.remove(); });
 
-  function drawConnections() {
-    const links = [
-      ['node-ingestion','node-twin'],
-      ['node-ingestion','node-sim'],
-      ['node-twin','node-llm'],
-      ['node-twin','node-sim'],
-      ['node-llm','node-sim'],
-      ['node-sim','node-opt'],
-      ['node-twin','node-opt'],
-      ['node-llm','node-opt'],
-      ['node-opt','node-api']
-    ];
-    svg.innerHTML = '<defs><marker id="arrowEnd" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#cbd5e1" stroke-width="1.2"/></marker></defs>';
-    links.forEach(pair => {
-      const n1 = document.getElementById(pair[0]);
-      const n2 = document.getElementById(pair[1]);
-      if(!n1 || !n2) return;
-      const c1 = getCenter(n1), c2 = getCenter(n2);
-      const d = `M${c1.x},${c1.y} L${c2.x},${c2.y}`;
-      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d',d);
-      path.setAttribute('class','conn');
-      svg.appendChild(path);
-    });
-  }
-
-  // Staggered entrance — sichtbar mit delay
-  function animateIn() {
-    sys.querySelectorAll('.arch-node').forEach((n,i) => {
-      n.classList.remove('visible');
-      setTimeout(() => n.classList.add('visible'), i * 120);
-    });
-    setTimeout(() => {
-      svg.querySelectorAll('path.conn').forEach(p => p.classList.add('active'));
-    }, 900);
-  }
-
-  // Hover detail (archCaption statt archDetail)
-  sys.querySelectorAll('.arch-node').forEach(node => {
-    node.addEventListener('mouseenter', () => {
-      detail.textContent = node.dataset.detail;
-      detail.classList.add('show');
-    });
-    node.addEventListener('mouseleave', () => {
-      detail.classList.remove('show');
-    });
-  });
-
-  // Reveal.js events
-  Reveal.on('slidechanged', evt => {
-    if(evt.currentSlide === slide) {
-      drawConnections();
-      animateIn();
+      var pairs = [['node-ingestion','node-twin'],['node-twin','node-sim'],['node-llm','node-sim'],['node-sim','node-opt'],['node-opt','node-api']];
+      pairs.forEach(function(pair){
+        var a = document.getElementById(pair[0]);
+        var b = document.getElementById(pair[1]);
+        if(!a || !b) return;
+        var rA = a.getBoundingClientRect();
+        var rB = b.getBoundingClientRect();
+        var x1 = rA.left + rA.width/2 - sR.left;
+        var y1 = rA.top + rA.height/2 - sR.top;
+        var x2 = rB.left + rB.width/2 - sR.left;
+        var y2 = rB.top + rB.height/2 - sR.top;
+        var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M'+x1+','+y1+' L'+x2+','+y2);
+        path.setAttribute('class','conn active');
+        svg.appendChild(path);
+      });
     }
-  });
 
-  // Falls direkt via Hash auf diese Folie geöffnet
-  if(Reveal.getCurrentSlide() === slide) {
-    drawConnections();
-    animateIn();
-  }
+    function animateIn(){
+      nodes.forEach(function(n,i){
+        setTimeout(function(){ n.classList.add('visible'); }, i*120);
+      });
+    }
 
-  // Initial draw on resize
-  window.addEventListener('resize', () => {
-    if(Reveal.getCurrentSlide() === slide) drawConnections();
-  });
-})();
+    nodes.forEach(function(n){
+      n.addEventListener('mouseenter', function(){
+        if(caption && n.dataset.detail){ caption.textContent = n.dataset.detail; caption.classList.add('show'); }
+      });
+      n.addEventListener('mouseleave', function(){
+        if(caption){ caption.classList.remove('show'); }
+      });
+    });
+
+    Reveal.on('slidechanged', function(e){
+      if(e.currentSlide.querySelector('#archSystem')){
+        setTimeout(function(){ animateIn(); drawConnections(); }, 300);
+      } else {
+        nodes.forEach(function(n){ n.classList.remove('visible'); });
+      }
+    });
+
+    if(window.location.hash && window.location.hash.includes('/4')){
+      setTimeout(function(){ animateIn(); drawConnections(); }, 400);
+    }
+  })();
 </script>
-
 </body>
 </html>
