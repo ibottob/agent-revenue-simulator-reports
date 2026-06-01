@@ -113,6 +113,50 @@
     color: var(--accent-green);
     font-weight: 800;
   }
+
+
+  /* ── Logo + Seitenzahl auf jeder Folie ───────────────────── */
+  .reveal .slides section {
+    position: relative;
+  }
+  .reveal .slides section::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    right: 80px;
+    width: 130px;
+    height: 36px;
+    background-image: url("https://assets.ycodeapp.com/assets/app113235/images/published/trace-mobility-logo-black-en8erbjhqa-2000.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    z-index: 10;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .reveal .slides section::after {
+    content: attr(data-slide-num);
+    position: absolute;
+    bottom: 28px;
+    right: 80px;
+    font-family: var(--r-main-font);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    z-index: 10;
+    pointer-events: none;
+  }
+  /* Weißes Logo auf grünem Hintergrund */
+  section.green-band::before {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+  }
+  /* Helle Seitenzahl auf grünem Hintergrund */
+  section.green-band::after {
+    color: rgba(255,255,255,0.7);
+  }
+
 </style>
 </head>
 <body>
@@ -122,7 +166,7 @@
 <!-- ═══════════════════════════════════════════
      SLIDE 1 — Deckblatt
      ═══════════════════════════════════════════ -->
-<section class="center">
+<section class="center" data-slide-num="1 / 6">
   <div class="mt-auto" style="margin-bottom:40px;">
     <img src="https://assets.ycodeapp.com/assets/app113235/images/published/trace-mobility-logo-black-en8erbjhqa-2000.webp" alt="Trace Mobility Logo" style="max-width:300px; margin-bottom:40px;">
     
@@ -137,7 +181,7 @@
 <!-- ═══════════════════════════════════════════
      SLIDE 2 — Your Fleet, Pricing, and Marketing Decisions Are Siloed
      ═══════════════════════════════════════════ -->
-<section>
+<section data-slide-num="2 / 6">
   <div class="label">Trace Mobility · Revenue Optimization</div>
   <h1>Your Fleet, Pricing, and Marketing Decisions Are Siloed.</h1>
   <h3 style="font-weight:400; color:var(--muted);">Different teams. Different tools. No shared forecast. Customers treated as averages, not individuals.</h3>
@@ -165,7 +209,7 @@
 <!-- ═══════════════════════════════════════════
      SLIDE 3 — Trace Mobility Models Every Customer Individually, Then Optimizes All Three Together
      ═══════════════════════════════════════════ -->
-<section>
+<section data-slide-num="3 / 6">
   <div class="label">What We Do</div>
   <h1 style="font-size:48px;">Trace Mobility Models Every Customer Individually, Then Optimizes All Three Together.</h1>
 
@@ -195,7 +239,7 @@
 <!-- ═══════════════════════════════════════════
      SLIDE 4 — Six Components. Raw Data In. Optimized Decisions Out.
      ═══════════════════════════════════════════ -->
-<section>
+<section data-slide-num="4 / 6">
   <div class="label">System Architecture</div>
   <h1 style="font-size:46px;">Six Components. Raw Data In. Optimized Decisions Out.</h1>
 
@@ -247,7 +291,7 @@
 <!-- ═══════════════════════════════════════════
      SLIDE 5 — Connect in a Day. Your Data, Your Control.
      ═══════════════════════════════════════════ -->
-<section>
+<section data-slide-num="5 / 6">
   <div class="label">Integration & Trust</div>
   <h1 style="font-size:48px;">Connect in a Day. Your Data, Your Control.</h1>
 
@@ -277,7 +321,7 @@
 <!-- ═══════════════════════════════════════════
      SLIDE 6 — CTA mit Kontaktdaten
      ═══════════════════════════════════════════ -->
-<section class="green-band" style="padding:50px 80px;">
+<section class="green-band" style="padding:50px 80px;" data-slide-num="6 / 6">
   <div class="label" style="color:rgba(255,255,255,0.8);">Contact</div>
   <h1 style="font-size:44px; margin-bottom:20px;">Let's Discuss Your Requirements.</h1>
 
