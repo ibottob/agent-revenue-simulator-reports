@@ -327,6 +327,37 @@
   .nav-arrow.prev { left: 16px; }
   .nav-arrow.next { right: 16px; }
 
+  /* TRUSTED BY BAR */
+  .trusted-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .trusted-label {
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .trusted-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .trusted-logo {
+    font-family: 'Inter Tight', 'Inter', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--muted);
+    opacity: 0.5;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+  }
+  .trusted-logo:hover { opacity: 0.8; }
+
   /* PRINT */
   @media print {
     html, body { overflow: visible; background: #fff; }
@@ -351,13 +382,22 @@
 <!-- SLIDE 1 — Title -->
 <section class="slide center-slide" data-idx="0">
   <div class="slide-logo"></div>
-  <div class="slide-num">1 / 6</div>
+  <div class="slide-num">1 / 5</div>
 
   <div class="mt-auto" style="margin-bottom:40px;">
     <img src="https://assets.ycodeapp.com/assets/app113235/images/published/trace-mobility-logo-black-en8erbjhqa-2000.webp" alt="Trace Mobility Logo" style="max-width:320px; margin-bottom:48px; display:block; margin-left:auto; margin-right:auto;">
 
     <h1 style="font-size:56px; margin-bottom:18px;">Unified Revenue Optimization<br>for Fleet, Pricing & Marketing</h1>
     <p style="font-size:22px; color:var(--muted); max-width:880px; margin:0 auto; line-height:1.55;">Agent-based simulation with individual, LLM-supported customer digital twins. Raw data in. Joint-optimal configuration out.</p>
+  </div>
+  <div class="trusted-bar">
+    <div class="trusted-label">Trusted by</div>
+    <div class="trusted-logos">
+      <div class="trusted-logo">DB Connect</div>
+      <div class="trusted-logo">AlpsGo</div>
+      <div class="trusted-logo">BS-Carsharing</div>
+      <div class="trusted-logo">and many more</div>
+    </div>
   </div>
   <div style="margin-top:auto; margin-bottom:48px;">
     <p style="font-size:15px; color:var(--muted);">Trace Mobility GmbH · Aachen, Germany</p>
@@ -367,7 +407,7 @@
 <!-- SLIDE 2 — Problem -->
 <section class="slide" data-idx="1">
   <div class="slide-logo"></div>
-  <div class="slide-num">2 / 6</div>
+  <div class="slide-num">2 / 5</div>
 
   <div class="label">The Problem</div>
   <h2 style="font-size:42px;">Your Fleet, Pricing, and Marketing Decisions Are Siloed.</h2>
@@ -396,7 +436,7 @@
 <!-- SLIDE 3 — Solution -->
 <section class="slide" data-idx="2">
   <div class="slide-logo"></div>
-  <div class="slide-num">3 / 6</div>
+  <div class="slide-num">3 / 5</div>
 
   <div class="label">What We Do</div>
   <h2 style="font-size:42px;">Trace Mobility Models Every Customer Individually, Then Optimizes All Three Together.</h2>
@@ -427,7 +467,7 @@
 <!-- SLIDE 4 — Architecture -->
 <section class="slide" data-idx="3">
   <div class="slide-logo"></div>
-  <div class="slide-num">4 / 6</div>
+  <div class="slide-num">4 / 5</div>
 
   <div class="label">System Architecture</div>
   <h2 style="font-size:38px; margin-bottom:8px;">Raw Data In. Joint-Optimal Configuration Out.</h2>
@@ -500,39 +540,10 @@
   </div>
 </section>
 
-<!-- SLIDE 5 — Trust / Integration -->
-<section class="slide" data-idx="4">
-  <div class="slide-logo"></div>
-  <div class="slide-num">5 / 6</div>
 
-  <div class="label">Integration & Trust</div>
-  <h2 style="font-size:42px;">Connect in a Day. Your Data, Your Control.</h2>
-
-  <div class="grid-2 mb-3">
-    <div class="card" style="background:var(--tag-bg);">
-      <span class="tag" style="background:#fff; color:var(--accent-dark);">IT effort</span>
-      <p style="font-size:17px; margin:0;"><strong>Standard CSV:</strong> one day to map export fields. <strong>API:</strong> one to two weeks. SaaS-hosted. Nothing to install on your side.</p>
-    </div>
-    <div class="card" style="background:var(--tag-bg);">
-      <span class="tag" style="background:#fff; color:var(--accent-dark);">Data governance</span>
-      <p style="font-size:17px; margin:0;">DPA in place. Customer IDs hashed before ingestion. No PII stored. EU AI Act transparency documentation available. You retain ownership of all raw data.</p>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card" style="background:var(--tag-bg);">
-      <span class="tag" style="background:#fff; color:var(--accent-dark);">No lock-in</span>
-      <p style="font-size:17px; margin:0;">Cancel with 30 days notice during pilot, 90 days on annual contract. All recommendations in standard format (JSON/CSV). Export everything.</p>
-    </div>
-    <div class="card" style="background:var(--tag-bg);">
-      <span class="tag" style="background:#fff; color:var(--accent-dark);">Hosting</span>
-      <p style="font-size:17px; margin:0;">SaaS-hosted on EU infrastructure. ISO 27001-aligned controls. No customer data leaves the EU.</p>
-    </div>
-  </div>
-</section>
 
 <!-- SLIDE 6 — CTA -->
-<section class="slide green-band" data-idx="5">
+<section class="slide green-band" data-idx="4">
   <div class="slide-logo" style="filter: brightness(0) invert(1); opacity:1;"></div>
   <div class="slide-num">6 / 6</div>
 
