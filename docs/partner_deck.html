@@ -256,6 +256,106 @@
   @media print {
     .reveal .slides section { page-break-after: always; }
   }
+
+  /* ═══════════════════════════════════════════
+     MOBILE RESPONSIVE (< 768px)
+     ═══════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    /* Smaller padding */
+    .reveal .slides section {
+      padding: 24px 20px !important;
+      min-height: 100vh;
+      height: auto !important;
+    }
+
+    /* Typography scale down */
+    .reveal h1 { font-size: 28px !important; letter-spacing: -0.03em !important; line-height: 1.12 !important; }
+    .reveal h2 { font-size: 22px !important; letter-spacing: -0.02em !important; line-height: 1.18 !important; }
+    .reveal h3 { font-size: 17px !important; }
+    .reveal p, .reveal li { font-size: 15px !important; line-height: 1.6 !important; }
+    .reveal .label { font-size: 11px !important; margin-bottom: 8px !important; }
+    .reveal .tag { font-size: 11px !important; padding: 4px 10px !important; }
+
+    /* Grids → single column */
+    .grid-2, .grid-3 {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+
+    /* Cards smaller padding */
+    .card { padding: 16px !important; border-radius: 12px !important; }
+    .card-flat { padding: 14px !important; border-radius: 12px !important; }
+
+    /* Hide logo + page number (absolute, overlap) */
+    .reveal .slides section::before { display: none !important; }
+    .reveal .slides section::after  { display: none !important; }
+
+    /* Adjust spacing helpers */
+    .mt-4 { margin-top: 20px !important; }
+    .mt-3 { margin-top: 16px !important; }
+    .mb-3 { margin-bottom: 16px !important; }
+
+    /* CTA smaller */
+    .cta { padding: 12px 24px !important; font-size: 14px !important; }
+
+    /* Architecture: stack vertically, drop SVG lines */
+    .arch-layout {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      grid-template-columns: unset !important;
+      grid-template-rows: unset !important;
+    }
+    .arch-center-col {
+      grid-row: unset !important;
+      grid-column: unset !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+    .arch-node {
+      max-width: 100% !important;
+      width: 100% !important;
+      padding: 14px 16px !important;
+      text-align: left !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .arch-node .arch-icon {
+      width: 28px !important;
+      height: 28px !important;
+      margin: 0 10px 0 0 !important;
+      display: inline-block !important;
+      vertical-align: middle !important;
+    }
+    .arch-node h4 { display: inline-block !important; vertical-align: middle !important; }
+    .arch-pulse-ring { display: none !important; }
+    .arch-svg-layer { display: none !important; }
+    .arch-caption { display: none !important; }
+
+    .workflow-bar { padding: 12px 16px !important; }
+    .workflow-bar p { font-size: 13px !important; }
+
+    /* Center align title on mobile */
+    section.center h1 { text-align: center !important; }
+    section.center p  { text-align: center !important; }
+  }
+
+  /* Tablet (768px – 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .reveal .slides section { padding: 40px 50px !important; }
+    .reveal h1 { font-size: 36px !important; }
+    .reveal h2 { font-size: 28px !important; }
+    .grid-3 { gap: 16px !important; }
+    .card { padding: 20px !important; }
+    .arch-layout {
+      grid-template-columns: 180px 1fr 180px !important;
+      gap: 12px 20px !important;
+    }
+    .arch-node { max-width: 170px !important; padding: 12px 10px !important; }
+    .arch-node h4 { font-size: 11px !important; }
+    .arch-node p  { font-size: 10px !important; }
+  }
 </style>
 </head>
 <body>
@@ -479,7 +579,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.2/dist/reveal.js"></script>
 <script>
-  Reveal.initialize({ hash:true, slideNumber:false, controls:true, progress:true, center:false, transition:'slide', width:1920, height:1080, margin:0 });
+  // Responsive Reveal.js config
+  var isMobile = window.innerWidth < 768;
+  Reveal.initialize({
+    hash: true,
+    slideNumber: false,
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    width: isMobile ? window.innerWidth : 1920,
+    height: isMobile ? window.innerHeight : 1080,
+    margin: isMobile ? 0.04 : 0,
+    touch: true,
+    // Disable default swipe on mobile (use native scroll instead)
+    keyboard: true,
+    overview: false
+  });
 
   // Architecture interactions
   (function(){
@@ -519,6 +635,7 @@
       });
     }
 
+    // Touch: tap to show detail on mobile
     nodes.forEach(function(n){
       n.addEventListener('mouseenter', function(){
         if(caption && n.dataset.detail){ caption.textContent = n.dataset.detail; caption.classList.add('show'); }
@@ -526,6 +643,21 @@
       n.addEventListener('mouseleave', function(){
         if(caption){ caption.classList.remove('show'); }
       });
+      // Tap for mobile (no hover)
+      n.addEventListener('click', function(e){
+        if(window.innerWidth < 768 && caption && n.dataset.detail){
+          e.stopPropagation();
+          if(caption.textContent === n.dataset.detail && caption.classList.contains('show')){
+            caption.classList.remove('show');
+          } else {
+            caption.textContent = n.dataset.detail;
+            caption.classList.add('show');
+          }
+        }
+      });
+    });
+    document.addEventListener('click', function(){
+      if(window.innerWidth < 768 && caption){ caption.classList.remove('show'); }
     });
 
     Reveal.on('slidechanged', function(e){
