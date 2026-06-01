@@ -219,7 +219,7 @@
 <section>
   <div class="label">€400K Angel Bridge · May 2026</div>
   <h1 style="font-size:64px;">Higher Profits in Shared Mobility.</h1>
-  <h3 style="font-weight:400; color:var(--muted);">Through Agent-Based Revenue Optimization with LLM-supported Digital Twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable recommendations.</h3>
+  <h3 style="font-weight:400; color:var(--muted);">Agent-Based Revenue Optimization with behavioral digital twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable recommendations.</h3>
 
   <div class="tldr" style="justify-content:flex-start;">
     <div class="tldr-item" style="text-align:left;">
@@ -227,7 +227,7 @@
       <div class="tldr-lbl">Simulated Profit Uplift</div>
     </div>
   </div>
-  <p style="font-size:18px; color:var(--muted); margin-top:16px;">Back-tested on historical data from 20 real-world operators on our platform. Live validation follows.</p>
+  <p style="font-size:18px; color:var(--muted); margin-top:16px;">Calibrated on anonymised historical booking data from our live data partner (Flinkster by Deutsche Bahn). <strong>Simulated result — not yet validated on live fleets.</strong> The €400K round funds exactly that validation.</p>
 </section>
 
 <!-- ═══════════════════════════════════════════
@@ -349,12 +349,12 @@
     <div class="card" style="text-align:center;">
       <div style="font-size:40px; margin-bottom:8px;">🎯</div>
       <h3 style="font-size:22px;">Joint Optimization</h3>
-      <p style="font-size:18px;">Fleet + Pricing + Marketing optimized together. Not three silos. One system. Recommendations pushed via API in &lt;5 minutes.</p>
+      <p style="font-size:18px;">Fleet + Pricing + Marketing optimized together. Not three silos. One system. Recommendations delivered as structured output — API for modern stacks, scheduled reports for legacy ones.</p>
     </div>
   </div>
 
   <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:20px; margin:0;"><strong>Integration:</strong> Lightweight API. Works alongside the existing stack — no rip-and-replace. Fleet-size adjustments aligned with station demand cycles. Pricing recommendations pushed in &lt;5 minutes.</p>
+    <p style="font-size:20px; margin:0;"><strong>Integration:</strong> Lightweight API or scheduled report feed. Works alongside the existing stack — no rip-and-replace. For operators with modern infrastructure, recommendations can be pushed via API. For legacy stacks — the majority today — reports are delivered on a cadence the operator controls.</p>
   </div>
 </section>
 
@@ -393,30 +393,30 @@
     <div class="card">
       <div class="label" style="color:var(--accent-red); margin-bottom:12px;">What a human would do</div>
       <div style="font-size:18px; line-height:1.6; margin-bottom:16px;">
-        Read the profile, infer parameters, tune the twin, repeat — for all customers.
+        Read every profile, infer 50+ parameters, tune each twin by hand — then repeat when the market shifts.
       </div>
       <div class="flex-row" style="justify-content:space-between; background:rgba(215,38,61,0.06); padding:16px 20px; border-radius:12px;">
         <span style="font-size:16px; font-weight:600; color:var(--accent-red);">3 hours per customer</span>
-        <span style="font-size:16px; font-weight:700; color:var(--accent-red);">~210,000 hours total for 70K registered customers</span>
+        <span style="font-size:16px; font-weight:700; color:var(--accent-red);">~210,000 hours total for 70K customers</span>
       </div>
     </div>
     <div class="card">
-      <div class="label" style="color:var(--accent-green); margin-bottom:12px;">What the LLM does</div>
+      <div class="label" style="color:var(--accent-green); margin-bottom:12px;">What the system does</div>
       <div style="font-size:18px; line-height:1.6; margin-bottom:16px;">
-        LLM generates each twin <strong>once</strong>, then structured inference takes over. The simulation itself runs as pure code — <strong>no LLM during simulation</strong>.
+        <strong>Structured LLM prompt → parameter extraction → deterministic simulation engine.</strong> The LLM runs <strong>once per batch</strong> (per operator, not per customer-hour) to map unstructured inputs into structured behavioural parameters. The simulation itself is pure Python code — zero LLM inference during simulation runs.
       </div>
       <div class="flex-row" style="justify-content:space-between; background:rgba(1,183,132,0.08); padding:16px 20px; border-radius:12px;">
-        <span style="font-size:16px; font-weight:600; color:var(--accent-green);">Minutes per customer</span>
-        <span style="font-size:16px; font-weight:700; color:var(--accent-green);">Full fleet generated in hours</span>
+        <span style="font-size:16px; font-weight:600; color:var(--accent-green);">Batch-processed per operator</span>
+        <span style="font-size:16px; font-weight:700; color:var(--accent-green);">~€3K compute per full twin set</span>
       </div>
       <div style="margin-top:12px; font-size:14px; color:var(--muted);">
-        ~€3K compute cost per operator for full twin set (LLM generation only, simulation runs as code). Regenerated only when the customer base changes significantly.
+        Regeneration required only when the customer base changes materially (quarterly, not daily). Simulation runs under 15 minutes for a full year on a single operator.
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:20px 32px; background:rgba(1,183,132,0.04);">
-    <p style="font-size:20px; margin:0;"><strong>Token Deflation Advantage:</strong> Global LLM compute costs are shrinking fast. Our per-operator batch-processing cost is negligible relative to contract value — and decreasing every quarter. The moat is not cost; it is the depth of behavioral data no competitor has accumulated.</p>
+    <p style="font-size:20px; margin:0;"><strong>Compute cost reality:</strong> LLM batch-processing for a full operator twin set costs ~€3K today and regenerates quarterly. Simulation runs are pure Python code under 15 minutes. The economics are already unit-positive at €20K ACV. As token costs fall, margin improves — but the structural moat is the accumulated behavioural data, not compute arbitrage.</p>
   </div>
 </section>
 
@@ -432,7 +432,7 @@
     <div class="card">
       <div style="font-size:48px; font-weight:800; color:var(--accent-green); margin-bottom:12px;">+21.8%</div>
       <p style="font-size:20px; font-weight:600;">Simulated Profit Uplift</p>
-      <p style="font-size:18px;">On average across <strong>20 real‑world operators</strong> on our platform — using their actual bookings, fleet sizes, and marketing data.</p>
+      <p style="font-size:18px;">Calibrated on anonymised booking data from our live data partner (Flinkster) and synthetic test cases. Average improvement of the optimised policy over the operator's actual historical baseline across 20 calibrated scenarios.</p>
     </div>
     <div class="card">
       <div style="font-size:40px; font-weight:800; color:var(--accent-red); margin-bottom:12px;">Simulated</div>
@@ -554,7 +554,7 @@
     <div class="card" style="border-top:4px solid var(--cta-pill);">
       <div class="label" style="color:var(--cta-pill);">Interface</div>
       <h3 style="font-size:22px;">API + Reports</h3>
-      <p style="font-size:18px;">Pricing recommendations in &lt;5 minutes via API. Fleet planning reports via portal and email. A conversational BI interface for ad-hoc exploration.</p>
+      <p style="font-size:18px;">Pricing recommendations via API or scheduled report. Fleet planning reports via portal and email. A conversational BI interface for ad-hoc exploration.</p>
     </div>
   </div>
 
@@ -608,7 +608,7 @@
       <h3>Real-World Validation</h3>
       <ul>
         <li>Pilots with Flinkster + operators</li>
-        <li>Validate +21.8% uplift on live fleets</li>
+        <li>Live deployment with 3 EIP customers: measure actual vs. simulated profit impact</li>
         <li>Stress-test: weather, strikes, shocks</li>
         <li>EU AI Act transparency prep (Q4 2026)</li>
       </ul>
@@ -650,8 +650,8 @@
     <div class="card" style="padding:24px;">
       <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">L</div>
       <h3>Luca</h3>
-      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">CTO</p>
-      <p style="font-size:17px;">Technical leader — owns architecture, API design, and delivery. Built the data pipeline, reporting layer, and LLM infrastructure that 7 customers use today.</p>
+      <p style="font-size:14px; font-weight:600; color:var(--accent-green); margin-bottom:8px;">CTO · Lead Engineer</p>
+      <p style="font-size:17px;">Built the entire platform solo: agent-based simulation engine, data pipelines, API layer, and LLM infrastructure that 7 operators run today. Deep backend engineer — not a product manager with a technical title. This round funds a second senior engineer so Luca can focus on architecture and simulation R&D, not day-to-day infra maintenance.</p>
     </div>
     <div class="card" style="padding:24px;">
       <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">M</div>
