@@ -217,17 +217,17 @@
      SLIDE 1 — Hook + Decision Engine framing
      ═══════════════════════════════════════════ -->
 <section>
-  <div class="label">€400K Angel Bridge · May 2026</div>
+  <div class="label">Trace Mobility · Angel Bridge · May 2026</div>
   <h1 style="font-size:64px;">Higher Profits in Shared Mobility.</h1>
-  <h3 style="font-weight:400; color:var(--muted);">Agent-Based Revenue Optimization with behavioral digital twins.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable recommendations.</h3>
+  <h3 style="font-weight:400; color:var(--muted);">Agent-Based Revenue Optimization for Shared-Mobility Fleets.<br>Fleet × Pricing × Marketing → Profit. One joint system. Directly deployable recommendations.</h3>
 
   <div class="tldr" style="justify-content:flex-start;">
     <div class="tldr-item" style="text-align:left;">
       <div class="tldr-val">+21.8%</div>
-      <div class="tldr-lbl">Simulated Profit Uplift</div>
+      <div class="tldr-lbl">Back-Tested Simulation Benchmark</div>
     </div>
   </div>
-  <p style="font-size:18px; color:var(--muted); margin-top:16px;">Calibrated on anonymised historical booking data from our live data partner (Flinkster by Deutsche Bahn). <strong>Simulated result — not yet validated on live fleets.</strong> The €400K round funds exactly that validation.</p>
+  <p style="font-size:18px; color:var(--muted); margin-top:16px;">Calibrated on 18 months of anonymised historical booking data from Flinkster by Deutsche Bahn. <strong>This is a back-tested simulation benchmark — not yet validated on live fleets.</strong> The €400K bridge round funds exactly that live validation across 3 pilot operators.</p>
 </section>
 
 <!-- ═══════════════════════════════════════════
@@ -320,7 +320,7 @@
 <section>
   <div class="label">The Solution</div>
   <h2>Simulate every customer individually. Optimize fleet, pricing, and marketing jointly.</h2>
-  <p style="font-size:22px; margin-bottom:24px;"><strong>We solve it the way airlines did — but for one person at a time.</strong> The Agent Revenue Simulator is a unified decision engine that eliminates operational silos. We simulate <strong>every registered customer</strong> as an individual digital twin — plus potential customers from ZENSUS census data — to find the joint-optimal fleet, pricing, and marketing policy.</p>
+  <p style="font-size:22px; margin-bottom:24px;"><strong>We solve it the way airlines did — but for one person at a time.</strong> The Agent Revenue Simulator is a unified decision engine that eliminates operational silos. We simulate <strong>every registered customer</strong> as an individual behavioral model — plus potential customers from ZENSUS census data — to find the joint-optimal fleet, pricing, and marketing policy.</p>
 
   <div class="grid-2 mb-4">
     <div class="card" style="border-left:4px solid var(--accent-green-dark);">
@@ -330,16 +330,16 @@
     </div>
     <div class="card" style="border-left:4px solid var(--muted);">
       <div class="layer-tag layer-llm">Human Layer</div>
-      <h3 style="font-size:22px;">LLM · Behavioral Inference</h3>
-      <p style="font-size:18px;">Structured batch-processing of unstructured inputs: customer service chats, app reviews, local context. Maps human sentiment into 50+ model parameters. The LLM runs <strong>once per twin</strong>; simulation is pure code.</p>
+      <h3 style="font-size:22px;">Behavioral Parameter Extraction</h3>
+      <p style="font-size:18px;">Structured batch-processing of unstructured inputs (chats, reviews, census) maps sentiment into 50+ model parameters. This runs <strong>once per customer during twin creation</strong>; the simulation itself is pure numerical code — no LLM in the hot path.</p>
     </div>
   </div>
 
   <div class="grid-3 mb-4">
     <div class="card" style="text-align:center;">
       <div style="font-size:40px; margin-bottom:8px;">🧬</div>
-      <h3 style="font-size:22px;">Digital Twins</h3>
-      <p style="font-size:18px;">LLM-generated behavioral model from real data for every registered customer. ZENSUS enriches the market with non-customers, too.</p>
+      <h3 style="font-size:22px;">Behavioral Models</h3>
+      <p style="font-size:18px;">Agent-based models calibrated on real data for every registered customer. Census data enriches the market with non-customers too.</p>
     </div>
     <div class="card" style="text-align:center;">
       <div style="font-size:40px; margin-bottom:8px;">⚡</div>
@@ -364,7 +364,7 @@
 <section>
   <div class="label">The Engine</div>
   <h2>Why stop at registered customers? We simulate the entire addressable market.</h2>
-  <p style="font-size:22px; margin-bottom:32px;">Every <strong>registered customer</strong> becomes a behavioral twin — but ZENSUS census data lets us model <em>everyone</em> in the surrounding population who could become one. The LLM reads the data, infers parameters, and builds the agent — for 100% of the database plus the full market.</p>
+  <p style="font-size:22px; margin-bottom:32px;">Every <strong>registered customer</strong> becomes a calibrated behavioral model — and ZENSUS census data lets us model <em>everyone</em> in the surrounding population who could become one. Parameters are extracted via structured batch processing of customer profiles; the agent simulation itself is pure numerical code. No LLM inference during optimization runs.</p>
 
   <div class="grid-2 mb-4">
     <div class="card">
@@ -393,7 +393,7 @@
     <div class="card">
       <div class="label" style="color:var(--accent-red); margin-bottom:12px;">What a human would do</div>
       <div style="font-size:18px; line-height:1.6; margin-bottom:16px;">
-        Read every profile, infer 50+ parameters, tune each twin by hand — then repeat when the market shifts.
+        Read every profile, infer 50+ parameters, tune each model by hand — then repeat when the market shifts.
       </div>
       <div class="flex-row" style="justify-content:space-between; background:rgba(215,38,61,0.06); padding:16px 20px; border-radius:12px;">
         <span style="font-size:16px; font-weight:600; color:var(--accent-red);">3 hours per customer</span>
@@ -431,8 +431,8 @@
   <div class="grid-3 mb-4">
     <div class="card">
       <div style="font-size:48px; font-weight:800; color:var(--accent-green); margin-bottom:12px;">+21.8%</div>
-      <p style="font-size:20px; font-weight:600;">Simulated Profit Uplift</p>
-      <p style="font-size:18px;">Calibrated on anonymised booking data from our live data partner (Flinkster) and synthetic test cases. Average improvement of the optimised policy over the operator's actual historical baseline across 20 calibrated scenarios.</p>
+      <p style="font-size:20px; font-weight:600;">Back-Tested Simulation Benchmark</p>
+      <p style="font-size:18px;">Calibrated on 18 months of anonymised historical booking data from Flinkster by Deutsche Bahn. Average improvement of the optimised policy over the operator's actual historical baseline across 20 calibrated scenarios. <strong>Not extrapolated — reconstructed and compared.</strong></p>
     </div>
     <div class="card">
       <div style="font-size:40px; font-weight:800; color:var(--accent-red); margin-bottom:12px;">Simulated</div>
@@ -450,7 +450,7 @@
     <div class="card" style="flex:1; padding:20px 32px; text-align:center;">
       <div style="font-size:40px; margin-bottom:8px;">🧪</div>
       <p style="font-size:20px; font-weight:600;">Step 1: Historical Calibration</p>
-      <p style="font-size:16px;">Load real customer data, split past from future, fit digital twins on past.</p>
+      <p style="font-size:16px;">Load real customer data, split past from future, calibrate behavioral models on past.</p>
     </div>
     <div class="card" style="flex:1; padding:20px 32px; text-align:center;">
       <div style="font-size:40px; margin-bottom:8px;">🎯</div>
@@ -484,7 +484,7 @@
     </div>
     <div class="card center">
       <div class="big-number">7</div>
-      <p style="font-size:18px;">Paying customers (EIP)</p>
+      <p style="font-size:18px;">EIP Dashboard Customers (€2K/mo)</p>
     </div>
   </div>
 
@@ -495,7 +495,7 @@
         <div>
           <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green); margin-bottom:4px;">Go-to-Market — Live Today</p>
           <p style="font-size:20px; font-weight:600; color:var(--r-main-color); margin-bottom:4px;">Essential Insights Package (EIP)</p>
-          <p style="font-size:18px; margin:0;">Before the simulation was ready, we shipped a data product operators already pay for: <strong>automated KPI dashboards, trend reports, and anomaly detection</strong> pushed to their inbox. <strong>7 operators are paying customers today.</strong> EIP validates our data pipelines, builds operator trust, and funds the simulation layer — the same relationships that will upgrade to the full Agent Revenue Simulator.</p>
+          <p style="font-size:18px; margin:0;">Before the simulation layer was ready, we shipped a data product operators already pay for (€2K/month recurring): <strong>automated KPI dashboards, trend reports, and anomaly detection</strong> pushed to their inbox. <strong>7 operators are paying customers today.</strong> EIP validates our data pipelines, builds operator trust, and funds the simulation layer — the same relationships that will upgrade to the full Agent Revenue Simulator.</p>
         </div>
       </div>
     </div>
@@ -505,7 +505,7 @@
         <div>
           <p style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-red); margin-bottom:4px;">What €400K validates — still missing</p>
           <p style="font-size:20px; font-weight:600; color:var(--r-main-color); margin-bottom:4px;">Agent Revenue Simulator (ARS)</p>
-          <p style="font-size:18px; margin:0;">EIP customers are <strong>educated and wired</strong> — ideal for upgrade. But <strong>the ARS engine has not yet been deployed live.</strong> The 7 EIP customers consume dashboards via email. The ARS engine is a code deployment away. €400K pays for that live deployment: code integration with 3 EIP customers, data feed into the simulator, and a <strong>validated profit uplift report on actual fleet data.</strong></p>
+          <p style="font-size:18px; margin:0;">EIP customers are <strong>educated and wired</strong> — ideal upgrade path to ARS. But <strong>the ARS engine has not yet been deployed on any live fleet.</strong> The 7 EIP customers pay for dashboards via email; they are <em>not</em> ARS customers yet. The ARS engine exists in code. €400K pays for live deployment: API integration with 3 EIP customers, feeding real booking data into the simulator, and producing a <strong>validated profit uplift report on actual fleet data.</strong></p>
         </div>
       </div>
     </div>
@@ -544,7 +544,7 @@
     <div class="card" style="border-top:4px solid var(--accent-green);">
       <div class="label" style="color:var(--accent-green);">What we deliver</div>
       <h3 style="font-size:22px;">Optimization Engine</h3>
-      <p style="font-size:18px;">Simulation + digital twin generator + recommendation API. Deployed code, not slides. The customer plugs in their data and receives optimized policies.</p>
+      <p style="font-size:18px;">Simulation + behavioral model generator + recommendation API. Deployed code, not slides. The customer plugs in their data and receives optimized policies.</p>
     </div>
     <div class="card" style="border-top:4px solid var(--accent-green-dark);">
       <div class="label" style="color:var(--accent-green-dark);">Annual recurring</div>
@@ -596,7 +596,7 @@
       <h3>Simulation Core</h3>
       <ul>
         <li>Agent-based simulation engine</li>
-        <li>Digital twin behavioral models</li>
+        <li>Behavioral model calibration</li>
         <li>Bayesian optimization algorithm</li>
         <li>Solution space & optimization reports</li>
       </ul>
@@ -638,7 +638,7 @@
 <section>
   <div class="label">Team</div>
   <h2>Operator DNA. Academic rigor. Engineering depth.</h2>
-  <p style="font-size:24px; margin-bottom:32px;">Three founders covering operations, technology, and customer success. This round funds three critical hires.</p>
+  <p style="font-size:24px; margin-bottom:32px;">Three founders covering operations, technology, and research. Customer success is outsourced today; this round funds a dedicated CS hire so Marcello returns to science.</p>
 
   <div class="grid-4 mb-4" style="grid-template-columns: repeat(4, 1fr); gap:24px;">
     <div class="card" style="padding:24px;">
@@ -656,7 +656,7 @@
     <div class="card" style="padding:24px;">
       <div style="width:64px; height:64px; border-radius:50%; background:var(--green-band); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; font-weight:700; margin-bottom:16px;">M</div>
       <h3>Marcello</h3>
-      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Customer Success Manager</p>
+      <p style="font-size:14px; font-weight:600; color:var(--muted); margin-bottom:8px;">Chief Scientist · Simulation Architect</p>
       <p style="font-size:17px;">PhD-level simulation architect who built the agent-based engine from scratch. Covers onboarding and customer success today — we hire a dedicated CS rep from this round so Marcello can return to research.</p>
     </div>
     <div class="card" style="padding:24px; background:rgba(215,38,61,0.04); border:2px dashed var(--accent-red);">
@@ -712,7 +712,7 @@
         <h3 style="margin-bottom:16px;">Angel Bridge Gate</h3>
         <ul style="font-size:20px;">
           <li>3 live pilots with validated profit uplift case studies</li>
-          <li>10 ARS customers contracted</li>
+          <li>10 paying operators (EIP tier)</li>
           <li>Full-time technical team hired</li>
         </ul>
       </div>
